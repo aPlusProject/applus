@@ -39,9 +39,6 @@ public class Applus {
 
 			//close the connection object
 			
-			Client client = new Client();
-			int mensualite = client.simuler(0, 20000, 30);
-			System.out.println(mensualite);
 			
 			
 			con.close();

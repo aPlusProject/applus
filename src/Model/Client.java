@@ -102,12 +102,19 @@ public class Client implements People{
 		typePret = 0;
 		int mensualite = 0;
 		double TAUX_INTERET = 1.025;
+		int FEES = 400;
+		double TAUX_ASSURANCE = 1.00246;
 		int nbMois = dureePret * 12;  //calcule le nombre de mois total
 		
-		double sommeTotal = 0;
-		sommeTotal = montantPret * TAUX_INTERET;
 		
-		mensualite =  (int) (sommeTotal / nbMois)/10;
+		double sommeTotal = 0;
+		sommeTotal = montantPret * TAUX_INTERET;  // + taux d'interet
+		sommeTotal*= TAUX_ASSURANCE;              // + taux d'assurance
+		sommeTotal += FEES;                       // + frais de dossier
+		sommeTotal /= nbMois;                     //  calcule de la mensualite
+//		sommeTotal /= 100;
+		
+		mensualite =  (int) sommeTotal;
 		
 		
 		return mensualite;
