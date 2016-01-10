@@ -25,7 +25,7 @@ public class Applus {
 
 			//create the connection object
 			Connection con = DriverManager.getConnection(
-					"jdbc:oracle:thin:@localhost:1521:xe", "aplus", "123");
+					"jdbc:oracle:thin:@localhost:1521:xe", "vyach", "vyach");
 
 			//create the statement object
 			Statement stmt = con.createStatement();
