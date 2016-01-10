@@ -29,7 +29,6 @@ public class Applus {
 
 			//create the statement object
 			Statement stmt = con.createStatement();
-			System.out.println("Connected");
 			//execute query
 			//ResultSet rs = stmt.executeQuery("select * from emp");
 			//while (rs.next())
@@ -37,6 +36,8 @@ public class Applus {
 			//			+ rs.getString(3));
 
 			//close the connection object
+			
+			
 			con.close();
 
 		} catch (Exception e) {

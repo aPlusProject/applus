@@ -2,43 +2,72 @@ package Model;
 
 public class Compte {
 	
-	private int ID_Compte;
-	private int ID_Client;
-	private int Date_ouverture;
-	private int Solde;
+	private int id;
+	private Client client;
+	private int dateOuverture;
+	private int solde;
 	
-	public Compte(int iD_Compte, int iD_Client, int date_ouverture, int solde) {
-		super();
-		ID_Compte = iD_Compte;
-		ID_Client = iD_Client;
-		Date_ouverture = date_ouverture;
-		Solde = solde;
+	
+	public Compte(int id, Client client, int dateOuverture, int solde) {
+		this.id = id;
+		this.client = client;
+		this.dateOuverture = dateOuverture;
+		this.solde = solde;
+	}
+	
+	public Compte() {
+		
+	}
+	
+	
+	public int getId() {
+		return id;
 	}
 
-	public int getID_Compte() {
-		return ID_Compte;
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public int getID_Client() {
-		return ID_Client;
+
+
+	public Client getClient() {
+		return client;
 	}
 
-	public int getDate_ouverture() {
-		return Date_ouverture;
+
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
-	public void setDate_ouverture(int date_ouverture) {
-		Date_ouverture = date_ouverture;
+
+
+	public int getDateOuverture() {
+		return dateOuverture;
 	}
+
+
+
+	public void setDateOuverture(int dateOuverture) {
+		this.dateOuverture = dateOuverture;
+	}
+
+
 
 	public int getSolde() {
-		return Solde;
+		return solde;
 	}
 
+
+
 	public void setSolde(int solde) {
-		Solde = solde;
+		this.solde = solde;
 	}
-	
+
+
+
 	public void virer(){
 		
 	}

@@ -1,74 +1,105 @@
 package Model;
 
 public class Client implements People{
-	private int ID_Client;
-	private String Nom_Client;
-	private String Prenom_Client;
-	private String Email;
-	private String Addr;
-	private int Tel;
+	private int id;
+	private String nom;
+	private String prenom;
+	private String email;
+	private String addr;
+	private int tel;
 	
 	
-	public Client(int iD_Client, String nom_Client, String prenom_Client,
-			String email, String addr, int tel) {
-		super();
-		ID_Client = iD_Client;
-		Nom_Client = nom_Client;
-		Prenom_Client = prenom_Client;
-		Email = email;
-		Addr = addr;
-		Tel = tel;
+	
+
+
+	public Client(int id, String nom, String prenom, String email, String addr, int tel) {
+		
+		this.id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.addr = addr;
+		this.tel = tel;
+	}
+	
+	public Client() {
+		
+	}
+
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 
 	public String getEmail() {
-		return Email;
+		return email;
 	}
+
 
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
 
+
+
 	public String getAddr() {
-		return Addr;
+		return addr;
 	}
+
 
 
 	public void setAddr(String addr) {
-		Addr = addr;
+		this.addr = addr;
 	}
 
 
 	public int getTel() {
-		return Tel;
+		return tel;
 	}
 
 
 	public void setTel(int tel) {
-		Tel = tel;
-	}
-	
-	public int getID() {
-		// TODO Auto-generated method stub
-		return ID_Client;
+		this.tel = tel;
 	}
 
 
-	public String getNom() {
-		// TODO Auto-generated method stub
-		return Nom_Client;
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
 
-	public String getPrenom() {
-		// TODO Auto-generated method stub
-		return Prenom_Client;
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
 	}
 
 
 	public void simuler() {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	public int getID() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	public String getNom() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public String getPrenom() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
