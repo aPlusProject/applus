@@ -7,6 +7,8 @@ package applus;
 
 import java.sql.*;
 
+import Model.Client;
+
 /**
  * 
  * @author
@@ -36,6 +38,10 @@ public class Applus {
 			//			+ rs.getString(3));
 
 			//close the connection object
+			
+			Client client = new Client();
+			int mensualite = client.simuler(0, 20000, 30);
+			System.out.println(mensualite);
 			
 			
 			con.close();

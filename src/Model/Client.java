@@ -79,11 +79,6 @@ public class Client implements People{
 	}
 
 
-	public void simuler() {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 	public int getID() {
 		// TODO Auto-generated method stub
@@ -102,5 +97,24 @@ public class Client implements People{
 		return null;
 	}
 	
+	public int simuler(int typePret, int montantPret, int dureePret) {
+		
+		typePret = 0;
+		int mensualite = 0;
+		double TAUX_INTERET = 1.025;
+		int nbMois = dureePret * 12;  //calcule le nombre de mois total
+		
+		double sommeTotal = 0;
+		sommeTotal = montantPret * TAUX_INTERET;
+		
+		mensualite =  (int) (sommeTotal / nbMois)/10;
+		
+		
+		return mensualite;
+		
+		
+	}
 	
+	
+
 }

@@ -69,5 +69,11 @@ public class Conseiller implements People{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public int simuler(int typePret, int montantPret, int dureePret) {
+		return montantPret;
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

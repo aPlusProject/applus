@@ -6,6 +6,6 @@ public interface People {
 	public abstract String getNom();
 	public abstract String getPrenom();
 	
-	public abstract void simuler();
+	public abstract int simuler(int typePret, int montantPret, int dureePret);
 	
 }
