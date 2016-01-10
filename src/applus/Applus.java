@@ -5,17 +5,43 @@
  */
 package applus;
 
+import java.sql.*;
+
 /**
- *
- * @author 
+ * 
+ * @author
  */
 public class Applus {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
-    
+	/**
+	 * @param args
+	 *            the command line arguments
+	 */
+	public static void main(String[] args) {
+		// TODO code application logic here
+		try {
+			//load the driver class
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+
+			//create the connection object
+			Connection con = DriverManager.getConnection(
+					"jdbc:oracle:thin:@localhost:1521:xe", "aplus", "123");
+
+			//create the statement object
+			Statement stmt = con.createStatement();
+			System.out.println("Connected");
+			//execute query
+			//ResultSet rs = stmt.executeQuery("select * from emp");
+			//while (rs.next())
+			//	System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  "
+			//			+ rs.getString(3));
+
+			//close the connection object
+			con.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+	}
 }
