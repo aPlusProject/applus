@@ -1,12 +1,23 @@
 package Model;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class Client implements People{
+	
 	private int id;
 	private String nom;
 	private String prenom;
 	private String email;
 	private String addr;
 	private int tel;
+	private Connection co;
+	private Statement stmt;
+	ResultSet rs;
 	
 	
 	
@@ -97,27 +108,9 @@ public class Client implements People{
 		return null;
 	}
 	
-	public int simuler(int typePret, int montantPret, int dureePret) {
+	public int simuler(int typePret, int montantPret, int dureePret) throws ClassNotFoundException, SQLException {
 		
-		typePret = 0;
-		int mensualite = 0;
-		double TAUX_INTERET = 1.025;
-		int FEES = 400;
-		double TAUX_ASSURANCE = 1.00246;
-		int nbMois = dureePret * 12;  //calcule le nombre de mois total
-		
-		
-		double sommeTotal = 0;
-		sommeTotal = montantPret * TAUX_INTERET;  // + taux d'interet
-		sommeTotal*= TAUX_ASSURANCE;              // + taux d'assurance
-		sommeTotal += FEES;                       // + frais de dossier
-		sommeTotal /= nbMois;                     //  calcule de la mensualite
-//		sommeTotal /= 100;
-		
-		mensualite =  (int) sommeTotal;
-		
-		
-		return mensualite;
+		return 0;
 		
 		
 	}
