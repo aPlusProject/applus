@@ -19,31 +19,24 @@ public class lauch {
 
 	public static int simuler(int typePret, int montantPret, int dureePret) {
 		
-		/*
+		
 		try {
 			
 			DbConnector dbc = new DbConnector() ;
 			co = dbc.Open();
 				
-			System.out.println("ouverture de co");
-			
 			query = "INSERT INTO SIMULATION VALUES ('',1,1,?,?,0)";
-			System.out.println(query);
+			ps = co.prepareStatement(query);
 			
-//			ps = co.prepareStatement(query);
-			stmt = co.createStatement();
-			System.out.println("preparation");
+			ps.setInt(1, typePret);
+			ps.setInt(2, montantPret);
+			ps.executeQuery();
 			
-//			ps.setInt(1, typePret);
-//			ps.setInt(2, montantPret);
-//			System.out.println("Secured variables");
-			stmt.executeUpdate("INSERT INTO SIMULATION VALUES ('',1,1,"+typePret+","+montantPret+",0)");
-			System.out.println("query send");
 			}catch (Exception ex) {
             ex.printStackTrace();
         }
 		
-		*/
+		
 		
 		
 		System.out.println("Calcul en cours...");
@@ -95,7 +88,7 @@ public class lauch {
 		
 		System.out.println("Mensualite : "+mensualite +" euros sur une duree de "+duree+" ans pour un total de "+(int)sommeTotal+" euros");
 		System.out.println("Frais de dossier : "+FEES+" | Taux d'interet : "+((TAUX_INTERET - 1)*100)+"% |Taux d'assurance : "+((TAUX_ASSURANCE-1)*100)+" %");
-		System.out.println("Une demande de : "+montant+ "euros");
+		System.out.println("Une demande de : "+montant+ " euros");
 
 	}
 

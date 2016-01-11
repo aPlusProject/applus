@@ -13,8 +13,8 @@ public class DbConnector {
 	
 	String DRIVER = "oracle.jdbc.driver.OracleDriver";
 	String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	String USER_NAME = "vyach";
-	String PASSWORD = "vyach";
+	String USER_NAME = "vyach";   //VERIFIER QUE L'USER POSSEDE TOUS LES DROIT : 
+	String PASSWORD = "vyach";    //SE CONNECTER EN ADMIN et faire : GRANT ALL [table] ON [user];
 	private Connection co;
 	
 	public Connection Open() {
@@ -23,8 +23,8 @@ public class DbConnector {
 		
 		try {
 			Class.forName(DRIVER);
-			co = DriverManager.getConnection(URL, USER_NAME, PASSWORD);            System.out.println("Succeed!");
-            // return connection;
+			co = DriverManager.getConnection(URL, USER_NAME, PASSWORD);            
+			System.out.println("Succeed!");
 
         } catch (Exception e) {
 
