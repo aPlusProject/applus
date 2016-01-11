@@ -93,9 +93,9 @@ public class lauch {
 		sommeTotal += FEES;
 		
 		
-		System.out.println("Mensualite : "+mensualite +" euros pour un total de "+(int)sommeTotal+" euros");
+		System.out.println("Mensualite : "+mensualite +" euros sur une duree de "+duree+" ans pour un total de "+(int)sommeTotal+" euros");
 		System.out.println("Frais de dossier : "+FEES+" | Taux d'interet : "+((TAUX_INTERET - 1)*100)+"% |Taux d'assurance : "+((TAUX_ASSURANCE-1)*100)+" %");
-		System.out.println("Une demande de : "+montant+ " sur une duree de "+duree+" ans");
+		System.out.println("Une demande de : "+montant+ "euros");
 
 	}
 
