@@ -22,9 +22,8 @@ public class lauch {
 		
 		try {
 			
-			DbConnector dbc = new DbConnector() ;
-			co = dbc.Open();
-				
+			DBConnector dbc = new DBConnector() ;
+			co = dbc.getConnection();
 			query = "INSERT INTO SIMULATION VALUES ('',1,1,?,?,0)";
 			ps = co.prepareStatement(query);
 			
