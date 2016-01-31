@@ -11,6 +11,10 @@ public class DbConnector {
 	ResultSet rs;
     Statement stmt = null;
 	
+    //charger les info de co dans un fichier txt  >java.util.Properties
+    // -classpath 
+    // -jar mettre l'ext .jar
+    // fixer les tux + le faire modulable dans le code
 	String DRIVER = "oracle.jdbc.driver.OracleDriver";
 	String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	String USER_NAME = "vyach";   //VERIFIER QUE L'USER POSSEDE TOUS LES DROIT : 
