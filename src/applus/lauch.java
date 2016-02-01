@@ -1,7 +1,6 @@
 package applus;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,8 +21,7 @@ public class lauch {
 		
 		try {
 			
-			DBConnector dbc = new DBConnector() ;
-			co = dbc.getConnection();
+			co = DBConnector.getConnection();
 			query = "INSERT INTO SIMULATION VALUES ('',1,1,?,?,0)";
 			ps = co.prepareStatement(query);
 			

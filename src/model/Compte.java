@@ -1,17 +1,20 @@
-package Model;
+package model;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class Compte {
 	
 	private int id;
 	private Client client;
-	private int dateOuverture;
+	private Date dateOuverture;  //pas sûr de limport
 	private int solde;
 	
 	
-	public Compte(int id, Client client, int dateOuverture, int solde) {
-		this.id = id;
+	public Compte(Client client, int solde) {
 		this.client = client;
-		this.dateOuverture = dateOuverture;
+		Calendar c = Calendar.getInstance();
+		this.dateOuverture = c.getTime();
 		this.solde = solde;
 	}
 	
@@ -44,13 +47,13 @@ public class Compte {
 
 
 
-	public int getDateOuverture() {
-		return dateOuverture;
+	public Date getDateOuverture() {
+		return this.dateOuverture;
 	}
 
 
 
-	public void setDateOuverture(int dateOuverture) {
+	public void setDateOuverture(Date dateOuverture) {
 		this.dateOuverture = dateOuverture;
 	}
 
@@ -68,8 +71,8 @@ public class Compte {
 
 
 
-	public void virer(){
-		
+	public void virer(int numCompte){
+		//TODO: trouver un moyen de virer un compte et sauvegarder les comptes
 	}
 	
 }
