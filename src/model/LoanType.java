@@ -1,16 +1,16 @@
 package model;
 
-public class TypePret {
+public class LoanType {
 	
 	private int id;
-	private String libelle;
+	private String name;
 	
 	
 	public int getId() {
 		return id;
 	}
-	public String getLibelle() {
-		return libelle;
+	public String getName() {
+		return this.name;
 	}
 	
 	

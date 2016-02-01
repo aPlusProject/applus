@@ -3,15 +3,15 @@ package model;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Historique {
+public class History {
 
 	private int id;
-	private Pret pret;
+	private Loan loan;
 	private Date date;  //pas sûr de l'import
 	
 	
-	public Historique(Pret pret) {
-		this.pret = pret;
+	public History(Loan loan) {
+		this.loan = loan;
 		Calendar c = Calendar.getInstance();
 		this.date = c.getTime();
 	}
@@ -27,13 +27,13 @@ public class Historique {
 	}
 
 
-	public Pret getPret() {
-		return pret;
+	public Loan getLoan() {
+		return loan;
 	}
 
 
-	public void setPret(Pret pret) {
-		this.pret = pret;
+	public void setLoan(Loan loan) {
+		this.loan = loan;
 	}
 
 

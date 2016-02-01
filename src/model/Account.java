@@ -3,22 +3,22 @@ package model;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Compte {
+public class Account {
 	
 	private int id;
 	private Client client;
-	private Date dateOuverture;  //pas sûr de limport
-	private int solde;
+	private Date openDate;  //pas sûr de limport
+	private int balance;
 	
 	
-	public Compte(Client client, int solde) {
+	public Account(Client client, int balance) {
 		this.client = client;
 		Calendar c = Calendar.getInstance();
-		this.dateOuverture = c.getTime();
-		this.solde = solde;
+		this.openDate = c.getTime();
+		this.balance = balance;
 	}
 	
-	public Compte() {
+	public Account() {
 		
 	}
 	
@@ -47,31 +47,31 @@ public class Compte {
 
 
 
-	public Date getDateOuverture() {
-		return this.dateOuverture;
+	public Date getOpenDate() {
+		return this.openDate;
 	}
 
 
 
-	public void setDateOuverture(Date dateOuverture) {
-		this.dateOuverture = dateOuverture;
+	public void setOpenDate(Date openDate) {
+		this.openDate = openDate;
 	}
 
 
 
-	public int getSolde() {
-		return solde;
+	public int getBalance() {
+		return balance;
 	}
 
 
 
-	public void setSolde(int solde) {
-		this.solde = solde;
+	public void setBalance(int balance) {
+		this.balance = balance;
 	}
 
 
 
-	public void virer(int numCompte){
+	public void fire(int accountNum){
 		//TODO: trouver un moyen de virer un compte et sauvegarder les comptes
 	}
 	

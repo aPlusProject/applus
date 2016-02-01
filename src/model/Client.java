@@ -1,72 +1,67 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-public class Client extends Personne{
+public class Client extends Someone{
 	
 	private int id;
-	private Employe employe;
-	private String nom;
-	private String prenom;
+	private Employee employee;
+	private String lastName;
+	private String firstName;
 	private String email;
-	private String numTel;
-	private String ville;
-	private String adresse;
-	private String codePostal;
+	private String telNum;
+	private String city;
+	private String address;
+	private String zipCode;
 	
 	
-	public Client(Employe employe, String nom, String prenom, String email, String numTel, String ville, String adresse,
-			String codePostal) {
-		this.employe = employe;
-		this.nom = nom;
-		this.prenom = prenom;
+	public Client(Employee employee, String lastName, String firstName, String email, String telNum, String city, String adrdess,
+			String zipCode) {
+		this.employee = employee;
+		this.lastName = lastName;
+		this.firstName = firstName;
 		this.email = email;
-		this.numTel = numTel;
-		this.ville = ville;
-		this.adresse = adresse;
-		this.codePostal = codePostal;
+		this.telNum = telNum;
+		this.city = city;
+		this.address = adrdess;
+		this.zipCode = zipCode;
 	}
 
 
-	public Employe getEmploye() {
-		return employe;
+	public Employee getEmployee() {
+		return employee;
 	}
 
 
-	public void setEmploye(Employe employe) {
-		this.employe = employe;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 
-	public String getVille() {
-		return ville;
+	public String getCity() {
+		return city;
 	}
 
 
-	public void setVille(String ville) {
-		this.ville = ville;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 
-	public String getCodePostal() {
-		return codePostal;
+	public String getZipCode() {
+		return zipCode;
 	}
 
 
-	public void setCodePostal(String codePostal) {
-		this.codePostal = codePostal;
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
 	}
 
-	public String getAdresse() {
-		return adresse;
+	public String getAddress() {
+		return address;
 	}
 
 
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 
@@ -77,14 +72,14 @@ public class Client extends Personne{
 
 
 	@Override
-	public String getNom() {
-		return this.nom;
+	public String getLastName() {
+		return this.lastName;
 	}
 
 
 	@Override
-	public String getPrenom() {
-		return this.prenom;
+	public String getFirstName() {
+		return this.firstName;
 	}
 
 
@@ -95,13 +90,13 @@ public class Client extends Personne{
 
 
 	@Override
-	public String getNumTel() {
-		return this.numTel;
+	public String getTelNum() {
+		return this.telNum;
 	}
 
 
 	@Override
-	public int simuler() {
+	public int simulate() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

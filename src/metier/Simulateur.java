@@ -1,14 +1,14 @@
 package metier;
 
-import model.Pret;
-import model.Taux;
+import model.Loan;
+import model.Rate;
 
 public class Simulateur {
 	
-	private Taux tauxFixe;
+	private Rate tauxFixe;
 	private int tauxVariable;
 	private int fraisDossier;
-	private Pret pret;
+	private Loan pret;
 	
 	
 	

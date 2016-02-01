@@ -3,17 +3,17 @@ package model;
 import java.util.Calendar;
 import java.util.Date;
 
-public class HistoriqueTaux {
+public class RateHistory {
 	
 	private int id;
-	private Taux taux;
-	private int valeur;
+	private Rate rate;
+	private int value;
 	private Date date;
 	
 	
-	public HistoriqueTaux(Taux taux, int valeur) {
-		this.taux = taux;
-		this.valeur = valeur;
+	public RateHistory(Rate rate, int value) {
+		this.rate = rate;
+		this.value = value;
 		Calendar c = Calendar.getInstance();
 		this.date = c.getTime();
 	}
@@ -24,22 +24,19 @@ public class HistoriqueTaux {
 	}
 
 
-	public Taux getTaux() {
-		return taux;
+	public Rate getRate() {
+		return rate;
 	}
 
 
-	public int getValeur() {
-		return valeur;
+	public int getValue() {
+		return value;
 	}
 
 
 	public Date getDate() {
 		return date;
 	}
-	
-	
-	
 	
 
 }
