@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Employee extends Someone{
 	
 	private int id;
@@ -9,6 +11,9 @@ public class Employee extends Someone{
 	private String email;
 	private String telNum;
 	
+	private ArrayList<Client> clients;
+	private ArrayList<Rate> rates;
+	
 	
 
 	public Employee(Agency agency, String lastName, String firstName, String email, String telNum) {
@@ -17,8 +22,28 @@ public class Employee extends Someone{
 		this.firstName = firstName;
 		this.email = email;
 		this.telNum = telNum;
+		
+		this.clients = new ArrayList<Client>();
+		this.rates = new ArrayList<Rate>();
 	}
 	
+	public Employee(){
+		
+	}
+	
+	
+	public ArrayList<Rate> getRates() {
+		return this.rates;
+	}
+	
+	
+	public ArrayList<Client> getClients() {
+		return this.clients;
+	}
+	
+	public void addClient(Client c) {
+		this.clients.add(c);
+	}
 	
 
 	public Agency getAgency() {

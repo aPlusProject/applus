@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Client extends Someone{
 	
 	private int id;
@@ -12,9 +14,14 @@ public class Client extends Someone{
 	private String address;
 	private String zipCode;
 	
+	private ArrayList<Account> accounts;
+	private ArrayList<Loan> loans;
+	
 	
 	public Client(Employee employee, String lastName, String firstName, String email, String telNum, String city, String adrdess,
 			String zipCode) {
+		this.accounts = new ArrayList<Account>();
+		this.loans = new ArrayList<Loan>();
 		this.employee = employee;
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -23,6 +30,30 @@ public class Client extends Someone{
 		this.city = city;
 		this.address = adrdess;
 		this.zipCode = zipCode;
+	}
+	
+	public void addAccount(Account a) {
+		this.accounts.add(a);
+	}
+	
+	public ArrayList<Account> getAccounts() {
+		return this.accounts;
+	}
+	
+	public Account getAccount(int i) {
+		return this.accounts.get(i);
+	}
+	
+	public void addLoan(Loan loan) {
+		this.loans.add(loan);
+	}
+	
+	public ArrayList<Loan> getLoans() {
+		return this.loans;
+	}
+	
+	public Loan getLoan(int i) {
+		return this.loans.get(i);
 	}
 
 

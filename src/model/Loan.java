@@ -11,7 +11,7 @@ public class Loan {
 	private History history;
 	private int askedAmount;
 	private Date askedDate;    //peut etre le mauvaise importe
-	private int decision;  //documenter les valeurs  que peuvt prend decision
+	private int decision;  //documenter les valeurs  que peut prendre decision
 	
 	
 	

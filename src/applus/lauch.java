@@ -7,8 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import model.Employee;
+
 
 public class lauch {
+	
+	private static Employee employee;
 	
 	private static Connection co;
 	private static PreparedStatement ps;

@@ -11,11 +11,24 @@ public class Rate {
 		return id;
 	}
 	
+	/*
+	 * get the value (in euro*100)
+	 */
 	public int getValue() {
 		return value;
 	}
 	
-	public String getLibelle() {
+	/*
+	 * return the value of the n rate
+	 */
+	public int getValue(String n) {
+		return 0;
+	}
+	
+	/*
+	 * get the name of the rate
+	 */
+	public String getName() {
 		return name;
 	}
 	
