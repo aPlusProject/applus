@@ -2,6 +2,7 @@ package IHM;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,6 +11,13 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
+import model.Employee;
+
+import javax.swing.JButton;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class Connection_menu extends JFrame {
 
 	private JPanel contentPane;
@@ -17,6 +25,8 @@ public class Connection_menu extends JFrame {
 	private JTextField textField_ID;
 	private JLabel lblPassword;
 	private JPasswordField passwordField;
+	private Employee conseiller;
+	private String connect_query;
 
 	/**
 	 * Launch the application.
@@ -44,28 +54,44 @@ public class Connection_menu extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblBankName = new JLabel("Bank name");
 		lblBankName.setBounds(172, 11, 76, 14);
 		contentPane.add(lblBankName);
-		
+
 		JLabel lblId = new JLabel("ID");
 		lblId.setBounds(81, 77, 46, 14);
 		contentPane.add(lblId);
-		
+
 		textField_ID = new JTextField();
 		textField_ID.setBounds(162, 74, 86, 20);
 		contentPane.add(textField_ID);
-		
+
 		lblPassword = new JLabel("Password");
 		lblPassword.setBounds(81, 131, 46, 14);
 		contentPane.add(lblPassword);
-		
+
 		passwordField = new JPasswordField();
 		passwordField.setBounds(162, 128, 86, 20);
 		contentPane.add(passwordField);
-		
-		
-		
+
+		JButton btnLogin = new JButton("Login");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				connect_query = "Select * FROM Agency WHERE ID="
+						+ textField_ID.getText() ;
+//						+ " AND password="
+//						+ new String(passwordField.getPassword());
+				System.out.println(connect_query);
+			}
+		});
+		btnLogin.setBounds(253, 169, 89, 23);
+		contentPane.add(btnLogin);
+
 	}
+	
+	public String get_connect_query(){
+		return this.connect_query;
+	}
+
 }
