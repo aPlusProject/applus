@@ -1,10 +1,19 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import applus.DBConnector;
+
 public class Rate {
 	
 	private int id;
 	private int value;
 	private String name;
+	
 	
 	
 	public int getId() {
@@ -25,6 +34,7 @@ public class Rate {
 		return 0;
 	}
 	
+	
 	/*
 	 * get the name of the rate
 	 */
@@ -36,6 +46,31 @@ public class Rate {
 		this.value = value;
 	}
 	
+	public static int getRateValue(Connection co ,String n) throws SQLException {
+		
+		ResultSet rs = null;
+		int rateValue = 0;
+		String req = "SELECT rate_value FROM RATE WHERE rate_first_name = '"+n+"'";
+		Statement stmt = co.createStatement();
+		System.out.println("createstmt");
+		rs = stmt.executeQuery(req);
+		//TODO: DEBUG
+		if(rs.next()) {
+			System.out.println("read");
+			rs.getRef("rate_value");
+			rateValue = rs.getInt(1);
+		}
+		return rateValue;
+	}
+	
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		
+		Connection co = DBConnector.getConnection();
+		
+		
+		System.out.println(Rate.getRateValue(co, "assurance"));
+
+	}
 	
 
 }
