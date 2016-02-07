@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Employee extends Someone{
 	
 	private int id;
+	private int id_agency;
 	private Agency agency;
 	private String lastName;
 	private String firstName;
@@ -29,6 +30,17 @@ public class Employee extends Someone{
 	
 	public Employee(){
 		
+	}
+	
+	public Employee(int id_agency, String firstName, String lastName, String email, String telNum){
+		this.id_agency = id_agency;
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.email = email;
+		this.telNum = telNum;
+		
+		this.clients = new ArrayList<Client>();
+		this.rates = new ArrayList<Rate>();
 	}
 	
 	

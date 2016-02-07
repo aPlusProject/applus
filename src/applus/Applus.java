@@ -19,12 +19,6 @@ import IHM.Connection_menu;
  */
 public class Applus {
 	
-	private static Connection co;
-	private static PreparedStatement ps;
-	private static Statement stmt;
-	private static ResultSet rs;
-	private static String query;
-	
 	/**
 	 * @param args
 	 * the command line arguments
@@ -35,15 +29,7 @@ public class Applus {
 		Connection_menu main_menu = new Connection_menu();
 		main_menu.setVisible(true);
 		
-		try {
-			co = DBConnector.getConnection();
-			ps = co.prepareStatement(main_menu.get_connect_query());
-			ResultSet s = ps.executeQuery();
-			System.out.println(s);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		
 	}
 	
 
