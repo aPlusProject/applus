@@ -8,6 +8,7 @@ package applus;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import IHM.Connection_menu;
@@ -22,8 +23,10 @@ public class Applus {
 	/**
 	 * @param args
 	 * the command line arguments
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		// TODO code application logic here
 
 		Connection_menu main_menu = new Connection_menu();

@@ -18,7 +18,7 @@ public class Simulateur {
 	}
 
 
-
+	//public void set
 
 
 	public void envoi(){

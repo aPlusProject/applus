@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class Employee extends Someone{
+public class Employee extends Someone {
 	
 	private int id;
 	private int id_agency;
@@ -11,6 +11,7 @@ public class Employee extends Someone{
 	private String firstName;
 	private String email;
 	private String telNum;
+	private String password;
 	
 	private ArrayList<Client> clients;
 	private ArrayList<Rate> rates;
@@ -66,6 +67,10 @@ public class Employee extends Someone{
 
 	public void setAgency(Agency agency) {
 		this.agency = agency;
+	}
+	
+	public void login(String email, String password) {
+		
 	}
 
 
