@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import javax.sql.DataSource;
+
 import model.Employee;
 
 
@@ -19,13 +21,15 @@ public class lauch {
 	private static Statement stmt;
 	private static ResultSet rs;
 	private static String query;
+	private static DataSource ds;
 
 	public static int simuler(int typePret, int montantPret, int dureePret) {
 		
 		
 		try {
 			
-			co = DBConnector.getConnection();
+			ds = DBConnector.createDataSource();
+			co = ds.getConnection();
 			query = "INSERT INTO SIMULATION VALUES ('',1,1,?,?,0)";
 			ps = co.prepareStatement(query);
 			

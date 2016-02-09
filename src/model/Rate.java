@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.sql.DataSource;
+
 import applus.DBConnector;
 
 public class Rate {
@@ -54,23 +56,13 @@ public class Rate {
 		Statement stmt = co.createStatement();
 		System.out.println("createstmt");
 		rs = stmt.executeQuery(req);
-		//TODO: DEBUG
 		if(rs.next()) {
 			System.out.println("read");
-			rs.getRef("rate_value");
+			rs.getInt("rate_value");
 			rateValue = rs.getInt(1);
 		}
 		return rateValue;
 	}
-	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		
-		Connection co = DBConnector.getConnection();
-		
-		
-		System.out.println(Rate.getRateValue(co, "assurance"));
-
-	}
-	
 
 }
