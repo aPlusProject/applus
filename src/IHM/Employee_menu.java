@@ -17,10 +17,12 @@ import javax.swing.border.EmptyBorder;
 import applus.DBConnector;
 
 import javax.swing.JLabel;
+import javax.sql.DataSource;
 import javax.swing.JButton;
 
 public class Employee_menu extends JFrame {
 
+	private DataSource ds;
 	private JPanel contentPane;
 	private Connection co;
 	private int amount = 10000;
@@ -80,7 +82,8 @@ public class Employee_menu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("envoi de la simulation");
 				try {
-					co = DBConnector.getConnection();
+					ds = DBConnector.getConnection();
+					co = ds.getConnection();
 					System.out.println("connexion");
 					String query = "INSERT INTO LOAN VALUES ('',1,1,1,null,20000,SYSDATE,0)";
 					ps = co.createStatement();

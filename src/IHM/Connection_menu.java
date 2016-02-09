@@ -20,6 +20,7 @@ import javax.swing.JPasswordField;
 import model.Agency;
 import model.Employee;
 
+import javax.sql.DataSource;
 import javax.swing.JButton;
 
 import applus.DBConnector;
@@ -38,6 +39,7 @@ public class Connection_menu extends JFrame {
 	private Employee conseiller;
 	
 	private static Connection co;
+	private static DataSource ds;
 	private static PreparedStatement ps;
 	private static Statement stmt;
 	private static ResultSet rs= null;
@@ -111,18 +113,21 @@ public class Connection_menu extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					System.out.println("bouton pressé");
-					co = DBConnector.getConnection();
+					ds = DBConnector.getConnection();
+					co = ds.getConnection();
 					queryConnect = "Select * FROM Employee WHERE employee_email='"
 							+ emailTextField.getText() 
 							+ "' AND tel_num='"
 							+ new String(passwordField.getPassword())+"'";
 					ps = co.prepareStatement(queryConnect);
 					ResultSet rs=ps.executeQuery();
+					System.out.println("query");
 					lblMessageLog = new JLabel();
 					//lblMessageLog.setText("Process to login failed");
 					lblMessageLog.setBounds(300,35,200,50);
 					
 						while(rs.next()){
+							System.out.println("data found");
 							int id=rs.getInt("ID_Employee");
 							int agency=rs.getInt("ID_Agency");
 							String firstName=rs.getString("Employee_first_name");
