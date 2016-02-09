@@ -106,7 +106,17 @@ public class Employee extends Someone {
 		return 0;
 	}
 
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", id_agency=" + id_agency + ", agency="
+				+ agency + ", lastName=" + lastName + ", firstName="
+				+ firstName + ", email=" + email + ", telNum=" + telNum
+				+ ", password=" + password + ", clients=" + clients
+				+ ", rates=" + rates + "]";
+	}
 
+
+	
 
 	
 	
