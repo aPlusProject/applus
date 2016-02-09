@@ -21,6 +21,7 @@ import javax.swing.JPasswordField;
 import model.Agency;
 import model.Employee;
 
+import javax.sql.DataSource;
 import javax.swing.JButton;
 
 import applus.DBConnector;
@@ -28,7 +29,7 @@ import applus.DBConnector;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Connection_menu extends JFrame implements Observer{
+public class MainPanel extends JFrame implements Observer{
 
 	private JPanel panel;
 	private JTextField textField;
@@ -53,7 +54,7 @@ public class Connection_menu extends JFrame implements Observer{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Connection_menu frame = new Connection_menu();
+					MainPanel frame = new MainPanel();
 					frame.setVisible(true);
 
 				} catch (Exception e) {
@@ -72,7 +73,7 @@ public class Connection_menu extends JFrame implements Observer{
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public Connection_menu() throws ClassNotFoundException, SQLException {
+	public MainPanel() throws ClassNotFoundException, SQLException {
 		setTitle("Fenêtre de login"); // On donne un titre à l'application
 		setSize(500, 350); // On donne une taille à notre fenêtre
 		setLocationRelativeTo(null); // On centre la fenêtre sur l'écran
@@ -119,7 +120,8 @@ public class Connection_menu extends JFrame implements Observer{
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					System.out.println("bouton pressé");
-					co = DBConnector.getConnection();
+					DataSource ds = DBConnector.createDataSource();
+					co = ds.getConnection();
 					queryConnect = "Select * FROM Employee WHERE employee_email='"
 							+ emailTextField.getText()
 							+ "' AND tel_num='"
