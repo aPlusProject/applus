@@ -107,7 +107,7 @@ public class Connection_menu extends JFrame {
 						String email=rs.getString("Employee_email");
 						String telNum=rs.getString("Tel_num");
 						conseiller = new Employee(agency, lastName, firstName, email, telNum);
-						System.out.println(firstName);
+						
 					}
 					
 				} catch (Exception e) {
