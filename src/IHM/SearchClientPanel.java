@@ -1,6 +1,6 @@
 package IHM;
 
-import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class Enter_client_number extends JFrame {
+public class SearchClientPanel extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -22,7 +22,7 @@ public class Enter_client_number extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Enter_client_number frame = new Enter_client_number();
+					SearchClientPanel frame = new SearchClientPanel();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,7 +34,7 @@ public class Enter_client_number extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Enter_client_number() {
+	public SearchClientPanel() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

@@ -17,7 +17,7 @@ public class DBConnectorTest extends TestCase{
 		System.out.println("testGetConnexion");
 		DataSource ds = null;
 		Connection co = null;
-		ds = DBConnector.getConnection();
+		ds = DBConnector.createDataSource();
 		co = ds.getConnection();
 		
 		assertTrue(co != null);

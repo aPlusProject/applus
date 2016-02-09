@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import IHM.Connection_menu;
+import IHM.LoginPanel;
 
 
 /**
@@ -29,7 +29,7 @@ public class Applus {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		// TODO code application logic here
 
-		Connection_menu main_menu = new Connection_menu();
+		LoginPanel main_menu = new LoginPanel();
 		main_menu.setVisible(true);
 		
 		

@@ -20,7 +20,7 @@ import javax.swing.JLabel;
 import javax.sql.DataSource;
 import javax.swing.JButton;
 
-public class Employee_menu extends JFrame {
+public class EmployeePanel extends JFrame {
 
 	private DataSource ds;
 	private JPanel contentPane;
@@ -36,7 +36,7 @@ public class Employee_menu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Employee_menu frame = new Employee_menu();
+					EmployeePanel frame = new EmployeePanel();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +48,7 @@ public class Employee_menu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Employee_menu() {
+	public EmployeePanel() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -82,7 +82,7 @@ public class Employee_menu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("envoi de la simulation");
 				try {
-					ds = DBConnector.getConnection();
+					ds = DBConnector.createDataSource();
 					co = ds.getConnection();
 					System.out.println("connexion");
 					String query = "INSERT INTO LOAN VALUES ('',1,1,1,null,20000,SYSDATE,0)";

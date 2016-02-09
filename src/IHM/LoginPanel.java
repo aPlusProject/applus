@@ -28,7 +28,7 @@ import applus.DBConnector;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Connection_menu extends JFrame {
+public class LoginPanel extends JFrame {
 
 	private JPanel panel;
 	private JTextField textField;
@@ -53,7 +53,7 @@ public class Connection_menu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Connection_menu frame = new Connection_menu();
+					LoginPanel frame = new LoginPanel();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -67,7 +67,7 @@ public class Connection_menu extends JFrame {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public Connection_menu() throws ClassNotFoundException, SQLException {
+	public LoginPanel() throws ClassNotFoundException, SQLException {
 		setTitle("Fenêtre de login"); //On donne un titre à l'application
 		setSize(500,300); //On donne une taille à notre fenêtre
 		setLocationRelativeTo(null); //On centre la fenêtre sur l'écran
@@ -113,7 +113,7 @@ public class Connection_menu extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					System.out.println("bouton pressé");
-					ds = DBConnector.getConnection();
+					ds = DBConnector.createDataSource();
 					co = ds.getConnection();
 					queryConnect = "Select * FROM Employee WHERE employee_email='"
 							+ emailTextField.getText() 
@@ -161,7 +161,7 @@ public class Connection_menu extends JFrame {
 					
 					
 				} catch (Exception e) {
-					// TODO: handle exception
+					e.getMessage();
 				}
 				
 			}
@@ -171,7 +171,7 @@ public class Connection_menu extends JFrame {
 
 	}
 	
-	public String get_connect_query(){
+	public String queryGetConnection(){
 		return this.queryConnect;
 	}
 

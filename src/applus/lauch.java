@@ -28,7 +28,7 @@ public class lauch {
 		
 		try {
 			
-			ds = DBConnector.getConnection();
+			ds = DBConnector.createDataSource();
 			co = ds.getConnection();
 			query = "INSERT INTO SIMULATION VALUES ('',1,1,?,?,0)";
 			ps = co.prepareStatement(query);
