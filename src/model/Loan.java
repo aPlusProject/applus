@@ -1,6 +1,12 @@
 package model;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
 
 public class Loan {
 	
@@ -12,7 +18,7 @@ public class Loan {
 	private int askedAmount;
 	private Date askedDate;    //peut etre le mauvaise importe
 	private int decision;  //documenter les valeurs  que peut prendre decision
-	
+	private DataSource ds;
 	
 	
 	public Loan(Client client, Employee counsellor, LoanType loanType, History history, int askedAmount,
@@ -125,6 +131,21 @@ public class Loan {
 	public int getFileFees() {
 		//TODO: algo pour determiner le frais de dossier en fonction du pret
 		return 0;
+	}
+	
+	public static void displayLoans(Connection co) throws SQLException {
+		String sql = "Select * FROM LOAN";
+		PreparedStatement ps = co.prepareStatement(sql);
+		
+		ResultSet rs = ps.executeQuery();
+		System.out.println("ID LOAN | ASKED AMOUNT | ASKED DATE");
+		while(rs.next()) {
+			int montant = rs.getInt("asked_amount");
+			Date date = rs.getDate("asked_date");
+			int idLoan = rs.getInt("id_loan");
+			System.out.println(idLoan+"       | "+montant+"        | "+date);
+			
+		}
 	}
 	
 	

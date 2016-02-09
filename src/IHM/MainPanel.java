@@ -18,6 +18,7 @@ import javax.swing.JPasswordField;
 
 import model.Agency;
 import model.Employee;
+import model.Loan;
 
 import javax.sql.DataSource;
 import javax.swing.JButton;
@@ -138,10 +139,15 @@ public class MainPanel extends JFrame implements Observer{
 						
 						flag = true;
 						
+						
 					}
 					
 					if (flag) {
-						System.out.println("lauche of simulate panel...");
+						System.out.println("lauch of simulate panel...");
+						System.out.println("");
+						System.out.println("Display of all loans");
+						System.out.println("");
+						Loan.displayLoans(co);
 						setTitle("Fenetre de simulation");
 						JPanel simulationPanel = new JPanel();
 						setContentPane(simulationPanel);
@@ -213,6 +219,10 @@ public class MainPanel extends JFrame implements Observer{
 								System.out.println("field amount = "+amountAsked);
 								try {
 									Employee.simulate(amountAsked, co);
+									System.out.println("");
+									System.out.println("Display of all loans : ");
+									System.out.println("");
+									Loan.displayLoans(co);
 								} catch (SQLException e1) {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
