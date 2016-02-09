@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public abstract class Someone {
 	
@@ -9,6 +11,6 @@ public abstract class Someone {
 	public abstract String getEmail();
 	public abstract String getTelNum();
 	
-	public abstract int simulate();
+	//public abstract void simulate(int amountAsked, Connection co) throws SQLException;
 
 }

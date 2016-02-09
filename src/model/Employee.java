@@ -1,6 +1,14 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.sql.DataSource;
+
+import applus.DBConnector;
 
 public class Employee extends Someone {
 	
@@ -12,6 +20,7 @@ public class Employee extends Someone {
 	private String email;
 	private String telNum;
 	private String password;
+	
 	
 	private ArrayList<Client> clients;
 	private ArrayList<Rate> rates;
@@ -100,11 +109,28 @@ public class Employee extends Someone {
 		return this.telNum;
 	}
 
-	@Override
-	public int simulate() {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	public static void simulate(int amountAsked, Connection co) throws SQLException {
+		//INSERT INTO LOAN VALUES ('',1,1,1,null,10000,SYSDATE,0);
+		System.out.println("Enregistrement de la simulation...");
+		PreparedStatement ps;
+		ResultSet rs;
+		String sql = "INSERT INTO LOAN VALUES ('',1,1,1,null,"+amountAsked+",SYSDATE,0)";
+		System.out.println(sql);
+		ps = co.prepareStatement(sql);
+		rs = ps.executeQuery();
+		System.out.println("query executed.");
+		co.commit();
+		
 	}
+
+	/*public static void main(String[] args) throws ClassNotFoundException, SQLException { 
+		DataSource ds = DBConnector.createDataSource();
+		Connection co = ds.getConnection();
+		
+		simulate(100000,co);
+		
+	}*/
 
 
 

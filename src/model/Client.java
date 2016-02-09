@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Client extends Someone{
@@ -125,14 +127,12 @@ public class Client extends Someone{
 		return this.telNum;
 	}
 
-
-	@Override
-	public int simulate() {
+	/*@Override
+	public void simulate(int amountAsked, Connection co) throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	
+		
+	}*/
+
 	
 
 

@@ -1,8 +1,7 @@
 package IHM;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
+import java.awt.TextField;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +12,6 @@ import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -108,7 +106,9 @@ public class MainPanel extends JFrame implements Observer{
 			private JLabel lblLastName;
 			private JLabel lblEmail;
 			private JLabel lblMessageLog;
+			private JTextField montantField;
 			private boolean flag = false;
+			private int amountAsked = 0;
 
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -119,6 +119,7 @@ public class MainPanel extends JFrame implements Observer{
 							+ emailTextField.getText()
 							+ "' AND tel_num='"
 							+ new String(passwordField.getPassword()) + "'";
+					System.out.println(queryConnect);
 					ps = co.prepareStatement(queryConnect);
 					ResultSet rs = ps.executeQuery();
 					System.out.println("query executed.");
@@ -172,10 +173,10 @@ public class MainPanel extends JFrame implements Observer{
 						lblMontant.setBounds(10, 131, 56, 14);
 						simulationPanel.add(lblMontant);
 						
-						JTextField Montant_textField = new JTextField();
-						Montant_textField.setBounds(116, 128, 86, 20);
-						simulationPanel.add(Montant_textField);
-						Montant_textField.setColumns(10);
+						montantField = new JTextField();
+						montantField.setBounds(116, 128, 86, 20);
+						simulationPanel.add(montantField);
+						montantField.setColumns(10);
 						
 						JLabel lblDure = new JLabel("Dur\u00E9e");
 						lblDure.setBounds(10, 165, 46, 14);
@@ -199,13 +200,32 @@ public class MainPanel extends JFrame implements Observer{
 						simulationPanel.add(Taux_textField);
 						Taux_textField.setColumns(10);
 						
-						JButton btnSimuler = new JButton("Simuler");
-						btnSimuler.setBounds(241, 245, 89, 23);
-						simulationPanel.add(btnSimuler);
-						
 						JLabel lblEuro = new JLabel("euro");
 						lblEuro.setBounds(225, 131, 46, 14);
 						simulationPanel.add(lblEuro);
+						
+						JButton btnSimuler = new JButton("Simuler");
+						btnSimuler.setBounds(241, 245, 89, 23);
+						btnSimuler.addActionListener(new ActionListener() {
+
+							public void actionPerformed(ActionEvent e) {
+								amountAsked = Integer.parseInt(montantField.getText());
+								System.out.println("field amount = "+amountAsked);
+								try {
+									Employee.simulate(amountAsked, co);
+								} catch (SQLException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								
+							}
+							
+						});
+						simulationPanel.add(btnSimuler);
+						
+						
+								
+						
 						
 						JLabel lblAns = new JLabel("ans");
 						lblAns.setBounds(225, 165, 46, 14);
