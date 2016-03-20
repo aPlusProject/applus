@@ -33,5 +33,10 @@ public class EmployeeTest extends TestCase{
 		
 		assertTrue(value == amountAsked);
 	}
+	
+	@Test
+	public void testSeeClients() {
+		//TODO: implementer le test
+	}
 
 }

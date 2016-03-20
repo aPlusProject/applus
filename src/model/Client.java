@@ -20,6 +20,10 @@ public class Client extends Someone{
 	private ArrayList<Loan> loans;
 	
 	
+	public Client() {
+		
+	}
+	
 	public Client(Employee employee, String lastName, String firstName, String email, String telNum, String city, String adrdess,
 			String zipCode) {
 		this.accounts = new ArrayList<Account>();
@@ -95,6 +99,26 @@ public class Client extends Someone{
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public void setTelNum(String telNum) {
+		this.telNum = telNum;
+	}
+	
+	public void setIdClient(int idClient) {
+		this.id = idClient;
 	}
 
 

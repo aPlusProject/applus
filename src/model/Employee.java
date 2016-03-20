@@ -20,10 +20,12 @@ public class Employee extends Someone {
 	private String email;
 	private String telNum;
 	private String password;
+	private Connection co;
 	
 	
 	private ArrayList<Client> clients;
 	private ArrayList<Rate> rates;
+	private Client cl;
 	
 	
 
@@ -58,10 +60,6 @@ public class Employee extends Someone {
 		return this.rates;
 	}
 	
-	
-	public ArrayList<Client> getClients() {
-		return this.clients;
-	}
 	
 	public void addClient(Client c) {
 		this.clients.add(c);
@@ -123,14 +121,73 @@ public class Employee extends Someone {
 		co.commit();
 		
 	}
-
-	/*public static void main(String[] args) throws ClassNotFoundException, SQLException { 
+	
+	public ArrayList<Client> seeClients() throws ClassNotFoundException, SQLException {
 		DataSource ds = DBConnector.createDataSource();
-		Connection co = ds.getConnection();
+		co = ds.getConnection();
+		PreparedStatement ps;
+		ResultSet rs;
+		String sql = "SELECT * FROM CLIENT";
+		ps = co.prepareStatement(sql);
+		rs = ps.executeQuery();
+		this.clients = new ArrayList<Client>();
+		while(rs.next()) {
+			this.cl = new Client();
+			this.cl.setIdClient(rs.getInt(1));
+			this.cl.setFirstName(rs.getString(3));
+			this.cl.setLastName(rs.getString(4));
+			this.cl.setEmail(rs.getString(5));
+			this.cl.setTelNum(rs.getString(6));
+			this.cl.setCity(rs.getString(7));
+			this.cl.setAddress(rs.getString(8));
+			this.cl.setZipCode(rs.getString(9));
+			this.clients.add(cl);
+			
+			
+		}
+		return this.clients;
+	}
+	
+	public ArrayList<Client> seeClients(int idEmployee) throws ClassNotFoundException, SQLException {
+		DataSource ds = DBConnector.createDataSource();
+		co = ds.getConnection();
+		PreparedStatement ps;
+		ResultSet rs;
+		String sql = "SELECT * FROM CLIENT WHERE ID_EMPLOYEE = ?";
+		ps = co.prepareStatement(sql);
+		ps.setInt(1, idEmployee);
+		rs = ps.executeQuery();
+		this.clients = new ArrayList<Client>();
+		while(rs.next()) {
+			this.cl = new Client();
+			this.cl.setIdClient(rs.getInt(1));
+			this.cl.setFirstName(rs.getString(3));
+			this.cl.setLastName(rs.getString(4));
+			this.cl.setEmail(rs.getString(5));
+			this.cl.setTelNum(rs.getString(6));
+			this.cl.setCity(rs.getString(7));
+			this.cl.setAddress(rs.getString(8));
+			this.cl.setZipCode(rs.getString(9));
+			this.clients.add(cl);
+			
+			
+		}
+		return this.clients;
+	}
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException { 
+		//DataSource ds = DBConnector.createDataSource();
+		//Connection co = ds.getConnection();
 		
-		simulate(100000,co);
+		//simulate(100000,co);
+		Employee em = new Employee();
+		ArrayList<Client> clients = em.seeClients(1);
+		System.out.println(clients.size());
+		for(int i=0; i< clients.size(); i++) {
+			System.out.println(clients.get(i).getFirstName());
+		}
 		
-	}*/
+	}
 
 
 
