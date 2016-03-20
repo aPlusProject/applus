@@ -13,7 +13,6 @@ import applus.DBConnector;
 public class Employee extends Someone {
 	
 	private int id;
-	private int id_agency;
 	private Agency agency;
 	private String lastName;
 	private String firstName;
@@ -45,7 +44,6 @@ public class Employee extends Someone {
 	}
 	
 	public Employee(int id_agency, String firstName, String lastName, String email, String telNum){
-		this.id_agency = id_agency;
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.email = email;
@@ -173,20 +171,6 @@ public class Employee extends Someone {
 			
 		}
 		return this.clients;
-	}
-
-	public static void main(String[] args) throws ClassNotFoundException, SQLException { 
-		//DataSource ds = DBConnector.createDataSource();
-		//Connection co = ds.getConnection();
-		
-		//simulate(100000,co);
-		Employee em = new Employee();
-		ArrayList<Client> clients = em.seeClients(1);
-		System.out.println(clients.size());
-		for(int i=0; i< clients.size(); i++) {
-			System.out.println(clients.get(i).getFirstName());
-		}
-		
 	}
 
 
