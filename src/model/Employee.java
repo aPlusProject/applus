@@ -120,13 +120,13 @@ public class Employee extends Someone {
 		
 	}
 	
-	/*
-	 * Allow to get all Clients (there is a double fonctionnality) : 
+	/**
+	 * Allow to get all Clients (there is a double fonctionnality) : <br/><br/>
 	 * 
-	 * isAgencyResponsable = true so idAgencyOrEmployee = Agency id
-	 * => The method will return all the clients belonging to the agency id called
+	 * isAgencyResponsable = true <br/> so idAgencyOrEmployee = Agency id <br/>
+	 * => The method will return all the clients belonging to the agency id called <br/><br/>
 	 * 
-	 * isAgencyResponsable = false so idAgencyOrEmployee = Employee id
+	 * isAgencyResponsable = false <br/> so idAgencyOrEmployee = Employee id <br/>
 	 * => The method will return all the clients belonging to the Employee id called
 	 * 
 	 */
