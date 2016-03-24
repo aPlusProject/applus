@@ -120,13 +120,34 @@ public class Employee extends Someone {
 		
 	}
 	
-	public ArrayList<Client> seeClients() throws ClassNotFoundException, SQLException {
+	/*
+	 * Allow to get all Clients (there is a double fonctionnality) : 
+	 * 
+	 * isAgencyResponsable = true so idAgencyOrEmployee = Agency id
+	 * => The method will return all the clients belonging to the agency id called
+	 * 
+	 * isAgencyResponsable = false so idAgencyOrEmployee = Employee id
+	 * => The method will return all the clients belonging to the Employee id called
+	 * 
+	 */
+	public ArrayList<Client> seeClients(boolean isAgencyResponsable, int idAgencyOrEmployee) throws ClassNotFoundException, SQLException {
 		DataSource ds = DBConnector.createDataSource();
 		co = ds.getConnection();
 		PreparedStatement ps;
 		ResultSet rs;
-		String sql = "SELECT * FROM CLIENT";
+		
+		String sql = null;				
+		if(isAgencyResponsable) {
+			sql = "SELECT * FROM CLIENT c, EMPLOYEE e "
+					+ "WHERE c.ID_EMPLOYEE = e.ID_EMPLOYEE"
+					+ " AND e.ID_AGENCY = ?";
+		}
+		else {
+			sql = "SELECT * FROM CLIENT WHERE ID_EMPLOYEE = ?";
+		}
+		
 		ps = co.prepareStatement(sql);
+		ps.setInt(1, idAgencyOrEmployee);
 		rs = ps.executeQuery();
 		this.clients = new ArrayList<Client>();
 		while(rs.next()) {
@@ -145,38 +166,6 @@ public class Employee extends Someone {
 		}
 		return this.clients;
 	}
-	
-	public ArrayList<Client> seeClients(int idEmployee) throws ClassNotFoundException, SQLException {
-		DataSource ds = DBConnector.createDataSource();
-		co = ds.getConnection();
-		PreparedStatement ps;
-		ResultSet rs;
-		String sql = "SELECT * FROM CLIENT WHERE ID_EMPLOYEE = ?";
-		ps = co.prepareStatement(sql);
-		ps.setInt(1, idEmployee);
-		rs = ps.executeQuery();
-		this.clients = new ArrayList<Client>();
-		while(rs.next()) {
-			this.cl = new Client();
-			this.cl.setIdClient(rs.getInt(1));
-			this.cl.setFirstName(rs.getString(3));
-			this.cl.setLastName(rs.getString(4));
-			this.cl.setEmail(rs.getString(5));
-			this.cl.setTelNum(rs.getString(6));
-			this.cl.setCity(rs.getString(7));
-			this.cl.setAddress(rs.getString(8));
-			this.cl.setZipCode(rs.getString(9));
-			this.clients.add(cl);
-			
-			
-		}
-		return this.clients;
-	}
-
-
-
-	
-	
 	
 	
 }
