@@ -1,6 +1,4 @@
-package applus;
-import model.Client;
-import model.Employee;
+package IHM;
 import service.EmployeePanelModel;
 
 import java.awt.EventQueue;
@@ -13,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class IHM {
+public class AllClientsDisplayPanel {
 
     Statement ps;
     ResultSet rs;
