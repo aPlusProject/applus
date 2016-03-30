@@ -1,6 +1,7 @@
 package applus;
 import model.Client;
 import model.Employee;
+import service.EmployeePanelModel;
 
 import java.awt.EventQueue;
 import java.sql.ResultSet;
@@ -17,31 +18,15 @@ public class IHM {
     Statement ps;
     ResultSet rs;
 
-    private static ArrayList<String> unClient = new ArrayList<String>();
-    private static ArrayList<ArrayList<String>> tabClient = new ArrayList<ArrayList<String>>();
-    private static ArrayList<String> entete = new ArrayList<String>();
-    private static ArrayList<ArrayList<String>> tableClient = new ArrayList<ArrayList<String>>();
+    private static ArrayList<String> entete;
+    private static ArrayList<ArrayList<String>> tableClient;
 
     //launch the application
-    
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-
-    	Employee employee = new Employee();
-        
-        ArrayList<Client> listClient = employee.seeClients(false, 1);
-        
-        for(int i=0; i< listClient.size(); i++) {
-        	unClient = new ArrayList<String>();
-        	unClient.add(listClient.get(i).getFirstName());
-        	unClient.add(listClient.get(i).getLastName());
-        	unClient.add(listClient.get(i).getID()+"");
-        	tabClient.add(unClient);
-        	
-        }
-        
-        for(int i=0;i<tabClient.size();i++) {
-        	tableClient.add(tabClient.get(i));
-        }
+    	
+    	EmployeePanelModel modelEmployee = new EmployeePanelModel(false,1);
+    	tableClient = modelEmployee.getArrayOfClients();
+    	entete = modelEmployee.getEntete();
         
         EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -63,11 +48,6 @@ public class IHM {
 				}
 			}
 		});
-	
-        
-        entete.add("Nom");
-        entete.add("Prénom");
-        entete.add("ID");
         
     }
 
