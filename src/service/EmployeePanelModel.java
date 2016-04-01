@@ -52,7 +52,7 @@ public class EmployeePanelModel {
 	}
 	
 	/**
-	 * @return an all clients
+	 * @return all clients
 	 */
 	public ArrayList<ArrayList<String>> getArrayOfClients() {
 		return this.finalClientArray;

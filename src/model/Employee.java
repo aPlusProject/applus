@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 import applus.DBConnector;
+import applus.PoolConnection;
 
 public class Employee extends Someone {
+	
+	private PoolConnection pool;
 	
 	private int id;
 	private Agency agency;
@@ -110,12 +113,10 @@ public class Employee extends Someone {
 		//INSERT INTO LOAN VALUES ('',1,1,1,null,10000,SYSDATE,0);
 		System.out.println("Enregistrement de la simulation...");
 		PreparedStatement ps;
-		ResultSet rs;
 		String sql = "INSERT INTO LOAN VALUES ('',1,1,1,null,"+amountAsked+",SYSDATE,0)";
 		System.out.println(sql);
 		ps = co.prepareStatement(sql);
-		rs = ps.executeQuery();
-		System.out.println("query executed.");
+		ps.executeQuery();
 		co.commit();
 		
 	}
@@ -131,8 +132,10 @@ public class Employee extends Someone {
 	 * 
 	 */
 	public ArrayList<Client> seeClients(boolean isAgencyResponsable, int idAgencyOrEmployee) throws ClassNotFoundException, SQLException {
-		DataSource ds = DBConnector.createDataSource();
-		co = ds.getConnection();
+		this.pool = new PoolConnection();
+		this.pool.makeStack();
+		co = this.pool.getConnection();
+		
 		PreparedStatement ps;
 		ResultSet rs;
 		
@@ -164,6 +167,7 @@ public class Employee extends Someone {
 			
 			
 		}
+		this.pool.closeConnection(co);
 		return this.clients;
 	}
 	
