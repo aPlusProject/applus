@@ -10,21 +10,13 @@ public class PoolConnection {
 	private DataSource ds;
 	private int AMOUNT = 10;
 	private Connection co;
-	private int i = 0;
 	private Connection[] tab = {null, null, null, null, null, null, null, null, null, null} ;
 	
 	
 	public void makeStack() throws ClassNotFoundException{
 		try {
-			
-		    /*while (i<AMOUNT){
-		    	ds = DBConnector.createDataSource();
-				co = ds.getConnection();
-			    tab[i] = co;
-			    i++;	
-		    }*/
 			for(int i=0; i<AMOUNT; i++) {
-				DataSource ds = DBConnector.createDataSource();
+				ds = DBConnector.createDataSource();
 				co = ds.getConnection();
 			    tab[i] = co;
 			}
