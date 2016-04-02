@@ -34,7 +34,7 @@ public class EmployeePanelModel {
 		this.entete.add("ID");
 		
 		this.employee = new Employee();
-		this.clientList = this.employee.seeClients(isAgencyResponsable, idAgencyOrEmployee);
+		this.clientList = this.employee.getAllClients(isAgencyResponsable, idAgencyOrEmployee);
 		
 		this.clientArray = new ArrayList<ArrayList<String>>();
 		for(int i=0; i< this.clientList.size(); i++) {

@@ -131,7 +131,7 @@ public class Employee extends Someone {
 	 * => The method will return all the clients belonging to the Employee id called
 	 * 
 	 */
-	public ArrayList<Client> seeClients(boolean isAgencyResponsable, int idAgencyOrEmployee) throws ClassNotFoundException, SQLException {
+	public ArrayList<Client> getAllClients(boolean isAgencyResponsable, int idAgencyOrEmployee) throws ClassNotFoundException, SQLException {
 		this.pool = new PoolConnection();
 		this.pool.makeStack();
 		co = this.pool.getConnection();
