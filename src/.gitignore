@@ -1,1 +1,8 @@
 ../lib/db.properties
+/model/
+/service/
+/serializable/
+/applus/
+/tests/
+/IHM/
+/arrayclient.tmp
