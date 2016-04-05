@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import applus.DBConnector;
