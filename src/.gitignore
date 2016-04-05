@@ -1,4 +1,5 @@
-../lib/db.properties
+../lib/
+../bin/
 /model/
 /service/
 /serializable/
