@@ -1,6 +1,5 @@
 ../lib/db.properties
-/IHM/
-/applus/
 /model/
-/tests/
 /service/
+/serializable/
+/applus/

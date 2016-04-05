@@ -1,11 +1,12 @@
 package applus;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
 	
-public class PoolConnection {
+public class PoolConnection implements Serializable{
 	
 	private DataSource ds;
 	private int AMOUNT = 10;

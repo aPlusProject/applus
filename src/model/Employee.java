@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +12,9 @@ import javax.sql.DataSource;
 import applus.DBConnector;
 import applus.PoolConnection;
 
-public class Employee extends Someone {
+public class Employee extends Someone implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private PoolConnection pool;
 	
@@ -170,6 +173,83 @@ public class Employee extends Someone {
 		this.pool.closeConnection(co);
 		return this.clients;
 	}
+	
+	public void insertNewClient(int idEmployee, String clientFirstname, String clientLastname, String email, String num, String ville, String adresse, String code) throws ClassNotFoundException, SQLException {
+		
+		this.pool = new PoolConnection();
+		this.pool.makeStack();
+		co = this.pool.getConnection();
+		
+		PreparedStatement ps;
+		
+		String sql = null;	
+			sql = "INSERT INTO CLIENT VALUES ('',?,?,?,?,?,?,?,?)";
+			
+		ps = co.prepareStatement(sql);
+		ps.setInt(1, idEmployee);
+		ps.setString(2, clientFirstname);
+		ps.setString(3, clientLastname);
+		ps.setString(4, email);
+		ps.setString(5, num);
+		ps.setString(6, ville);
+		ps.setString(7, adresse);
+		ps.setString(8, code);
+		
+		ps.executeQuery();
+		System.out.println("new client insered");
+		this.pool.closeConnection(co);
+		
+	}
+	
+	public void updateAClient(int idClient,String clientFirstname, String clientLastname, String email, String num, String ville, String adress, String code) throws ClassNotFoundException, SQLException {
+		this.pool = new PoolConnection();
+		this.pool.makeStack();
+		co = this.pool.getConnection();
+		
+		PreparedStatement ps;
+		
+		String sql = null;	
+			sql = "UPDATE CLIENT SET CLIENT_FIRST_NAME=?,"+
+					"CLIENT_LAST_NAME=?,"+
+					"CLIENT_EMAIL=?,"+
+					"TEL_NUM=?,"+
+					"CLIENT_CITY=?,"+
+					"ADDRESS=?,"+
+					"ZIP_CODE=?"+
+					"WHERE ID_CLIENT=?";
+			
+		ps = co.prepareStatement(sql);
+		ps.setString(1, clientFirstname);
+		ps.setString(2, clientLastname);
+		ps.setString(3, email);
+		ps.setString(4, num);
+		ps.setString(5, ville);
+		ps.setString(6, adress);
+		ps.setString(7, code);
+		ps.setInt(8, idClient);
+		
+		ps.executeQuery();
+		System.out.println("Client updated");
+	}
+	
+	public void deleteAClient(int idClient) throws SQLException, ClassNotFoundException {
+		
+		this.pool = new PoolConnection();
+		this.pool.makeStack();
+		co = this.pool.getConnection();
+		
+		PreparedStatement ps;
+		
+		String sql = null;	
+			sql = "DELETE FROM CLIENT WHERE ID_CLIENT=?";
+			
+		ps = co.prepareStatement(sql);
+		ps.setInt(1, idClient);
+		ps.executeUpdate();
+		
+		System.out.println("client deleted");
+	}
+	
 	
 	
 }

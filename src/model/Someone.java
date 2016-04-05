@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public abstract class Someone {
+public abstract class Someone implements Serializable{
 	
 	public abstract int getID();
 	public abstract String getLastName();
