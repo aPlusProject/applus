@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public abstract class Someone implements Serializable{
+public abstract class Someone{
 	
 	public abstract int getID();
 	public abstract String getLastName();

@@ -8,6 +8,10 @@ import javax.sql.DataSource;
 	
 public class PoolConnection implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private DataSource ds;
 	private int AMOUNT = 10;
 	private Connection co;

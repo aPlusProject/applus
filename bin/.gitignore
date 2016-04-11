@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-../lib/db.properties
+../lib/
+../bin/
 /model/
 /service/
 /serializable/
@@ -7,8 +7,3 @@
 /tests/
 /IHM/
 ../arrayclient.tmp
-=======
-../lib/db.properties
-/service
-/IHM
->>>>>>> b3fb302b71e44e1f2164cc64fcb353a04085815e

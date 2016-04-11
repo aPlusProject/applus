@@ -1,4 +1,4 @@
-/*package service;
+package service;
 
 import java.util.ArrayList;
 
@@ -7,26 +7,27 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 
 import model.Client;
+import model.Employee;
 
 public class JSonParser {
+	
+	
 
-	public ArrayList<Client> JSonToArray(JsonElement json) {
+	public static Employee JSonToArray(String json) {
 
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().create();
 
-		ArrayList<Client> clients = gson.fromJson(json, ArrayList.class);
+		Employee employee = gson.fromJson(json, Employee.class);
 
-		return clients;
+		return employee;
 	}
 	
-	public void ArrayToJSon(ArrayList<Client> arrClients){
+	public static String ObjectToJSon(Employee employee){
 		Gson gson = new GsonBuilder().create();
+		String json = gson.toJson(employee);
 		
-		for(int i=0;i<arrClients.size();i++){
-			Client c = new Client();
-			
-		}
-		
+		return json;
 	}
+	
 
-}*/
+}

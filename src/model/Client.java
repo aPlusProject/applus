@@ -5,9 +5,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Client extends Someone implements Serializable{
+public class Client extends Someone{
 	
-	private static final long serialVersionUID = 1L;
 	
 	private int id;
 	private Employee employee;

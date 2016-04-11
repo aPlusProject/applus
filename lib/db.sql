@@ -18,6 +18,7 @@ agency_name VARCHAR2(100),
 city VARCHAR2(100),
 zip_code VARCHAR2(100),
 tel_num VARCHAR2(100),
+id_responsable INT NOT NULL,
 FOREIGN KEY (id_hq) REFERENCES HQ(id_hq) ON DELETE CASCADE
 );
 

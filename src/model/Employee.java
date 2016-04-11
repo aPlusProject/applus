@@ -12,9 +12,8 @@ import javax.sql.DataSource;
 import applus.DBConnector;
 import applus.PoolConnection;
 
-public class Employee extends Someone implements Serializable{
+public class Employee extends Someone{
 	
-	private static final long serialVersionUID = 1L;
 	
 	private PoolConnection pool;
 	
@@ -173,6 +172,12 @@ public class Employee extends Someone implements Serializable{
 		this.pool.closeConnection(co);
 		return this.clients;
 	}
+	
+	public void setAllClients(ArrayList<Client> array) {
+		this.clients = array;
+	}
+	
+	
 	
 	public void insertNewClient(int idEmployee, String clientFirstname, String clientLastname, String email, String num, String ville, String adresse, String code) throws ClassNotFoundException, SQLException {
 		
