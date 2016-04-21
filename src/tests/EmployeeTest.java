@@ -15,6 +15,7 @@ import applus.DBConnector;
 import junit.framework.TestCase;
 import model.Client;
 import model.Employee;
+import model.Loan;
 
 public class EmployeeTest extends TestCase{
 	
@@ -37,7 +38,7 @@ public class EmployeeTest extends TestCase{
 		}
 		
 		assertTrue(value == amountAsked);
-	}*/
+	}
 	
 	@Test
     public void tearDownBefore() throws SQLException, ClassNotFoundException {
@@ -94,7 +95,7 @@ public class EmployeeTest extends TestCase{
 		        ResultSet rs2 = ps2.executeQuery();
 		        while (rs2.next()) {
 		        	System.out.println(rs2.getString(1));
-		        }*/
+		        }
 		        
 		        Employee employee = new Employee();
                 int expected = 1;
@@ -105,7 +106,7 @@ public class EmployeeTest extends TestCase{
                 co.close();
     }
     
-    /*@Test
+    @Test
     public void testSeeClientsOfAgency() throws ClassNotFoundException, SQLException {
     
                 System.out.println("When Agency number 1 has one client");
@@ -119,7 +120,7 @@ public class EmployeeTest extends TestCase{
                 int numberOfClients = this.employee.getAllClients(true, 1).size();
                 assertEquals(expected, numberOfClients);
                 co.close();
-    }*/
+    }
     
     @AfterClass
     public void tearDown() throws SQLException, ClassNotFoundException {
@@ -135,6 +136,40 @@ public class EmployeeTest extends TestCase{
 		        ResultSet rs1 = ps1.executeQuery();
                 ResultSet rs2 = ps2.executeQuery(); 
                 co.close();
+    }*/
+    
+    
+    @Test
+    public void testGetAllLoansAount() throws ClassNotFoundException, SQLException {
+    	System.out.println("testGetAllLoansAount");
+    	
+    	Employee responsable = new Employee();
+    	responsable.setResponsable(1);
+    	
+    	ArrayList<Loan> loanList = responsable.getAllLoans(1);
+    	int sizeLoan = 0;
+    	
+    	DataSource ds = DBConnector.createDataSource();
+        Connection co = ds.getConnection();
+        
+        String sql = "SELECT COUNT(*) FROM LOAN";
+        PreparedStatement ps = co.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()) { 
+        	sizeLoan = rs.getInt(1);
+        }
+    	
+    	assertTrue(loanList.size() == sizeLoan);
     }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testNotResponsableGetAllLoan() throws ClassNotFoundException {
+    	System.out.println("testNotResponsableGetAllLoan");
+    	Employee employee = new Employee();
+    	employee.getAllLoans(1);
+    	
+    	
+    }
+    
 
 }
