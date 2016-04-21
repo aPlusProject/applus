@@ -8,12 +8,14 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import applus.PoolConnection;
+
 public class Loan {
 	
 	private int id;
 	private Client client;
 	private Employee counsellor;
-	private LoanType loanType;
+	private static String loanType;
 	private History history;
 	private int askedAmount;
 	private Date askedDate;    //peut etre le mauvaise importe
@@ -21,7 +23,7 @@ public class Loan {
 	private DataSource ds;
 	
 	
-	public Loan(Client client, Employee counsellor, LoanType loanType, History history, int askedAmount,
+	public Loan(Client client, Employee counsellor, String loanType, History history, int askedAmount,
 			Date askedDate, int decision) {
 		this.client = client;
 		this.counsellor = counsellor;
@@ -75,13 +77,32 @@ public class Loan {
 
 
 
-	public LoanType getLoanType() {
-		return loanType;
+	public static String getLoanTypeName(int idTypeLoan) throws ClassNotFoundException, SQLException {
+		
+		PoolConnection pool = new PoolConnection();
+		pool.makeStack();
+		Connection co = pool.getConnection();
+		
+		PreparedStatement ps;
+		ResultSet rs;
+		
+		String sql = "SELECT LOAN_NAME FROM LOAN_TYPE WHERE ID_LOAN_TYPE = ?";
+		String loanName = "";
+		ps = co.prepareStatement(sql);
+		ps.setInt(1, idTypeLoan);
+		rs = ps.executeQuery();
+		while(rs.next()) {
+			loanName = rs.getString(1);
+		}
+		
+		
+		
+		return loanName;
 	}
 
 
 
-	public void setLoanType(LoanType loanType) {
+	public void setLoanType(String loanType) {
 		this.loanType = loanType;
 	}
 
