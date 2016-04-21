@@ -162,12 +162,19 @@ public class EmployeeTest extends TestCase{
     	assertTrue(loanList.size() == sizeLoan);
     }
     
-    @Test(expected=IllegalArgumentException.class)
-    public void testNotResponsableGetAllLoan() throws ClassNotFoundException {
+    @Test
+    public void testNotResponsableGetAllLoan() throws ClassNotFoundException, SQLException {
     	System.out.println("testNotResponsableGetAllLoan");
     	Employee employee = new Employee();
-    	employee.getAllLoans(1);
+    	String message = "";
+    	try {
+    		employee.getAllLoans(1);
+    	}
+    	catch(IllegalArgumentException e) {
+    		message = e.getMessage();
+    	}
     	
+    	assertTrue(message == "This employee is not a responsable");
     	
     }
     
