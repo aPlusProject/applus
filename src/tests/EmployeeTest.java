@@ -140,20 +140,25 @@ public class EmployeeTest extends TestCase{
     
     
     @Test
-    public void testGetAllLoansAount() throws ClassNotFoundException, SQLException {
-    	System.out.println("testGetAllLoansAount");
+    public void testGetLoanAmount() throws ClassNotFoundException, SQLException {
+    	System.out.println("testGetLoanAmount");
     	
     	Employee responsable = new Employee();
     	responsable.setResponsable(1);
     	
-    	ArrayList<Loan> loanList = responsable.getAllLoans(1);
+    	int idAgence = 1;
+    	
+    	ArrayList<Loan> loanList = responsable.getAllLoans(idAgence);
+    	System.out.println(loanList.get(loanList.size()-1).getAskesAmount());
     	int sizeLoan = 0;
     	
     	DataSource ds = DBConnector.createDataSource();
         Connection co = ds.getConnection();
         
-        String sql = "SELECT COUNT(*) FROM LOAN";
+        String sql = "SELECT COUNT(*) FROM LOAN l, EMPLOYEE e WHERE l.ID_CONSEILLER = e.ID_EMPLOYEE AND e.ID_AGENCY = ?";
+        
         PreparedStatement ps = co.prepareStatement(sql);
+        ps.setInt(1, idAgence);
         ResultSet rs = ps.executeQuery();
         while(rs.next()) { 
         	sizeLoan = rs.getInt(1);
