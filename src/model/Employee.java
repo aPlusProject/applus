@@ -268,9 +268,9 @@ public class Employee extends Someone{
 		System.out.println("client deleted");
 	}
 
-	public ArrayList<Loan> getAllLoans(int idAgence) throws ClassNotFoundException {
+	public ArrayList<Loan> getAllLoans(int idAgence) throws ClassNotFoundException, SQLException {
 		
-		if (!this.isResponsable) {
+		if (this.isResponsable) {
 			
 			this.pool = new PoolConnection();
 			this.pool.makeStack();
@@ -280,6 +280,17 @@ public class Employee extends Someone{
 			ResultSet rs;
 			
 			String sql = "SELECT * FROM LOAN l, EMPLOYEE e WHERE l.ID_CONSEILLER = e.ID_EMPLOYEE AND e.ID_AGENCY = ?";
+			ps = co.prepareStatement(sql);
+			ps.setInt(1, idAgence);
+			rs = ps.executeQuery();
+			ArrayList<Loan> listLoan = new ArrayList<Loan>();
+			while(rs.next()) {
+				Loan loan =  new Loan();
+				loan.setId(rs.getInt(1));
+				
+				loan.setClient(this.getClientById(rs.getInt(2)));
+				//loan.setCounsellor(counsellor);
+			}
 			
 			
 			
@@ -287,6 +298,24 @@ public class Employee extends Someone{
 		else {
 			throw new IllegalArgumentException("This employee is not a responsable");
 		}
+		return null;
+	}
+	
+	public Client getClientById(int idClient) {
+		
+		//TODO: recuperer un client par son id sql
+		
+		Client client = new Client();
+		client.setFirstName("prenom");
+		client.setLastName("nom");
+		
+		return client;
+		
+	}
+	
+	public Employee getEmployeeById(int idEmployee) {
+		
+		//if(!this.isResponsable)
 		return null;
 	}
 	
