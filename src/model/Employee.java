@@ -31,6 +31,8 @@ public class Employee extends Someone{
 	private ArrayList<Rate> rates;
 	private Client cl;
 	
+	private boolean isResponsable = false;
+	
 	
 
 	public Employee(Agency agency, String lastName, String firstName, String email, String telNum) {
@@ -108,6 +110,17 @@ public class Employee extends Someone{
 	@Override
 	public String getTelNum() {
 		return this.telNum;
+	}
+	
+	public boolean isResponsable() {
+		return this.isResponsable;
+	}
+	
+	public void setResponsable(int idEmployee) throws ClassNotFoundException {
+		this.isResponsable = true;
+		
+		//TODO: sql update Agency set responsable_id = idEmployee
+		
 	}
 
 	
@@ -254,6 +267,31 @@ public class Employee extends Someone{
 		
 		System.out.println("client deleted");
 	}
+
+	public ArrayList<Loan> getAllLoans(int idAgence) throws ClassNotFoundException {
+		
+		if (!this.isResponsable) {
+			
+			this.pool = new PoolConnection();
+			this.pool.makeStack();
+			co = this.pool.getConnection();
+			
+			PreparedStatement ps;
+			ResultSet rs;
+			
+			String sql = "SELECT * FROM LOAN l, EMPLOYEE e WHERE l.ID_CONSEILLER = e.ID_EMPLOYEE AND e.ID_AGENCY = ?";
+			
+			
+			
+		}
+		else {
+			throw new IllegalArgumentException("This employee is not a responsable");
+		}
+		return null;
+	}
+	
+	
+	
 	
 	
 	
