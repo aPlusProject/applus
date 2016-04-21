@@ -84,8 +84,18 @@ public class Employee extends Someone{
 	public void login(String email, String password) {
 		
 	}
+	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
+	public void setTelNum(String telNum) {
+		this.telNum = telNum;
+	}
 
 	@Override
 	public int getID() {
@@ -270,6 +280,8 @@ public class Employee extends Someone{
 
 	public ArrayList<Loan> getAllLoans(int idAgence) throws ClassNotFoundException, SQLException {
 		
+		ArrayList<Loan> listLoan = new ArrayList<Loan>();
+		
 		if (this.isResponsable) {
 			
 			this.pool = new PoolConnection();
@@ -283,14 +295,22 @@ public class Employee extends Someone{
 			ps = co.prepareStatement(sql);
 			ps.setInt(1, idAgence);
 			rs = ps.executeQuery();
-			ArrayList<Loan> listLoan = new ArrayList<Loan>();
+			
 			while(rs.next()) {
 				Loan loan =  new Loan();
 				loan.setId(rs.getInt(1));
 				
 				loan.setClient(this.getClientById(rs.getInt(2)));
-				//loan.setCounsellor(counsellor);
+				loan.setCounsellor(this.getEmployeeById(rs.getInt(3)));
+				//loan.setLoanType(Loan.getLoanTypeName(rs.getInt(4)));  //TODO: debug la method 
+				loan.setAskedAmount(rs.getInt(6));
+				loan.setAskedDate(rs.getDate(7));
+				loan.setDecision(rs.getInt(8));
+				
+				listLoan.add(loan);
 			}
+			this.pool.closeConnection(co);
+			
 			
 			
 			
@@ -298,7 +318,7 @@ public class Employee extends Someone{
 		else {
 			throw new IllegalArgumentException("This employee is not a responsable");
 		}
-		return null;
+		return listLoan;
 	}
 	
 	public Client getClientById(int idClient) {
@@ -314,9 +334,19 @@ public class Employee extends Someone{
 	}
 	
 	public Employee getEmployeeById(int idEmployee) {
-		
-		//if(!this.isResponsable)
-		return null;
+		Employee employee = new Employee();
+		if(this.isResponsable) {
+			
+			employee.setFirstName("Vistory");
+			employee.setLastName("Hugo");
+			employee.setTelNum("016067898524");
+			
+			
+		}
+		else {
+			throw new IllegalArgumentException("This employee is not a responsable");
+		}
+		return employee;
 	}
 	
 	
