@@ -149,7 +149,6 @@ public class EmployeeTest extends TestCase{
     	int idAgence = 1;
     	
     	ArrayList<Loan> loanList = responsable.getAllLoans(idAgence);
-    	System.out.println(loanList.get(loanList.size()-1).getAskesAmount());
     	int sizeLoan = 0;
     	
     	DataSource ds = DBConnector.createDataSource();
@@ -180,6 +179,39 @@ public class EmployeeTest extends TestCase{
     	}
     	
     	assertTrue(message == "This employee is not a responsable");
+    	
+    }
+    
+    /**
+     * 
+     * @throws ClassNotFoundException
+     * 
+     * test if the method throw an exception if we call it with an unknow idAgency
+     * 
+     */
+    @Test
+    public void testGetAverageOfLoansOfUnknowAgency() throws ClassNotFoundException {
+    	System.out.println("testGetAverageOfLoansOfUnknowAgency");
+    	Employee employee = new Employee();
+    	employee.setResponsable(1);
+    	
+    	int CODE_ERREUR = 933;
+    	
+    	int errorCode = 0;
+    	try {
+    		employee.getAverageOfLoans(999, 1, 0);
+    	}
+    	catch(SQLException e) {
+    		errorCode = e.getErrorCode();
+    	}
+    	
+    	assertTrue(CODE_ERREUR == errorCode);
+    	
+    }
+    
+    
+    @Test
+    public void testNotResponsableGetAverageOfLoans() {
     	
     }
     
