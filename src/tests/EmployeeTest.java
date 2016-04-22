@@ -192,14 +192,14 @@ public class EmployeeTest extends TestCase{
     @Test
     public void testGetAverageOfLoansOfUnknowAgency() throws ClassNotFoundException {
     	System.out.println("testGetAverageOfLoansOfUnknowAgency");
-    	Employee employee = new Employee();
-    	employee.setResponsable(1);
+    	Employee responsable = new Employee();
+    	responsable.setResponsable(1);
     	
     	int CODE_ERREUR = 933;
     	
     	int errorCode = 0;
     	try {
-    		employee.getAverageOfLoans(999, 1, 0);
+    		responsable.getAverageOfLoans(999, 1, 0);
     	}
     	catch(SQLException e) {
     		errorCode = e.getErrorCode();
@@ -209,9 +209,29 @@ public class EmployeeTest extends TestCase{
     	
     }
     
-    
+    /**
+     * 
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     * 
+     * test if the method throw an exception if the employee is not a responsable
+     * 
+     */
     @Test
-    public void testNotResponsableGetAverageOfLoans() {
+    public void testNotResponsableGetAverageOfLoans() throws ClassNotFoundException, SQLException {
+    	System.out.println("testNotResponsableGetAverageOfLoans");
+    	
+    	Employee employee = new Employee();
+    	
+    	String message = "";
+    	try {
+    		employee.getAverageOfLoans(1, 1, 1);
+    	}
+    	catch(IllegalArgumentException e) {
+    		message = e.getMessage();
+    	}
+    	
+    	assertTrue(message == "This employee is not a responsable");
     	
     }
     
