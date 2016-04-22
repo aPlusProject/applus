@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.sql.DataSource;
 
@@ -300,11 +301,11 @@ public class Employee extends Someone{
 				Loan loan =  new Loan();
 				loan.setId(rs.getInt(1));
 				
-				loan.setClient(this.getClientById(rs.getInt(2)));
-				loan.setCounsellor(this.getEmployeeById(rs.getInt(3)));
-				//loan.setLoanType(Loan.getLoanTypeName(rs.getInt(4)));  //TODO: debug la method 
+				loan.setClient(this.getClientById(rs.getInt(2)));		//TODO: prendre seulement l'id
+				loan.setCounsellor(this.getEmployeeById(rs.getInt(3)));  //TODO: prendre seulement l'id
+				//loan.setLoanType(Loan.getLoanTypeName(rs.getInt(4)));  //TODO: prendre seulement l'id
 				loan.setAskedAmount(rs.getInt(6));
-				loan.setAskedDate(rs.getDate(7));
+				loan.setAskedDate(rs.getDate(7)); 
 				loan.setDecision(rs.getInt(8));
 				
 				listLoan.add(loan);
@@ -351,7 +352,37 @@ public class Employee extends Someone{
 	
 	
 	
-	
+	public int getAverageOfLoans(int idAgency, int idLoanType, int idDecision) throws ClassNotFoundException, SQLException {
+		
+		pool = new PoolConnection();
+		pool.makeStack();
+		co = this.pool.getConnection();
+		
+		PreparedStatement ps;
+		ResultSet rs;
+		
+		String sql = "SELECT AVG(l.ASKED_AMOUNT) FROM LOAN l, EMPLOYEE e"+
+					"WHERE e.ID_EMPLOYEE = l.ID_CONSEILLER"+
+					"AND e.ID_AGENCY = ?"+
+					"AND l.ID_LOAN_TYPE = ?"+
+					"AND l.DECISION = ?";
+		
+		
+		ps = co.prepareStatement(sql);
+		ps.setInt(1, idAgency);
+		ps.setInt(2, idLoanType);
+		ps.setInt(3, idDecision);
+		
+		rs = ps.executeQuery();
+		
+		int average = 0;
+		
+		while(rs.next()) {
+			average = rs.getInt(1);
+		}
+		
+		return average;
+	}
 	
 	
 }
