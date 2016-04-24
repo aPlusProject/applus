@@ -350,6 +350,15 @@ public class Employee extends Someone{
 		return employee;
 	}
 	
+	public void addClients(Client cl){
+	
+		this.clients.add(cl);
+	}
+	
+	public ArrayList<Client> getClients(){
+		
+		return this.clients;
+	}
 	
 	
 	public int getAverageOfLoans(int idAgency, int idLoanType, int idDecision) throws ClassNotFoundException, SQLException {
