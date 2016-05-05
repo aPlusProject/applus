@@ -279,6 +279,14 @@ public class Employee extends Someone{
 		System.out.println("client deleted");
 	}
 
+	
+	/**
+	 * 
+	 * @param idAgence > 0
+	 * @return List of loan in function of the agency
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public ArrayList<Loan> getAllLoans(int idAgence) throws ClassNotFoundException, SQLException {
 		
 		ArrayList<Loan> listLoan = new ArrayList<Loan>();
@@ -361,6 +369,16 @@ public class Employee extends Someone{
 	}
 	
 	
+	/**
+	 * 
+	 * @param idAgency > 0
+	 * @param idLoanType >= 0    if (idLoanType == 0): no filtre on it 
+	 * @param idDecision >= 0	 if (idDecision == 0): no filtre on it 
+	 * @return the average amount of loans filtred in function of the type or not of the loans or the decision or not of the loans
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * 
+	 */
 	public int getAverageOfLoans(int idAgency, int idLoanType, int idDecision) throws ClassNotFoundException, SQLException {
 		
 		pool = new PoolConnection();
