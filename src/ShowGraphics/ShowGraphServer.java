@@ -19,11 +19,14 @@ public class ShowGraphServer extends Thread{
 		 ServerSocket serverSocket = null; 
 
 		    try { 
+		    	//create server socket object
 		         serverSocket = new ServerSocket(10008); 
 		         System.out.println ("Connection Socket Created");
 		         try { 
+		        	 //listen indefinitely until receive exit call or program terminates
 		              while (serverContinue)
 		                 {
+		            	  //set time out and wait for client connection
 		                  serverSocket.setSoTimeout(10000);
 		                  System.out.println ("Waiting for Connection");
 		                  try {
