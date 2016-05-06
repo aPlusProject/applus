@@ -10,3 +10,6 @@
 /ShowGraphics/
 /metier/
 /simulationFixedRate/
+/client/
+/gui/
+/socket/

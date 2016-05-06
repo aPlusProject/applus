@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import applus.model.Employee;
 import applus.model.Client;
-import applus.ConnectionPool;
+import applus.connection.ConnectionPool;
 
 public class SimulationEmployee {
 	
