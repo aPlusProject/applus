@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import IHM.MainPanel;
+import applus.gui.MainPanel;
 
 
 /**

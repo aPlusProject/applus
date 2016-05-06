@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import model.Employee;
-import model.Client;
+import applus.model.Employee;
+import applus.model.Client;
 import applus.PoolConnection;
 
 public class SimulationEmployee {

@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import javax.sql.DataSource;
 
-import model.Employee;
+import applus.model.Employee;
 
 
 public class lauch {

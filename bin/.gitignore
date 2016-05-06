@@ -1,5 +1,5 @@
 ../lib/
-../bin/
+../bin/*
 /model/
 /service/
 /serializable/
@@ -7,3 +7,6 @@
 /tests/
 /IHM/
 ../arrayclient.tmp
+/ShowGraphics/
+/metier/
+/simulationFixedRate/
