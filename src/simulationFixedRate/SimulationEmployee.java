@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import applus.model.Employee;
 import applus.model.Client;
-import applus.PoolConnection;
+import applus.ConnectionPool;
 
 public class SimulationEmployee {
 	
@@ -18,10 +18,10 @@ public class SimulationEmployee {
 
 	public ArrayList<Client> getClientByID(int idClient) throws ClassNotFoundException, SQLException {
 		
-		PoolConnection conn = simulationEmployee.getPool(); // ajouter getPool() dans model.Employee
+		ConnectionPool conn = simulationEmployee.getPool(); // ajouter getPool() dans model.Employee
 		
 		Connection co= null;
-		conn = new PoolConnection();
+		conn = new ConnectionPool();
 		conn.makeStack();
 		co = conn.getConnection();
 		

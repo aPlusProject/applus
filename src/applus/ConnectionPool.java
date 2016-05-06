@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 	
-public class PoolConnection implements Serializable{
+public class ConnectionPool implements Serializable{
 	
 	/**
 	 * 
