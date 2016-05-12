@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import connection.ConnectionPool;
-import model.Client;
-import model.Employee;
-import model.History;
+import edu.model.Client;
+import edu.model.Employee;
+import edu.model.History;
 
 public class Loan {
 	

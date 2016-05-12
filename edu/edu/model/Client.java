@@ -5,10 +5,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import model.Account;
-import model.Employee;
-import model.Loan;
-import model.Someone;
+import edu.model.Account;
+import edu.model.Employee;
+import edu.model.Loan;
+import edu.model.Someone;
 
 public class Client extends Someone{
 	

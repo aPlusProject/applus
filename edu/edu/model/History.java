@@ -3,7 +3,7 @@ package edu.model;
 import java.util.Calendar;
 import java.util.Date;
 
-import model.Loan;
+import edu.model.Loan;
 
 public class History {
 

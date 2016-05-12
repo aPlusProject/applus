@@ -1,6 +1,6 @@
 package edu.model;
 
-import model.HQ;
+import edu.model.HQ;
 
 public class Agency {
 	
