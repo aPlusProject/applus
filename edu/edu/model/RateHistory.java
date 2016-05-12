@@ -1,9 +1,9 @@
-package model;
+package edu.model;
 
 import java.util.Calendar;
 import java.util.Date;
 
-import edu.model.Rate;
+import model.Rate;
 
 public class RateHistory {
 	

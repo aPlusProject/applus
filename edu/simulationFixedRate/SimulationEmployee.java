@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import applus.model.Employee;
-import applus.model.Client;
-import applus.connection.ConnectionPool;
+import connection.ConnectionPool;
+import edu.model.Client;
+import edu.model.Employee;
 
 public class SimulationEmployee {
 	

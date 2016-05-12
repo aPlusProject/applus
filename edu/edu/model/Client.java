@@ -1,18 +1,17 @@
-package model;
+package edu.model;
 
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import edu.model.Account;
-import edu.model.Employee;
-import edu.model.Loan;
-import edu.model.Someone;
+import model.Account;
+import model.Employee;
+import model.Loan;
+import model.Someone;
 
-public class Client extends Someone implements Serializable{
+public class Client extends Someone{
 	
-	private static final long serialVersionUID = 1L;
 	
 	private int id;
 	private Employee employee;
@@ -23,7 +22,6 @@ public class Client extends Someone implements Serializable{
 	private String city;
 	private String address;
 	private String zipCode;
-	private int age; // added for interest rate calculations
 	
 	private ArrayList<Account> accounts;
 	private ArrayList<Loan> loans;
@@ -45,7 +43,6 @@ public class Client extends Someone implements Serializable{
 		this.city = city;
 		this.address = adrdess;
 		this.zipCode = zipCode;
-		this.age = age;
 	}
 	
 	public void addAccount(Account a) {
@@ -131,18 +128,12 @@ public class Client extends Someone implements Serializable{
 		this.id = idClient;
 	}
 
-	public void setAge(int age){
-		this.age = age;
-	}
 
 	@Override
 	public int getID() {
 		return this.id;
 	}
 
-	public int getAge(){
-		return this.age;
-	}
 
 	@Override
 	public String getLastName() {

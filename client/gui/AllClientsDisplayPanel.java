@@ -1,6 +1,4 @@
 package gui;
-import model.Client;
-import model.Employee;
 import model.EmployeePanelModel;
 
 import java.awt.Dimension;
@@ -20,6 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+
+import edu.model.Client;
+import edu.model.Employee;
 
 public class AllClientsDisplayPanel {
 

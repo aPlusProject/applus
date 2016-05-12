@@ -1,9 +1,9 @@
-package model;
+package edu.model;
 
 import java.util.Calendar;
 import java.util.Date;
 
-import edu.model.Loan;
+import model.Loan;
 
 public class History {
 

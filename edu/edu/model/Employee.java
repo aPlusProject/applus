@@ -1,4 +1,4 @@
-package model;
+package edu.model;
 
 import java.io.Serializable;
 import java.sql.Connection;
@@ -6,22 +6,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.sql.DataSource;
 
+import connection.ConnectionPool;
+import connection.DBConnector;
 import edu.model.Agency;
 import edu.model.Client;
+import edu.model.Employee;
+import edu.model.Loan;
 import edu.model.Rate;
 import edu.model.Someone;
 
-//import applus.DBConnector;
-//import applus.PoolConnection;
-
-public class Employee extends Someone implements Serializable{
+public class Employee extends Someone{
 	
-	//private PoolConnection pool;
 	
-	private static final long serialVersionUID = 1L;
+	private ConnectionPool pool;
 	
 	private int id;
 	private Agency agency;
@@ -36,6 +37,8 @@ public class Employee extends Someone implements Serializable{
 	private ArrayList<Client> clients;
 	private ArrayList<Rate> rates;
 	private Client cl;
+	
+	private boolean isResponsable = false;
 	
 	
 
@@ -75,21 +78,31 @@ public class Employee extends Someone implements Serializable{
 	}
 	
 
-	/*public Agency getAgency() {
+	public Agency getAgency() {
 		return agency;
-	}*/
+	}
 
 
 
-	/*public void setAgency(Agency agency) {
+	public void setAgency(Agency agency) {
 		this.agency = agency;
-	}*/
+	}
 	
 	public void login(String email, String password) {
 		
 	}
+	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
+	public void setTelNum(String telNum) {
+		this.telNum = telNum;
+	}
 
 	@Override
 	public int getID() {
@@ -115,6 +128,17 @@ public class Employee extends Someone implements Serializable{
 	public String getTelNum() {
 		return this.telNum;
 	}
+	
+	public boolean isResponsable() {
+		return this.isResponsable;
+	}
+	
+	public void setResponsable(int idEmployee) throws ClassNotFoundException {
+		this.isResponsable = true;
+		
+		//TODO: sql update Agency set responsable_id = idEmployee
+		
+	}
 
 	
 	public static void simulate(int amountAsked, Connection co) throws SQLException {
@@ -129,14 +153,6 @@ public class Employee extends Someone implements Serializable{
 		
 	}
 	
-	public void setAllClients(ArrayList<Client> array) {
-		this.clients = array;
-	}
-	
-	public ArrayList<Client> getAllClients() {
-		return this.clients;
-	}
-	
 	/**
 	 * Allow to get all Clients (there is a double fonctionnality) : <br/><br/>
 	 * 
@@ -148,7 +164,7 @@ public class Employee extends Someone implements Serializable{
 	 * 
 	 */
 	public ArrayList<Client> getAllClients(boolean isAgencyResponsable, int idAgencyOrEmployee) throws ClassNotFoundException, SQLException {
-		/*this.pool = new PoolConnection();
+		this.pool = new ConnectionPool();
 		this.pool.makeStack();
 		co = this.pool.getConnection();
 		
@@ -183,13 +199,19 @@ public class Employee extends Someone implements Serializable{
 			
 			
 		}
-		this.pool.closeConnection(co);*/
+		this.pool.closeConnection(co);
 		return this.clients;
 	}
 	
-	/*public void insertNewClient(int idEmployee, String clientFirstname, String clientLastname, String email, String num, String ville, String adresse, String code) throws ClassNotFoundException, SQLException {
+	public void setAllClients(ArrayList<Client> array) {
+		this.clients = array;
+	}
+	
+	
+	
+	public void insertNewClient(int idEmployee, String clientFirstname, String clientLastname, String email, String num, String ville, String adresse, String code) throws ClassNotFoundException, SQLException {
 		
-		this.pool = new PoolConnection();
+		this.pool = new ConnectionPool();
 		this.pool.makeStack();
 		co = this.pool.getConnection();
 		
@@ -215,7 +237,7 @@ public class Employee extends Someone implements Serializable{
 	}
 	
 	public void updateAClient(int idClient,String clientFirstname, String clientLastname, String email, String num, String ville, String adress, String code) throws ClassNotFoundException, SQLException {
-		this.pool = new PoolConnection();
+		this.pool = new ConnectionPool();
 		this.pool.makeStack();
 		co = this.pool.getConnection();
 		
@@ -247,7 +269,7 @@ public class Employee extends Someone implements Serializable{
 	
 	public void deleteAClient(int idClient) throws SQLException, ClassNotFoundException {
 		
-		this.pool = new PoolConnection();
+		this.pool = new ConnectionPool();
 		this.pool.makeStack();
 		co = this.pool.getConnection();
 		
@@ -261,8 +283,139 @@ public class Employee extends Someone implements Serializable{
 		ps.executeUpdate();
 		
 		System.out.println("client deleted");
-	}*/
+	}
+
 	
+	/**
+	 * 
+	 * @param idAgence > 0
+	 * @return List of loan in function of the agency
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public ArrayList<Loan> getAllLoans(int idAgence) throws ClassNotFoundException, SQLException {
+		
+		ArrayList<Loan> listLoan = new ArrayList<Loan>();
+		
+		if (this.isResponsable) {
+			
+			this.pool = new ConnectionPool();
+			this.pool.makeStack();
+			co = this.pool.getConnection();
+			
+			PreparedStatement ps;
+			ResultSet rs;
+			
+			String sql = "SELECT * FROM LOAN l, EMPLOYEE e WHERE l.ID_CONSEILLER = e.ID_EMPLOYEE AND e.ID_AGENCY = ?";
+			ps = co.prepareStatement(sql);
+			ps.setInt(1, idAgence);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Loan loan =  new Loan();
+				loan.setId(rs.getInt(1));
+				
+				loan.setClient(this.getClientById(rs.getInt(2)));		//TODO: prendre seulement l'id
+				loan.setCounsellor(this.getEmployeeById(rs.getInt(3)));  //TODO: prendre seulement l'id
+				//loan.setLoanType(Loan.getLoanTypeName(rs.getInt(4)));  //TODO: prendre seulement l'id
+				loan.setAskedAmount(rs.getInt(6));
+				loan.setAskedDate(rs.getDate(7)); 
+				loan.setDecision(rs.getInt(8));
+				
+				listLoan.add(loan);
+			}
+			this.pool.closeConnection(co);
+			
+			
+			
+			
+		}
+		else {
+			throw new IllegalArgumentException("This employee is not a responsable");
+		}
+		return listLoan;
+	}
+	
+	public Client getClientById(int idClient) {
+		
+		//TODO: recuperer un client par son id sql
+		
+		Client client = new Client();
+		client.setFirstName("prenom");
+		client.setLastName("nom");
+		
+		return client;
+		
+	}
+	
+	public Employee getEmployeeById(int idEmployee) {
+		Employee employee = new Employee();
+		if(this.isResponsable) {
+			
+			employee.setFirstName("Vistory");
+			employee.setLastName("Hugo");
+			employee.setTelNum("016067898524");
+			
+			
+		}
+		else {
+			throw new IllegalArgumentException("This employee is not a responsable");
+		}
+		return employee;
+	}
+	
+	public void addClients(Client cl){
+	
+		this.clients.add(cl);
+	}
+	
+	public ArrayList<Client> getClients(){
+		
+		return this.clients;
+	}
+	
+	
+	/**
+	 * 
+	 * @param idAgency > 0
+	 * @param idLoanType >= 0    if (idLoanType == 0): no filtre on it 
+	 * @param idDecision >= 0	 if (idDecision == 0): no filtre on it 
+	 * @return the average amount of loans filtred in function of the type or not of the loans or the decision or not of the loans
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * 
+	 */
+	public int getAverageOfLoans(int idAgency, int idLoanType, int idDecision) throws ClassNotFoundException, SQLException {
+		
+		pool = new ConnectionPool();
+		pool.makeStack();
+		co = this.pool.getConnection();
+		
+		PreparedStatement ps;
+		ResultSet rs;
+		
+		String sql = "SELECT AVG(l.ASKED_AMOUNT) FROM LOAN l, EMPLOYEE e"+
+					"WHERE e.ID_EMPLOYEE = l.ID_CONSEILLER"+
+					"AND e.ID_AGENCY = ?"+
+					"AND l.ID_LOAN_TYPE = ?"+
+					"AND l.DECISION = ?";
+		
+		
+		ps = co.prepareStatement(sql);
+		ps.setInt(1, idAgency);
+		ps.setInt(2, idLoanType);
+		ps.setInt(3, idDecision);
+		
+		rs = ps.executeQuery();
+		
+		int average = 0;
+		
+		while(rs.next()) {
+			average = rs.getInt(1);
+		}
+		
+		return average;
+	}
 	
 	
 }

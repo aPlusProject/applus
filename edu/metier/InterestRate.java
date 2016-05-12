@@ -1,7 +1,6 @@
 package metier;
 
 import java.awt.EventQueue;
-import aplus.*;
 
 public class InterestRate {
 	
