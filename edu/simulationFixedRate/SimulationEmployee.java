@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import connection.ConnectionPool;
+import edu.connection.ConnectionPool;
 import edu.model.Client;
 import edu.model.Employee;
 

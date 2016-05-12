@@ -1,4 +1,4 @@
-package business;
+package edu.business;
 
 import edu.model.Loan;
 import edu.model.Rate;

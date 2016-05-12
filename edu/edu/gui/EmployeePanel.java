@@ -1,4 +1,4 @@
-package gui;
+package edu.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import connection.DBConnector;
+import edu.connection.DBConnector;
 
 import javax.swing.JLabel;
 import javax.sql.DataSource;

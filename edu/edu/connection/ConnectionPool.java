@@ -1,4 +1,4 @@
-package connection;
+package edu.connection;
 
 import java.io.Serializable;
 import java.sql.Connection;

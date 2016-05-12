@@ -1,4 +1,4 @@
-package metier;
+package edu.metier;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;

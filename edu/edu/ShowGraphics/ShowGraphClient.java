@@ -1,4 +1,4 @@
-package ShowGraphics;
+package edu.ShowGraphics;
 
 import java.io.BufferedReader;
 import java.io.IOException;

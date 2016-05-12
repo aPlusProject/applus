@@ -7,8 +7,8 @@ import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import edu.model.Client;
-import edu.model.Employee;
+import model.Client;
+import model.Employee;
 import socket.SocketClient;
 
 //import model.Client;

@@ -1,4 +1,4 @@
-package gui;
+package edu.gui;
 
 public class interfaceClient {
 

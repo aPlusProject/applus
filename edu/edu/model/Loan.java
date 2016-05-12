@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import connection.ConnectionPool;
+import edu.connection.ConnectionPool;
 import edu.model.Client;
 import edu.model.Employee;
 import edu.model.History;

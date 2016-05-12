@@ -20,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import edu.gui.AllClientsDisplayPanel;
+import edu.gui.EmployeePanel;
 import model.Client;
 import model.Employee;
 import socket.SocketClient;

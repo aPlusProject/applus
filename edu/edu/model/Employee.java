@@ -10,8 +10,8 @@ import java.util.HashMap;
 
 import javax.sql.DataSource;
 
-import connection.ConnectionPool;
-import connection.DBConnector;
+import edu.connection.ConnectionPool;
+import edu.connection.DBConnector;
 import edu.model.Agency;
 import edu.model.Client;
 import edu.model.Employee;

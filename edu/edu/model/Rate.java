@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import javax.sql.DataSource;
 
-import connection.DBConnector;
+import edu.connection.DBConnector;
 
 public class Rate {
 	

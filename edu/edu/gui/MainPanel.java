@@ -1,4 +1,4 @@
-package gui;
+package edu.gui;
 
 import java.awt.EventQueue;
 import java.awt.TextField;
@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
-import connection.DBConnector;
+import edu.connection.DBConnector;
 import edu.model.Agency;
 import edu.model.Employee;
 import edu.model.Loan;

@@ -1,6 +1,4 @@
-package gui;
-import service.EmployeePanelModel;
-
+package edu.gui;
 import java.awt.EventQueue;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +8,8 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
+import edu.service.EmployeePanelModel;
 
 public class AllClientsDisplayPanel {
 
