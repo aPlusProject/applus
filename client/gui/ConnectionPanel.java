@@ -28,42 +28,36 @@ public class ConnectionPanel extends JFrame {
 	private JPanel mainPanel = new JPanel();
 	private AllClientsDisplayPanel allClientsPanel;
 	private JButton connection = new JButton("Connexion");
-	   //private JButton exit = new JButton("Exit");
+	// private JButton exit = new JButton("Exit");
 	private JButton exit;
 
 	public ConnectionPanel() {
-	      mainPanel.setLayout(new FlowLayout());
-	      connection = new JButton("Connexion");
-	      exit = new JButton("exit");
+		mainPanel.setLayout(new FlowLayout());
+		connection = new JButton("Connexion");
+		exit = new JButton("exit");
 
-	      mainPanel.add(new JLabel("Interface de connexion"));
-	      mainPanel.add(connection);
-	      mainPanel.add(exit);
+		mainPanel.add(new JLabel("Interface de connexion"));
+		mainPanel.add(connection);
+		mainPanel.add(exit);
 
-	      exit.addActionListener(new ActionListener() {
-	         @Override
-	         public void actionPerformed(ActionEvent e) {
-	        	 System.out.println("ConnectionPanel");
-	        	 try {
-					allClientsPanel = new AllClientsDisplayPanel();
-				} catch (ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-	            Window win = SwingUtilities.getWindowAncestor(allClientsPanel.getMainComponent());
-	            win.dispose();
-	         }
-	      });
-	      
-	      
-	   }
+		exit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("ConnectionPanel");
+				allClientsPanel = new AllClientsDisplayPanel();
+				Window win = SwingUtilities.getWindowAncestor(allClientsPanel.getMainComponent());
+				win.dispose();
+			}
+		
+		});
 
-	   public void addConnectionActionListener(ActionListener listener) {
-	      connection.addActionListener(listener);
-	   }
+	}
 
-	   public JComponent getMainComponent() {
-	      return mainPanel;
-	   }
+	public void addConnectionActionListener(ActionListener listener) {
+		connection.addActionListener(listener);
+	}
+
+	public JComponent getMainComponent() {
+		return mainPanel;
+	}
 
 }

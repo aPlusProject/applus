@@ -7,8 +7,5 @@
 /tests/
 /IHM/
 ../arrayclient.tmp
-/simulationFixedRate/
-/business/
-/connection/
-/edu/
 /gui/
+/edu/

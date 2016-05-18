@@ -5,7 +5,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -18,6 +21,7 @@ public class AllClientsDisplayPanel {
 
     private static ArrayList<String> entete;
     private static ArrayList<ArrayList<String>> tableClient;
+    private JPanel mainPanel = new JPanel();
 
     //launch the application
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
@@ -48,6 +52,10 @@ public class AllClientsDisplayPanel {
 		});
         
     }
+    
+    public JComponent getMainComponent() {
+		return mainPanel;
+	}
 
 
 }
