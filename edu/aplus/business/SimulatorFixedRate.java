@@ -20,7 +20,6 @@ public class SimulatorFixedRate {
 		conn = new ConnectionPool();
 		conn.makeStack();
 		co = conn.getConnection();
-		
 		PreparedStatement ps;
 		ResultSet rs;
 		String sql = null;		
