@@ -1,4 +1,4 @@
-package model;
+package edu.aplus.model;
 
 import java.util.Calendar;
 import java.util.Date;
