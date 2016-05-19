@@ -1,5 +1,5 @@
-package gui;
-import model.EmployeePanelModel;
+package client.gui;
+import client.model.EmployeePanelModel;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;

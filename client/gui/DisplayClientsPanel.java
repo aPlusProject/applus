@@ -1,4 +1,4 @@
-package gui;
+package client.gui;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;

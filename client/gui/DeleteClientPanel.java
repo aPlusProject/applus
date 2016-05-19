@@ -1,4 +1,4 @@
-package gui;
+package client.gui;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -11,7 +11,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import model.EmployeePanelModel;
+import client.model.EmployeePanelModel;
 
 public class DeleteClientPanel {
 	
