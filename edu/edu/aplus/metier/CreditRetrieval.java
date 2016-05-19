@@ -1,4 +1,6 @@
+package edu.aplus.metier;
 
+import edu.aplus.metier.*;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
