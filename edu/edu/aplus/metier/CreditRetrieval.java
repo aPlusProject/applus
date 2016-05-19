@@ -1,4 +1,3 @@
-package edu.aplus.metier;
 
 
 import java.awt.BorderLayout;
@@ -69,7 +68,7 @@ public class CreditRetrieval extends JFrame{
 		contentPanel.add(scrollPane, BorderLayout.CENTER);
 		contentPanel.add(table) ;
 		
-		final JTextField newRate = new JTextField();
+		JTextField newRate = new JTextField();
 		newRate.setBounds(10,200,113,29);
 		contentPanel.add(newRate);
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

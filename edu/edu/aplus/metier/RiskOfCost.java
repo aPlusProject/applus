@@ -1,6 +1,3 @@
-
-package edu.aplus.metier;
-
 import java.awt.ItemSelectable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
