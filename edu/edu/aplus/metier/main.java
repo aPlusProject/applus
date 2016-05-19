@@ -1,3 +1,4 @@
+package edu.aplus.metier;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -22,9 +23,7 @@ import javax.swing.event.ListSelectionListener;
 	
 public class main {
 	
-	private DataSource ds;
-	private JPanel contentPanel;
-	private Connection co;
+	
 	/*
 	 * Launch the application.
 	 */
