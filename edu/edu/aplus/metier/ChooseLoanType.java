@@ -1,4 +1,3 @@
-package edu.aplus.metier;
 
 
 import java.awt.EventQueue;
@@ -29,46 +28,31 @@ public class ChooseLoanType extends JFrame {
 	private DataSource ds;
 	private JPanel contentPanel;
 	private Connection co;
+	final String[] loanType = {"Prêt immobilier", "Prêt de consommation", "Prêt professionnel", "Rachat de crédits"};
 
+	
 
 	/*
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ChooseLoanType frame = new ChooseLoanType();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-
-	/**
 	 * Create the frame.
 	 */
 	public ChooseLoanType() {
 
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 550, 400);
 		setTitle("Recherche des taux d'intérêts");
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPanel);
 		contentPanel.setLayout(null);
 
-		JLabel labelLoanType = new JLabel("Type du prêt: ");
-		labelLoanType.setBounds(10, 41, 113, 14);
+		JLabel labelLoanType = new JLabel("Type de prêt : ");
+		labelLoanType.setBounds(10, 45, 113, 14);
 		contentPanel.add(labelLoanType);
 
-		final String[] loanType = {"Prêt immobilier", "Prêt personnel", "Prêt professionnel", "Rachat de crédits"};
+		
 		final JComboBox listLoanType = new JComboBox(loanType);
-		listLoanType.setBounds(160, 41, 130, 14);
+		listLoanType.setBounds(120, 35, 160, 30);
 
 		/*JButton findRate = new JButton ("Voir");
 		findRate.setBounds(70,111,113,29);
@@ -84,7 +68,7 @@ public class ChooseLoanType extends JFrame {
 					HomeLoan hl = new HomeLoan();
 					hl.setVisible(true);			        	
 				}
-				if (selectedString(is) == loanType[1]){ // Pret personnel
+				if (selectedString(is) == loanType[1]){ // Pret de consommation
 					PersonalLoan pl = new PersonalLoan();
 					pl.setVisible(true);			        	
 				}
@@ -107,6 +91,7 @@ public class ChooseLoanType extends JFrame {
 
 
 	static private String selectedString(ItemSelectable is) {
+		
 		Object selected[] = is.getSelectedObjects();
 		return ((selected.length == 0) ? "null" : (String)selected[0]);
 	}  
