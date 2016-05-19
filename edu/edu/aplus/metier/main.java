@@ -1,3 +1,4 @@
+package edu.aplus.metier;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -25,9 +26,7 @@ public class main {
 	private DataSource ds;
 	private JPanel contentPanel;
 	private Connection co;
-	/*
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		
 		
