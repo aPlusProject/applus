@@ -6,3 +6,4 @@
 /tests/
 /IHM/
 ../arrayclient.tmp
+../lib/db.properties
