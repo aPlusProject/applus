@@ -14,8 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import edu.gui.AllClientsDisplayPanel;
-import edu.model.Employee;
+import edu.aplus.gui.AllClientsDisplayPanel;
+import edu.aplus.model.Employee;
 
 public class EmployeePanel {
 	

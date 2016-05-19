@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import edu.gui.AllClientsDisplayPanel;
+import edu.aplus.gui.AllClientsDisplayPanel;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;

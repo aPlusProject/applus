@@ -111,11 +111,11 @@ public class EmployeePanelModel {
         }*/
 	}
 	
-	public void setArrayOfClients(edu.model.Employee employee) throws ClassNotFoundException, SQLException {
+	public void setArrayOfClients(edu.aplus.model.Employee employee) throws ClassNotFoundException, SQLException {
 		
 		System.out.println(employee.getAllClients(true,1).get(1).getLastName());
 		
-		ArrayList<edu.model.Client> arrayClient = employee.getAllClients(true,1);
+		ArrayList<edu.aplus.model.Client> arrayClient = employee.getAllClients(true,1);
 		
 		this.clientArray = new ArrayList<ArrayList<String>>();
 		for(int i=0; i< arrayClient.size(); i++) {

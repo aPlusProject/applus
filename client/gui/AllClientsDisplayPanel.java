@@ -19,8 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import edu.model.Client;
-import edu.model.Employee;
+import edu.aplus.model.Client;
+import edu.aplus.model.Employee;
 
 public class AllClientsDisplayPanel {
 

@@ -1,4 +1,4 @@
-package model;
+package edu.aplus.model;
 
 import edu.aplus.model.HQ;
 
