@@ -111,7 +111,7 @@ public class SimulatoinPanel  extends JFrame{
 	    //Add action listener to button
 	    bouton.addActionListener(new ActionListener() {
 	    	
-	    	public void actionPerformed(ActionEvent e){
+	    public void actionPerformed(ActionEvent e){
 	    		//Execute when button is pressed
 	    		SimulatorFixedRate simulator = new SimulatorFixedRate();
 	    		int i = Integer.parseInt(amount.getText());

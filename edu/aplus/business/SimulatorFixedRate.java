@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import edu.aplus.db.ConnectionPool;
 import edu.aplus.model.Client;
 import edu.aplus.model.Employee;
