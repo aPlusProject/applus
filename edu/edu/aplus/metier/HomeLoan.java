@@ -66,7 +66,7 @@ public class HomeLoan extends JFrame{
 		contentPanel.add(scrollPane, BorderLayout.CENTER);
 		contentPanel.add(table) ;
 		
-		JTextField newRate = new JTextField();
+		final JTextField newRate = new JTextField();
 		newRate.setBounds(10,200,113,29);
 		contentPanel.add(newRate);
 		

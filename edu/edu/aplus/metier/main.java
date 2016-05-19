@@ -26,9 +26,7 @@ public class main {
 	private DataSource ds;
 	private JPanel contentPanel;
 	private Connection co;
-	/*
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		
 		
