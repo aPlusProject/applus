@@ -236,5 +236,32 @@ public class EmployeeTest extends TestCase{
     }
     
     
+    @Test
+    public void testGetAverageOfAllLoans() throws ClassNotFoundException, SQLException {
+    	Employee instance = new Employee();
+    	instance.setResponsable(1);
+    	
+    	DataSource ds = DBConnector.createDataSource();
+        Connection co = ds.getConnection();
+        
+        int average = 0;
+        int idAgence = 1;
+        String sql = "SELECT AVG(l.ASKED_AMOUNT) FROM LOAN l, EMPLOYEE e WHERE e.ID_EMPLOYEE = l.ID_CONSEILLER AND e.ID_AGENCY = ?";
+        
+        PreparedStatement ps = co.prepareStatement(sql);
+        ps.setInt(1, idAgence);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()) { 
+        	average = rs.getInt(1);
+        }
+        
+        int averageFromMethod;
+        averageFromMethod = instance.getAverageOfLoans(1, 0, 0);
+        
+        assertTrue(average == averageFromMethod);
+    	
+    }
+    
+    
 
 }

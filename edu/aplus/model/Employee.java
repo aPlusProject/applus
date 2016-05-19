@@ -389,26 +389,47 @@ public class Employee extends Someone{
 		int average = 0;
 		
 		if (this.isResponsable) {
+			
+			
 			pool = new ConnectionPool();
 			pool.makeStack();
 			co = this.pool.getConnection();
 			
 			PreparedStatement ps;
-			ResultSet rs;
+			ResultSet rs = null;
 			
-			String sql = "SELECT AVG(l.ASKED_AMOUNT) FROM LOAN l, EMPLOYEE e"+
+			String sql = "";
+			
+			if (!(idLoanType == 0) && (idDecision == 0)) {
+				
+				sql = "SELECT AVG(l.ASKED_AMOUNT) FROM LOAN l, EMPLOYEE e"+
 						"WHERE e.ID_EMPLOYEE = l.ID_CONSEILLER"+
 						"AND e.ID_AGENCY = ?"+
 						"AND l.ID_LOAN_TYPE = ?"+
 						"AND l.DECISION = ?";
 			
 			
-			ps = co.prepareStatement(sql);
-			ps.setInt(1, idAgency);
-			ps.setInt(2, idLoanType);
-			ps.setInt(3, idDecision);
+				ps = co.prepareStatement(sql);
+				ps.setInt(1, idAgency);
+				ps.setInt(2, idLoanType);
+				ps.setInt(3, idDecision);
+				
+				rs = ps.executeQuery();
+			}
+			else if ((idLoanType == 0) && (idDecision == 0)) {
+				sql = "SELECT AVG(l.ASKED_AMOUNT) FROM LOAN l, EMPLOYEE e WHERE e.ID_EMPLOYEE = l.ID_CONSEILLER "
+						+ "AND e.ID_AGENCY = ?";
+				
+				ps = co.prepareStatement(sql);
+				ps.setInt(1, idAgency);
+				
+				rs = ps.executeQuery();
+				
+			}
 			
-			rs = ps.executeQuery();
+			
+			
+			
 			
 			
 			
