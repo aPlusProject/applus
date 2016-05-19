@@ -444,6 +444,10 @@ public class Employee extends Someone{
 		}
 		return average;
 	}
+
+	public ConnectionPool getPool() {
+		return this.pool;
+	}
 	
 	
 }
