@@ -41,6 +41,9 @@ public class SimulatorFixedRate {
 			this.cl.setCity(rs.getString(7));
 			this.cl.setAddress(rs.getString(8));
 			this.cl.setZipCode(rs.getString(9));
+			this.cl.setSalary(rs.getString(10));
+			this.cl.setCharge(rs.getString(11));
+			this.cl.setDebtRate(rs.getString(12));
 				
 		}
 		

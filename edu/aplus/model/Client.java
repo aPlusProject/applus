@@ -22,6 +22,9 @@ public class Client extends Someone{
 	private String city;
 	private String address;
 	private String zipCode;
+	private String salary;
+	private String charge;
+	private String debtRate;
 	
 	private ArrayList<Account> accounts;
 	private ArrayList<Loan> loans;
@@ -156,6 +159,30 @@ public class Client extends Someone{
 	@Override
 	public String getTelNum() {
 		return this.telNum;
+	}
+
+	public String getSalary(){
+		return this.salary;
+	}
+	
+	public String getCharge(){
+		return this.charge;
+	}
+	
+	public String getDebtRate(){
+		return this.debtRate;
+	}
+	
+	public void setSalary(String salary) {
+		this.salary = salary;	
+	}
+	
+	public void setCharge(String charge) {
+		this.charge = charge;	
+	}
+	
+	public void setDebtRate(String debtRate) {
+		this.debtRate = debtRate;	
 	}
 
 	/*@Override

@@ -140,7 +140,9 @@ public class SimulatoinPanel  extends JFrame{
 
 	// a remplir
 public void remplir(Client client) {
-	amount.setText(client.getLastName());
+	salary.setText(client.getSalary());
+	charge.setText(client.getCharge());
+	debtRate.setText(client.getDebtRate());
 }
 	
 }
