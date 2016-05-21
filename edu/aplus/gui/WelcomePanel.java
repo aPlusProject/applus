@@ -13,15 +13,13 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class GetClientInfoPanel  extends JFrame{
+public class WelcomePanel  extends JFrame{
 
 	private JPanel panel;
-	private JTextField text;
+	private JButton buttonProspect;
 	private JButton buttonClient;
-	private JLabel label;
-	Client  client = null;
 
-	public GetClientInfoPanel() {
+	public WelcomePanel() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -31,45 +29,33 @@ public class GetClientInfoPanel  extends JFrame{
 		setContentPane(panel);
 		panel.setLayout(null);
 		
-		label = new JLabel("Enter client ID : ");
-		label.setBounds(168, 37, 101, 14);
-		panel.add(label);
-		
-		text = new JTextField();
-		text.setBounds(168, 63, 92, 20);
-		panel.add(text);
-		text.setColumns(10);
-		
-		buttonClient = new JButton("Enter");
-		buttonClient.setBounds(168, 110, 89, 23);
+		buttonClient = new JButton("Client");
+		buttonClient.setBounds(168, 80, 89, 23);
 		panel.add(buttonClient);
 		
-		final JLabel errorMessage = new JLabel(" ");
-		errorMessage.setBounds(168, 150, 200, 23);
-		panel.add(errorMessage);
+		buttonProspect = new JButton("Prospect");
+		buttonProspect.setBounds(168, 180, 89, 23);
+		panel.add(buttonProspect);
 		
 	    //Add action listener to button
 		buttonClient.addActionListener(new ActionListener() {
 	    	
 	    	public void actionPerformed(ActionEvent e){
 	    		//Execute when button is pressed
-	    		SimulatorFixedRate simulator = new SimulatorFixedRate();
-	    		int i = Integer.parseInt(text.getText());
-	    		try {
-					client = simulator.getClientByID(i);
 					
-					if(client == null)  {
-						errorMessage.setText("Client with this ID does not exist");
-					}
-					else {
-						SimulatoinPanel frame1 = new SimulatoinPanel();
-						frame1.remplir(client);
+	    				GetClientInfoPanel frame1 = new GetClientInfoPanel();
 						frame1.setVisible(true);	
-					}
-					
-				} catch (ClassNotFoundException | SQLException e1) {
-					e1.printStackTrace();
-				}
+	        }
+	    	
+	    }); 
+		
+	buttonProspect.addActionListener(new ActionListener() {
+	    	
+	    	public void actionPerformed(ActionEvent e){
+	    		//Execute when button is pressed
+	    		
+						SimulatoinPanel frame2 = new SimulatoinPanel();
+						frame2.setVisible(true);	
 	        }
 	    	
 	    }); 
@@ -79,7 +65,7 @@ public class GetClientInfoPanel  extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GetClientInfoPanel frame = new GetClientInfoPanel();
+					WelcomePanel frame = new WelcomePanel();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
