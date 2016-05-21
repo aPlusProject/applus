@@ -34,7 +34,7 @@ public class WelcomePanel  extends JFrame{
 		panel.add(buttonClient);
 		
 		buttonProspect = new JButton("Prospect");
-		buttonProspect.setBounds(168, 180, 89, 23);
+		buttonProspect.setBounds(168, 120, 89, 23);
 		panel.add(buttonProspect);
 		
 	    //Add action listener to button
