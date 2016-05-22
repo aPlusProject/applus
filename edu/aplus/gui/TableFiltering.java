@@ -35,7 +35,9 @@ public class TableFiltering extends JFrame{
 		String[] cols = { "N° Pret", "Statut", "Taux interet", "Montant emprunté", "Type de prêt" };
 		String[][] data = { { "01", "accordé", "2.5", "3000", "personnel" },
 				{ "02", "refusé", "1.25", "30000", "immobilier" },
-				{"03", "en cours", "2.00", "5000", "personnel"} };
+				{"03", "en cours", "2.00", "5000", "personnel"}, 
+				{ "04", "accordé", "1.25", "30000", "personnel" },
+			};
 		filteredTable = new JTable(data, cols);
 		filteredTable.setAutoCreateRowSorter(true);
 		filterTextField = new JTextField();
@@ -84,15 +86,42 @@ public class TableFiltering extends JFrame{
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				if(boxImmo.getState()) {
+				if(boxImmo.getState() && !boxPerso.getState()) {
 					applyTableFilter("immobilier");
 
 				}
-				else {
+				else if(boxImmo.getState() && boxPerso.getState()) {
+					applyTableFilter("immobilier");
+					applyTableFilter("personnel");
+				}
+				else if(!boxImmo.getState() && !boxPerso.getState()) {
 					applyTableFilter("");
-
+				}
+				else if(!boxImmo.getState() && boxPerso.getState()) {
+					applyTableFilter("personnel");
 				}
 				
+			}
+			
+		});
+		
+		boxPerso.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if(boxPerso.getState() && !boxImmo.getState()) {
+					applyTableFilter("personnel");
+				}
+				else if(boxPerso.getState() && boxImmo.getState() ){
+					applyTableFilter("personnel");
+					applyTableFilter("immobilier");
+				}
+				else if(!boxPerso.getState() && !boxImmo.getState()) {
+					applyTableFilter("");
+				}
+				else if(!boxPerso.getState() && boxImmo.getState()) {
+					applyTableFilter("immobilier");
+				}
 			}
 			
 		});
@@ -100,7 +129,7 @@ public class TableFiltering extends JFrame{
 		
 		
 		f = new JFrame();
-		f.setLayout(new GridLayout(0, 1));
+		f.setLayout(new GridLayout(1, 0));
 		//f.add(new JScrollPane(filteredTable));
 		//f.add(filterTextField, BorderLayout.SOUTH);
 		//f.add(boxImmo, BorderLayout.SOUTH);
@@ -110,8 +139,8 @@ public class TableFiltering extends JFrame{
 		f.setSize(1000, 700);
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		f.setLocationRelativeTo(null);
-		f.getContentPane().add(tablePanel, BorderLayout.NORTH);
-		f.getContentPane().add(indicatorsPanel, BorderLayout.CENTER);
+		f.getContentPane().add(tablePanel, BorderLayout.CENTER);
+		f.getContentPane().add(indicatorsPanel, BorderLayout.EAST);
 		
 		
 		f.setVisible(true);
