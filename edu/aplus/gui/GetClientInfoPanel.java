@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import edu.aplus.business.SimulatorFixedRate;
 import edu.aplus.model.Client;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -59,7 +60,12 @@ public class GetClientInfoPanel  extends JFrame{
 					client = simulator.getClientByID(i);
 					
 					if(client == null)  {
-						errorMessage.setText("Client with this ID does not exist");
+						JFrame frame = new JFrame("Client does not exist");
+						JOptionPane.showMessageDialog(frame,
+						"Client with this number does not exist",
+						"Warning message",
+						JOptionPane.WARNING_MESSAGE);
+						System.exit(0);
 					}
 					else {
 						SimulatoinPanel frame1 = new SimulatoinPanel();

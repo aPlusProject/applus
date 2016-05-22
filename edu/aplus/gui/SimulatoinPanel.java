@@ -12,6 +12,7 @@ import edu.aplus.model.Client;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 
 public class SimulatoinPanel  extends JFrame{
 
@@ -24,21 +25,24 @@ public class SimulatoinPanel  extends JFrame{
 	private JLabel chargeL;
 	private JTextField debtRate;
 	private JLabel debtRateL;
-	private JTextField amount;
+	private JComboBox creditType;
+	private JLabel creditTypeL;
+	private JTextField amount = null;
 	private JLabel amountL;
 	private JTextField duration;
 	private JLabel durationL;
 	private JTextField rate;
 	private JLabel rateL;
 	private JButton bouton;
+	private String[] possibleValues = {"Crédit Immobilier","Crédit Consommation","Crédit Revolving"};
 
 	public SimulatoinPanel() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 400);
+		setBounds(200, 220, 500, 400);
 		
 		panel = new JPanel();
-		panel.setBorder(new EmptyBorder(3, 3, 3, 3));
+		panel.setBorder(new EmptyBorder(1, 1, 1, 1));
 		setContentPane(panel);
 		panel.setLayout(null);
 		
@@ -55,7 +59,7 @@ public class SimulatoinPanel  extends JFrame{
 		panel.add(salaryL);
 		
 		salary = new JTextField();
-		salary.setBounds(150, 80, 50, 20);
+		salary.setBounds(150, 80, 60, 20);
 		panel.add(salary);
 		salary.setColumns(20);
 		
@@ -64,7 +68,7 @@ public class SimulatoinPanel  extends JFrame{
 		panel.add(chargeL);
 		
 		charge = new JTextField();
-		charge.setBounds(150, 120, 50, 20);
+		charge.setBounds(150, 120, 60, 20);
 		panel.add(charge);
 		charge.setColumns(2);
 		
@@ -73,53 +77,61 @@ public class SimulatoinPanel  extends JFrame{
 		panel.add(debtRateL);
 		
 		debtRate = new JTextField();
-		debtRate.setBounds(150, 160, 50, 20);
+		debtRate.setBounds(150, 160, 60, 20);
 		panel.add(debtRate);
 		debtRate.setColumns(2);
 		
+
+		creditTypeL = new JLabel("Type du prêt : ");
+		creditTypeL.setBounds(230, 80, 200, 15);
+		panel.add(creditTypeL);
+		 	
+		creditType = new JComboBox(possibleValues);
+		creditType.setBounds(370, 80, 100, 20);
+		panel.add(creditType);
+		
 		amountL = new JLabel("Montant du prêt : ");
-		amountL.setBounds(230, 80, 200, 15);
+		amountL.setBounds(230, 120, 200, 15);
 		panel.add(amountL);
 		
 		amount = new JTextField();
-		amount.setBounds(370, 80, 50, 20);
+		amount.setBounds(370, 120, 100, 20);
 		panel.add(amount);
 		amount.setColumns(2);
 		
 		durationL = new JLabel("Durée du prêt : ");
-		durationL.setBounds(230, 120, 200, 15);
+		durationL.setBounds(230, 160, 200, 15);
 		panel.add(durationL);
 		
 		duration = new JTextField();
-		duration.setBounds(370, 120, 50, 20);
+		duration.setBounds(370, 160, 100, 20);
 		panel.add(duration);
 		duration.setColumns(2);
 		
 		rateL = new JLabel("Taux d'intérêt du prêt : ");
-		rateL.setBounds(230, 160, 250, 15);
+		rateL.setBounds(230, 200, 250, 15);
 		panel.add(rateL);
 		
 		rate = new JTextField();
-		rate.setBounds(370, 160, 50, 20);
+		rate.setBounds(370, 200, 100, 20);
 		panel.add(rate);
 		rate.setColumns(2);
 		
 		bouton = new JButton("Enter");
-		bouton.setBounds(170, 250, 100, 20);
+		bouton.setBounds(190, 280, 100, 20);
 		panel.add(bouton);
+		
+		final String amountEnt = amount.getText();
+		final String durationEnt = duration.getText();
+		final String rateEnt = rate.getText();
+		final String creditTypeEnt = creditType.getName();
 		
 	    //Add action listener to button
 	    bouton.addActionListener(new ActionListener() {
 	    	
 	    public void actionPerformed(ActionEvent e){
-	    		//Execute when button is pressed
-	    		SimulatorFixedRate simulator = new SimulatorFixedRate();
-	    		int i = Integer.parseInt(amount.getText());
-	    		try {
-					simulator.getClientByID(i);
-				} catch (ClassNotFoundException | SQLException e1) {
-					e1.printStackTrace();
-				}
+	    	
+	    		
 	        }
 	    	
 	    }); 
