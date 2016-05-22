@@ -20,7 +20,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
  
-public class TableFiltering extends JFrame{
+public class Indicators extends JFrame{
  
 	private JTextField filterTextField;
 	private JTable filteredTable;
@@ -31,7 +31,7 @@ public class TableFiltering extends JFrame{
 	private JPanel tablePanel;
 	private JPanel indicatorsPanel;
  
-	public TableFiltering() {
+	public Indicators() {
 		String[] cols = { "N° Pret", "Statut", "Taux interet", "Montant emprunté", "Type de prêt" };
 		String[][] data = { { "01", "accordé", "2.5", "3000", "personnel" },
 				{ "02", "refusé", "1.25", "30000", "immobilier" },
@@ -158,6 +158,6 @@ public class TableFiltering extends JFrame{
 	}
  
 	public static void main(String[] args) {
-		new TableFiltering();
+		new Indicators();
 	}
 }
