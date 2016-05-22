@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import edu.aplus.business.SimulatorFixedRate;
 import edu.aplus.model.Client;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -31,8 +32,8 @@ public class GetClientInfoPanel  extends JFrame{
 		setContentPane(panel);
 		panel.setLayout(null);
 		
-		label = new JLabel("Enter client ID : ");
-		label.setBounds(168, 37, 101, 14);
+		label = new JLabel("Enter client number : ");
+		label.setBounds(168, 37, 150, 14);
 		panel.add(label);
 		
 		text = new JTextField();
@@ -59,11 +60,18 @@ public class GetClientInfoPanel  extends JFrame{
 					client = simulator.getClientByID(i);
 					
 					if(client == null)  {
-						errorMessage.setText("Client with this ID does not exist");
+						//errorMessage.setText("Client with this number does not exist");
+						//Object selectCreditType = JOptionPane.WARNING_MESSAGE;
+					    JFrame frame = new JFrame("Client does not exist");
+					    JOptionPane.showMessageDialog(frame,
+					        "Client with this number does not exist",
+					        "Warning message",
+					        JOptionPane.WARNING_MESSAGE);
+					    System.exit(0);
 					}
 					else {
 						SimulatoinPanel frame1 = new SimulatoinPanel();
-						frame1.remplir(client);
+						frame1.fillClientData(client);
 						frame1.setVisible(true);	
 					}
 					
