@@ -23,24 +23,25 @@ import javax.swing.text.Document;
 public class Indicators extends JFrame{
  
 	private JTextField filterTextField;
-	private JTable filteredTable;
+	private JTable table;
 	private JFrame f;
 	private Checkbox boxImmo;
 	private Checkbox boxPerso;
+	private JTextField nbRowsField;
 	
 	private JPanel tablePanel;
 	private JPanel indicatorsPanel;
  
 	public Indicators() {
-		String[] cols = { "N° Pret", "Statut", "Taux interet", "Montant emprunté", "Type de prêt" };
-		String[][] data = { { "01", "accordé", "2.5", "3000", "personnel" },
-				{ "02", "refusé", "1.25", "30000", "immobilier" },
-				{"03", "en cours", "2.00", "5000", "personnel"}, 
-				{ "04", "accordé", "1.25", "30000", "personnel" },
+		String[] cols = { "N° Pret", "Statut", "Taux interet", "Montant emprunté", "Type de prêt" , "Durée"};
+		String[][] data = { { "01", "accordé", "2.5", "3000", "personnel", "2" },
+				{ "02", "refusé", "1.25", "30000", "immobilier", "8" },
+				{"03", "en cours", "2.00", "5000", "personnel", "3"}, 
+				{ "04", "accordé", "1.25", "30000", "personnel", "10" },
 			};
-		filteredTable = new JTable(data, cols);
-		filteredTable.setAutoCreateRowSorter(true);
-		filterTextField = new JTextField();
+		table = new JTable(data, cols);
+		table.setAutoCreateRowSorter(true);
+		//filterTextField = new JTextField();
 		/*filterTextField.getDocument().addDocumentListener(
 				new DocumentListener() {
  
@@ -67,20 +68,25 @@ public class Indicators extends JFrame{
 					}
 		});*/
 		
-		
-		
-		
 		tablePanel = new JPanel();
 		
-		JScrollPane jscroll = new JScrollPane(filteredTable);
+		JScrollPane jscroll = new JScrollPane(table);
 		tablePanel.add(jscroll);
 		
-		
+		//indicatorsPanel is the panel for common indicator that don't apply any calcul 
 		indicatorsPanel = new JPanel();
 		boxImmo = new Checkbox("immobilier");
-		boxPerso = new Checkbox("personnel");		
+		boxPerso = new Checkbox("personnel");
+		nbRowsField = new JTextField();
+		
+		//the textfield display the total of rows in the table (recall after each changement of the table)
+		nbRowsField.setEditable(false);
+		nbRowsField.setText(table.getRowCount()+" sorties");
+		
+		
 		indicatorsPanel.add(boxImmo);
 		indicatorsPanel.add(boxPerso);
+		indicatorsPanel.add(nbRowsField);
 		
 		boxImmo.addItemListener(new ItemListener() {
 
@@ -88,17 +94,20 @@ public class Indicators extends JFrame{
 			public void itemStateChanged(ItemEvent e) {
 				if(boxImmo.getState() && !boxPerso.getState()) {
 					applyTableFilter("immobilier");
-
+					nbRowsField.setText(table.getRowCount()+" sorties");
 				}
 				else if(boxImmo.getState() && boxPerso.getState()) {
 					applyTableFilter("immobilier");
 					applyTableFilter("personnel");
+					nbRowsField.setText(table.getRowCount()+" sorties");
 				}
 				else if(!boxImmo.getState() && !boxPerso.getState()) {
 					applyTableFilter("");
+					nbRowsField.setText(table.getRowCount()+" sorties");
 				}
 				else if(!boxImmo.getState() && boxPerso.getState()) {
 					applyTableFilter("personnel");
+					nbRowsField.setText(table.getRowCount()+" sorties");
 				}
 				
 			}
@@ -111,16 +120,20 @@ public class Indicators extends JFrame{
 			public void itemStateChanged(ItemEvent e) {
 				if(boxPerso.getState() && !boxImmo.getState()) {
 					applyTableFilter("personnel");
+					nbRowsField.setText(table.getRowCount()+" sorties");
 				}
 				else if(boxPerso.getState() && boxImmo.getState() ){
 					applyTableFilter("personnel");
 					applyTableFilter("immobilier");
+					nbRowsField.setText(table.getRowCount()+" sorties");
 				}
 				else if(!boxPerso.getState() && !boxImmo.getState()) {
 					applyTableFilter("");
+					nbRowsField.setText(table.getRowCount()+" sorties");
 				}
 				else if(!boxPerso.getState() && boxImmo.getState()) {
 					applyTableFilter("immobilier");
+					nbRowsField.setText(table.getRowCount()+" sorties");
 				}
 			}
 			
@@ -129,7 +142,7 @@ public class Indicators extends JFrame{
 		
 		
 		f = new JFrame();
-		f.setLayout(new GridLayout(1, 0));
+		f.setLayout(new GridLayout(1, 1));
 		//f.add(new JScrollPane(filteredTable));
 		//f.add(filterTextField, BorderLayout.SOUTH);
 		//f.add(boxImmo, BorderLayout.SOUTH);
@@ -153,7 +166,7 @@ public class Indicators extends JFrame{
 		// On ajoute les wildcards a gauche et a droite
 		String completeFilterText = ".*" + escapedFilterText + ".*";
 		// On applique le filtre a la JTable
-		((DefaultRowSorter) filteredTable.getRowSorter())
+		((DefaultRowSorter) table.getRowSorter())
 				.setRowFilter(RowFilter.regexFilter(completeFilterText));
 	}
  
