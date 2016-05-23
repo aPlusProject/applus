@@ -33,6 +33,8 @@ public class SimulatoinPanel  extends JFrame{
 	private JLabel durationL;
 	private JTextField rate;
 	private JLabel rateL;
+	private JTextField rateInsurance;
+	private JLabel rateInsuranceL;
 	private JButton bouton;
 	private String[] possibleValues = {"Crédit Immobilier","Crédit Consommation","Crédit Revolving"};
 
@@ -108,7 +110,7 @@ public class SimulatoinPanel  extends JFrame{
 		panel.add(duration);
 		duration.setColumns(2);
 		
-		rateL = new JLabel("Taux d'intérêt du prêt : ");
+		rateL = new JLabel("Taux d'intérêt : ");
 		rateL.setBounds(230, 200, 250, 15);
 		panel.add(rateL);
 		
@@ -117,21 +119,38 @@ public class SimulatoinPanel  extends JFrame{
 		panel.add(rate);
 		rate.setColumns(2);
 		
+		rateInsuranceL = new JLabel("Taux d'assurance : ");
+		rateInsuranceL.setBounds(230, 240, 250, 15);
+		panel.add(rateInsuranceL);
+		
+		rateInsurance = new JTextField();
+		rateInsurance.setBounds(370, 240, 100, 20);
+		panel.add(rateInsurance);
+		rateInsurance.setColumns(2);
+		
 		bouton = new JButton("Enter");
-		bouton.setBounds(190, 280, 100, 20);
+		bouton.setBounds(190, 300, 100, 20);
 		panel.add(bouton);
 		
-		final String amountEnt = amount.getText();
-		final String durationEnt = duration.getText();
-		final String rateEnt = rate.getText();
+		final String amountEntS = amount.getText();
+		final String durationEntS = duration.getText();
+		final String rateEntS = rate.getText();
+		final String rateInsuranceEntS = rateInsurance.getText();
 		final String creditTypeEnt = creditType.getName();
+		final int amountEnt = Integer.parseInt(amountEntS);
+		final int durationEnt = Integer.parseInt(durationEntS);
+		final float rateEnt = Float.parseFloat(rateEntS);
+		final int rateInsuranceEnt = Integer.parseInt(rateInsuranceEntS);
 		
 	    //Add action listener to button
 	    bouton.addActionListener(new ActionListener() {
 	    	
 	    public void actionPerformed(ActionEvent e){
 	    	
-	    		
+	    	SimulatorFixedRate simulator = new SimulatorFixedRate();
+	    	simulator.simulate(creditTypeEnt, amountEnt, durationEnt, rateEnt);
+	    	ResultPanel frame1 = new ResultPanel();
+			frame1.setVisible(true);	
 	        }
 	    	
 	    }); 
