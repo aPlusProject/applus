@@ -2,6 +2,7 @@ package edu.aplus.gui;
  
 import java.awt.BorderLayout;
 import java.awt.Checkbox;
+import java.awt.CheckboxGroup;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -12,12 +13,14 @@ import java.awt.event.ItemListener;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.regex.Pattern;
- 
+
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultRowSorter;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -48,6 +51,10 @@ public class Indicators extends JFrame{
 	private JPanel indicatorsPanel;
 	private NumberFormat formatter;
 
+	private JRadioButton stAllowed;
+	private JRadioButton stDenied;
+	private JRadioButton stPending;
+	
  
 	public Indicators() {
 		String[] cols = { "N° Pret", "Statut", "Taux interet", "Montant emprunté", "Type de prêt" , "Durée", "age"};
@@ -138,6 +145,19 @@ public class Indicators extends JFrame{
 			
 		});
 		
+		ButtonGroup cbGrp = new ButtonGroup();
+		
+		/*stAllowed = new Checkbox("Accepté", cbGrp, false);
+		stDenied = new Checkbox("Refusé", cbGrp, false);
+		stPending = new Checkbox("En cours", cbGrp, false);*/
+		stAllowed = new JRadioButton("Accordé");
+		stDenied = new JRadioButton("Refusé");
+		stPending = new JRadioButton("En cours");
+		
+		cbGrp.add(stAllowed);
+		cbGrp.add(stDenied);
+		cbGrp.add(stPending);
+		
 		indicatorsPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
@@ -197,6 +217,16 @@ public class Indicators extends JFrame{
 		c.gridx = 3;
 		indicatorsPanel.add(moyInterestRateField, c);
 		
+		c.gridy = 8;
+		c.gridx = 0;
+		indicatorsPanel.add(stAllowed, c);
+		c.gridx = 1;
+		indicatorsPanel.add(stDenied, c);
+		c.gridx = 2;
+		indicatorsPanel.add(stPending, c);
+		
+		
+		
 		
 		
 		
@@ -251,10 +281,43 @@ public class Indicators extends JFrame{
 			
 		});
 		
+		stAllowed.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				applyTableFilter("");
+				applyTableFilter("accordé");
+				
+			}
+			
+		});
+		
+		stDenied.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				applyTableFilter("");
+				applyTableFilter("refusé");
+				
+			}
+			
+		});
+		
+		stPending.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				applyTableFilter("");
+				applyTableFilter("en cours");
+				
+			}
+			
+		});
+		
 		
 		
 		f = new JFrame();
-		f.setLayout(new GridLayout(1, 1));
+		f.setLayout(new GridLayout(0, 1));
 		//f.add(new JScrollPane(filteredTable));
 		//f.add(filterTextField, BorderLayout.SOUTH);
 		//f.add(boxImmo, BorderLayout.SOUTH);
