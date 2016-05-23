@@ -52,13 +52,32 @@ public class SimulatorFixedRate {
 		
 	}
 	
-	public void simulate(String creditType, int amount, int duration, int rate){
-		//calculate installment
-		float rateFloat = (rate/100);
-		float rateMonth = (rateFloat/12);
-		float durationL = (float)duration;
-		double f = 1 - (Math.pow(1+(rateMonth), -durationL));
-		double installment = (amount*rateMonth) / f;
+	public void simulate(String creditType, int amount, int duration, float rate){
+		if (creditType == "Crédit Immobilier"){
+			//calculate installment
+			float rateFloat = (rate/100);
+			float rateMonth = (rateFloat/12);
+			float durationL = (float)duration;
+			double f = 1 - (Math.pow(1+(rateMonth), -durationL));
+			double installment = (amount*rateMonth) / f;
+			System.out.println(installment);
+		}
+		else if (creditType == "Crédit Consommation"){
+			float rateFloat = (rate/100);
+			float rateMonth = (rateFloat/12);
+			float durationL = (float)duration;
+			double f = 1 - (Math.pow(1+(rateMonth), -durationL));
+			double installment = (amount*rateMonth) / f;
+			System.out.println(installment);
+		}
+		else{
+			float rateFloat = (rate/100);
+			float rateMonth = (rateFloat/12);
+			float durationL = (float)duration;
+			double f = 1 - (Math.pow(1+(rateMonth), -durationL));
+			double installment = (amount*rateMonth) / f;
+			System.out.println(installment);
+		}
 	}
 		
 }
