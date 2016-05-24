@@ -1,7 +1,12 @@
 package edu.aplus.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import client.model.Chart;
 
 public class ResultPanel extends JFrame{
 	
@@ -22,6 +27,7 @@ public class ResultPanel extends JFrame{
 	private JTextField installationWithIns;
 	private JLabel totalL;
 	private JTextField total;
+	private JButton chartButton;
 	
 	public ResultPanel(){
 		
@@ -33,7 +39,7 @@ public class ResultPanel extends JFrame{
 		setContentPane(panel);
 		panel.setLayout(null);
 		
-		resultL = new JLabel("Décision de la simulation : ");
+		resultL = new JLabel("Dï¿½cision de la simulation : ");
 		resultL.setBounds(50, 20, 200, 30);
 		panel.add(resultL);
 		
@@ -41,7 +47,7 @@ public class ResultPanel extends JFrame{
 		result.setBounds(250, 20, 200, 30);
 		panel.add(result);
 		
-		amountL = new JLabel("Montant emprunté : ");
+		amountL = new JLabel("Montant empruntï¿½ : ");
 		amountL.setBounds(50, 50, 200, 30);
 		panel.add(amountL);
 		
@@ -49,7 +55,7 @@ public class ResultPanel extends JFrame{
 		amount.setBounds(250, 50, 200, 30);
 		panel.add(amount);
 		
-		durationL = new JLabel("Durée (nb mois) : ");
+		durationL = new JLabel("Durï¿½e (nb mois) : ");
 		durationL.setBounds(50, 80, 200, 30);
 		panel.add(durationL);
 		
@@ -57,7 +63,7 @@ public class ResultPanel extends JFrame{
 		duration.setBounds(250, 80, 200, 30);
 		panel.add(duration);
 		
-		rateL = new JLabel("Taux d'intérêt fixe : ");
+		rateL = new JLabel("Taux d'intï¿½rï¿½t fixe : ");
 		rateL.setBounds(50, 110, 200, 30);
 		panel.add(rateL);
 		
@@ -65,7 +71,7 @@ public class ResultPanel extends JFrame{
 		rate.setBounds(250, 110, 200, 30);
 		panel.add(rate);
 		
-		installationWithoutInsL = new JLabel("Mensualité hors assurance : ");
+		installationWithoutInsL = new JLabel("Mensualitï¿½ hors assurance : ");
 		installationWithoutInsL.setBounds(70, 150, 200, 30);
 		panel.add(installationWithoutInsL);
 		
@@ -81,7 +87,7 @@ public class ResultPanel extends JFrame{
 		rateInsurance.setBounds(250, 190, 200, 30);
 		panel.add(rateInsurance);
 		
-		installationWithInsL = new JLabel("Mensualité avec assurance : ");
+		installationWithInsL = new JLabel("Mensualitï¿½ avec assurance : ");
 		installationWithInsL.setBounds(70, 230, 200, 30);
 		panel.add(installationWithInsL);
 		
@@ -89,13 +95,29 @@ public class ResultPanel extends JFrame{
 		installationWithIns.setBounds(270, 230, 200, 30);
 		panel.add(installationWithIns);
 		
-		totalL = new JLabel("Coût total du crédit : ");
+		totalL = new JLabel("Coï¿½t total du crï¿½dit : ");
 		totalL.setBounds(70, 270, 200, 30);
 		panel.add(totalL);
 		
 		total = new JTextField();
 		total.setBounds(270, 270, 200, 30);
-		panel.add(total);	
+		panel.add(total);
+		
+		chartButton = new JButton("Show chart");
+		chartButton.setBounds(330, 320, 100, 40);
+		panel.add(chartButton);
+		
+		chartButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Button cliked");
+				
+				Chart c1 = new Chart();
+				c1.afficher();
+			}
+		});
 		
 	}
 	
