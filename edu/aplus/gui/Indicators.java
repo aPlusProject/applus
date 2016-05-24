@@ -318,11 +318,6 @@ public class Indicators extends JFrame{
 		
 		f = new JFrame();
 		f.setLayout(new GridLayout(0, 1));
-		//f.add(new JScrollPane(filteredTable));
-		//f.add(filterTextField, BorderLayout.SOUTH);
-		//f.add(boxImmo, BorderLayout.SOUTH);
-		
-		//f.add(boxPerso, BorderLayout.PAGE_END);
 		
 		f.setSize(1000, 700);
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -335,12 +330,11 @@ public class Indicators extends JFrame{
 	}
  
 	private void applyTableFilter(String filterText) {
-		// On escape le texte afin que son contenu ne soit pas considéré comme
-		// une regexp
+		// escape the text so the content will not be considered as a regexp
 		String escapedFilterText = Pattern.quote(filterText);
-		// On ajoute les wildcards a gauche et a droite
+		// Add the wildcards to the right and to the left
 		String completeFilterText = ".*" + escapedFilterText + ".*";
-		// On applique le filtre a la JTable
+		// Apply the filter on the table
 		((DefaultRowSorter) table.getRowSorter())
 				.setRowFilter(RowFilter.regexFilter(completeFilterText));
 	}
