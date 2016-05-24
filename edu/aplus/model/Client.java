@@ -14,6 +14,7 @@ public class Client extends Someone{
 	
 	
 	private int id;
+	private int age;
 	private Employee employee;
 	private String lastName;
 	private String firstName;
@@ -46,6 +47,7 @@ public class Client extends Someone{
 		this.city = city;
 		this.address = adrdess;
 		this.zipCode = zipCode;
+		this.age = age;
 	}
 	
 	public void addAccount(Account a) {
@@ -126,9 +128,14 @@ public class Client extends Someone{
 	public void setTelNum(String telNum) {
 		this.telNum = telNum;
 	}
+	public void setAge(int age){
+		this.age = age;
+	}
 	
 	public void setIdClient(int idClient) {
 		this.id = idClient;
+		
+	
 	}
 
 
@@ -136,7 +143,9 @@ public class Client extends Someone{
 	public int getID() {
 		return this.id;
 	}
-
+	public int getAge(){
+		return this.age;
+	}
 
 	@Override
 	public String getLastName() {

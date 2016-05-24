@@ -1,4 +1,4 @@
-package client.model;
+package edu.aplus.model;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -8,28 +8,28 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import edu.aplus.db.ConnectionPool;
 import edu.aplus.model.Client;
 import edu.aplus.model.Employee;
 import edu.aplus.model.History;
-import edu.aplus.model.LoanType;
 
 public class Loan {
-	
+
 	private int id;
 	private Client client;
 	private Employee counsellor;
-	private LoanType loanType;
+	private static String loanType;
 	private History history;
 	private int askedAmount;
-	private Date askedDate;    //peut etre le mauvaise importe
-	private int askedDuration; //durée en année
-	private float askedRate; //taux d'intêret
+	private int askedDuration; //durÃ©e en annÃ©e
+	private float askedRate; //taux d'intÃªret
 	private float askedRateInsurance; //taux d'assurance
+	private Date askedDate;    //peut etre le mauvaise importe
 	private int decision;  //documenter les valeurs  que peut prendre decision
 	private DataSource ds;
-	
-	
-	public Loan(Client client, Employee counsellor, LoanType loanType, History history, int askedAmount, 
+
+
+	public Loan(Client client, Employee counsellor, String loanType, History history, int askedAmount, 
 			int askedDuration, float askedRate, float askedRateInsurance, Date askedDate, int decision) {
 		this.client = client;
 		this.counsellor = counsellor;
@@ -42,7 +42,14 @@ public class Loan {
 		this.askedDate = askedDate;
 		this.decision = decision;
 	}
-	
+
+
+
+	public Loan() {
+	}
+
+
+
 	public int getId() {
 		return id;
 	}
@@ -79,13 +86,32 @@ public class Loan {
 
 
 
-	public LoanType getLoanType() {
-		return loanType;
+	public static String getLoanTypeName(int idTypeLoan) throws ClassNotFoundException, SQLException {
+
+		ConnectionPool pool = new ConnectionPool();
+		pool.makeStack();
+		Connection co = pool.getConnection();
+
+		PreparedStatement ps;
+		ResultSet rs;
+
+		String sql = "SELECT LOAN_NAME FROM LOAN_TYPE WHERE ID_LOAN_TYPE = ?";
+		String loanName = "";
+		ps = co.prepareStatement(sql);
+		ps.setInt(1, idTypeLoan);
+		rs = ps.executeQuery();
+		while(rs.next()) {
+			loanName = rs.getString(1);
+		}
+
+
+
+		return loanName;
 	}
 
 
 
-	public void setLoanType(LoanType loanType) {
+	public void setLoanType(String loanType) {
 		this.loanType = loanType;
 	}
 
@@ -116,11 +142,11 @@ public class Loan {
 	public int getAskedDuration() {
 		return askedDuration;
 	}
-	
+
 	public float getAskedRate() {
 		return askedRate;
 	}
-	
+
 	public float getAskedRateInsurance() {
 		return askedRateInsurance;
 	}
@@ -132,11 +158,11 @@ public class Loan {
 	public void setAskedRate(float askedRate){
 		this.askedRate = askedRate;
 	}
-	
+
 	public void setAskedRateInsurance(float askedRateInsurance){
 		this.askedRateInsurance = askedRateInsurance;
 	}
-	
+
 	public Date getAskedDate() {
 		return askedDate;
 	}
@@ -158,16 +184,16 @@ public class Loan {
 	public void setDecision(int decision) {
 		this.decision = decision;
 	}
-	
+
 	public int getFileFees() {
 		//TODO: algo pour determiner le frais de dossier en fonction du pret
 		return 0;
 	}
-	
+
 	public static void displayLoans(Connection co) throws SQLException {
 		String sql = "Select * FROM LOAN";
 		PreparedStatement ps = co.prepareStatement(sql);
-		
+
 		ResultSet rs = ps.executeQuery();
 		System.out.println("ID LOAN | ASKED AMOUNT | ASKED DATE");
 		while(rs.next()) {
@@ -175,12 +201,12 @@ public class Loan {
 			Date date = rs.getDate("asked_date");
 			int idLoan = rs.getInt("id_loan");
 			System.out.println(idLoan+"       | "+montant+"        | "+date);
-			
+
 		}
 	}
-	
-	
-	
-		
-	
+
+
+
+
+
 }
