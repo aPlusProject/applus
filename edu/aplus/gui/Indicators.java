@@ -12,6 +12,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.swing.ButtonGroup;
@@ -27,6 +29,9 @@ import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
  
@@ -55,6 +60,9 @@ public class Indicators extends JFrame{
 	private JRadioButton stDenied;
 	private JRadioButton stPending;
 	
+	private TableRowSorter<TableModel> sorter;
+	
+	
  
 	public Indicators() {
 		String[] cols = { "N° Pret", "Statut", "Taux interet", "Montant emprunté", "Type de prêt" , "Durée", "age"};
@@ -66,9 +74,27 @@ public class Indicators extends JFrame{
 				{ "06", "accordé", "1.25", "30000", "personnel", "10" , "68"},
 				{ "07", "accordé", "1.25", "30000", "personnel", "4" , "22"},
 				{ "08", "en cours", "2.05", "15000", "immobilier", "2" , "45"},
+				{ "09", "accordé", "2.05", "15000", "immobilier", "2" , "45"},
 			};
-		table = new JTable(data, cols);
-		table.setAutoCreateRowSorter(true);
+		
+		TableModel model = new DefaultTableModel(data, cols){
+			public Class getColumnClass(int column) {
+				Class returnValue;
+				if ((column > 0) && (column < getColumnCount())) {
+					returnValue = getValueAt(0, column).getClass();
+				} else {
+					returnValue = Object.class;
+				}
+				return returnValue;
+			}
+		};
+		
+		table = new JTable(model);
+		sorter = new TableRowSorter<TableModel>(model);
+		//table.setAutoCreateRowSorter(true);
+		table.setRowSorter(sorter);
+		
+		
 		
 		tablePanel = new JPanel();
 		
@@ -239,8 +265,7 @@ public class Indicators extends JFrame{
 					nbRowsField.setText(table.getRowCount()+" sorties");
 				}
 				else if(boxImmo.getState() && boxPerso.getState()) {
-					applyTableFilter("immobilier");
-					applyTableFilter("personnel");
+					applyTableFilter(null);
 					nbRowsField.setText(table.getRowCount()+" sorties");
 				}
 				else if(!boxImmo.getState() && !boxPerso.getState()) {
@@ -251,6 +276,19 @@ public class Indicators extends JFrame{
 					applyTableFilter("personnel");
 					nbRowsField.setText(table.getRowCount()+" sorties");
 				}
+				
+				/*if(boxImmo.getState()) {
+					/*applyTableFilter("immobilier");
+					nbRowsField.setText(table.getRowCount()+" sorties");
+						List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+			        filters.add(RowFilter.regexFilter("immobilier"));
+			        
+			        /*RowFilter<Object,Object> serviceFilter = RowFilter.andFilter(filters);
+			        sorter.setRowFilter(serviceFilter);
+				}
+				else {
+					
+				}*/
 				
 			}
 			
@@ -265,8 +303,7 @@ public class Indicators extends JFrame{
 					nbRowsField.setText(table.getRowCount()+" sorties");
 				}
 				else if(boxPerso.getState() && boxImmo.getState() ){
-					applyTableFilter("personnel");
-					applyTableFilter("immobilier");
+					applyTableFilter(null);
 					nbRowsField.setText(table.getRowCount()+" sorties");
 				}
 				else if(!boxPerso.getState() && !boxImmo.getState()) {
@@ -277,6 +314,17 @@ public class Indicators extends JFrame{
 					applyTableFilter("immobilier");
 					nbRowsField.setText(table.getRowCount()+" sorties");
 				}
+				/*if(boxPerso.getState()) {
+					/*applyTableFilter("personnel");
+					nbRowsField.setText(table.getRowCount()+" sorties");
+					List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+			        filters.add(RowFilter.regexFilter("personnel", 1));
+			        
+			        RowFilter<Object,Object> serviceFilter = RowFilter.andFilter(filters);
+			        /*sorter.setRowFilter(serviceFilter);
+			        
+			        
+				}*/
 			}
 			
 		});
@@ -330,14 +378,30 @@ public class Indicators extends JFrame{
 	}
  
 	private void applyTableFilter(String filterText) {
+		
+		
 		// escape the text so the content will not be considered as a regexp
-		String escapedFilterText = Pattern.quote(filterText);
+		
+		if (filterText.length() == 0 || filterText == null) {
+	          sorter.setRowFilter(null);
+	    } else {
+	    	String escapedFilterText = Pattern.quote(filterText);
+	    	sorter.setRowFilter(RowFilter.regexFilter(escapedFilterText));
+	    }
 		// Add the wildcards to the right and to the left
-		String completeFilterText = ".*" + escapedFilterText + ".*";
+		//String completeFilterText = ".*" + escapedFilterText + ".*";
 		// Apply the filter on the table
-		((DefaultRowSorter) table.getRowSorter())
-				.setRowFilter(RowFilter.regexFilter(completeFilterText));
+		//((DefaultRowSorter) table.getRowSorter())
+			//	.setRowFilter(RowFilter.regexFilter(completeFilterText)); 
+		
 	}
+	
+	/*private void filter(String text) {
+		
+		TableRowSorter sorter = new TableRowSorter(table.getModel());
+		sorter.setRowFilter(RowFilter.andFilter(escapedFilterText));
+		
+	}*/
 	
 	
 	/**
