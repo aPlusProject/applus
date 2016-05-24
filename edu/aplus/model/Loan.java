@@ -1,4 +1,4 @@
-package edu.aplus.model;
+package client.model;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -8,42 +8,41 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import edu.aplus.db.ConnectionPool;
 import edu.aplus.model.Client;
 import edu.aplus.model.Employee;
 import edu.aplus.model.History;
+import edu.aplus.model.LoanType;
 
 public class Loan {
 	
 	private int id;
 	private Client client;
 	private Employee counsellor;
-	private static String loanType;
+	private LoanType loanType;
 	private History history;
 	private int askedAmount;
 	private Date askedDate;    //peut etre le mauvaise importe
+	private int askedDuration; //durée en année
+	private float askedRate; //taux d'intêret
+	private float askedRateInsurance; //taux d'assurance
 	private int decision;  //documenter les valeurs  que peut prendre decision
 	private DataSource ds;
 	
 	
-	public Loan(Client client, Employee counsellor, String loanType, History history, int askedAmount,
-			Date askedDate, int decision) {
+	public Loan(Client client, Employee counsellor, LoanType loanType, History history, int askedAmount, 
+			int askedDuration, float askedRate, float askedRateInsurance, Date askedDate, int decision) {
 		this.client = client;
 		this.counsellor = counsellor;
 		this.loanType = loanType;
 		this.history = history;
 		this.askedAmount = askedAmount;
+		this.askedDuration = askedDuration;
+		this.askedRate = askedRate;
+		this.askedRateInsurance = askedRateInsurance;
 		this.askedDate = askedDate;
 		this.decision = decision;
 	}
-
-
-
-	public Loan() {
-	}
-
-
-
+	
 	public int getId() {
 		return id;
 	}
@@ -80,32 +79,13 @@ public class Loan {
 
 
 
-	public static String getLoanTypeName(int idTypeLoan) throws ClassNotFoundException, SQLException {
-		
-		ConnectionPool pool = new ConnectionPool();
-		pool.makeStack();
-		Connection co = pool.getConnection();
-		
-		PreparedStatement ps;
-		ResultSet rs;
-		
-		String sql = "SELECT LOAN_NAME FROM LOAN_TYPE WHERE ID_LOAN_TYPE = ?";
-		String loanName = "";
-		ps = co.prepareStatement(sql);
-		ps.setInt(1, idTypeLoan);
-		rs = ps.executeQuery();
-		while(rs.next()) {
-			loanName = rs.getString(1);
-		}
-		
-		
-		
-		return loanName;
+	public LoanType getLoanType() {
+		return loanType;
 	}
 
 
 
-	public void setLoanType(String loanType) {
+	public void setLoanType(LoanType loanType) {
 		this.loanType = loanType;
 	}
 
@@ -133,8 +113,30 @@ public class Loan {
 		this.askedAmount = askedAmount;
 	}
 
+	public int getAskedDuration() {
+		return askedDuration;
+	}
+	
+	public float getAskedRate() {
+		return askedRate;
+	}
+	
+	public float getAskedRateInsurance() {
+		return askedRateInsurance;
+	}
 
+	public void setAskedDuration(int askedDuration){
+		this.askedDuration = askedDuration;
+	}
 
+	public void setAskedRate(float askedRate){
+		this.askedRate = askedRate;
+	}
+	
+	public void setAskedRateInsurance(float askedRateInsurance){
+		this.askedRateInsurance = askedRateInsurance;
+	}
+	
 	public Date getAskedDate() {
 		return askedDate;
 	}
