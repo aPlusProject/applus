@@ -22,8 +22,5 @@ public class Chart {
 		chart.setVisible(true);
 	}
 
-	public void imprimer() {
-
-	}
 
 }
