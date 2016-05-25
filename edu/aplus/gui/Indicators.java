@@ -27,6 +27,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
+import javax.swing.RowFilter.ComparisonType;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -35,7 +36,7 @@ import javax.swing.table.TableRowSorter;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
  
-public class Indicators extends JFrame{
+public class Indicators{
  
 	private JTable table;
 	private JFrame f;
@@ -60,6 +61,10 @@ public class Indicators extends JFrame{
 	private JRadioButton rbStPending;
 	private JRadioButton rbImmo;
 	private JRadioButton rbPerso;
+	private JRadioButton rbAgeJeune;         //18-25 ans
+	private JRadioButton rbAgeAdulte;        //26-40 ans
+	private JRadioButton rbAgePreSenior;     //41-65 ans
+	private JRadioButton rbAgeSenior;        // > 65 ans
 	
 	private TableRowSorter<TableModel> sorter;
 	
@@ -171,6 +176,8 @@ public class Indicators extends JFrame{
 			
 		});
 		
+		
+		
 		ButtonGroup cbGrp = new ButtonGroup();
 		
 		
@@ -181,11 +188,22 @@ public class Indicators extends JFrame{
 		rbImmo = new JRadioButton("Immobilier");
 		rbPerso = new JRadioButton("Personnel");
 		
+		rbAgeJeune = new JRadioButton("18-25 ans");
+		rbAgeAdulte = new JRadioButton("26-40 ans");
+		rbAgePreSenior = new JRadioButton("41-65 ans");
+		rbAgeSenior = new JRadioButton("Supérieur à 65 ans");
+		
+		
 		cbGrp.add(rbStAllowed);
 		cbGrp.add(rbStDenied);
 		cbGrp.add(rbStPending);
+		
 		cbGrp.add(rbImmo);
 		cbGrp.add(rbPerso);
+		cbGrp.add(rbAgeJeune);
+		cbGrp.add(rbAgeAdulte);
+		cbGrp.add(rbAgePreSenior);
+		cbGrp.add(rbAgeSenior);
 		
 		
 		
@@ -252,9 +270,22 @@ public class Indicators extends JFrame{
 		c.gridx = 1;
 		indicatorsPanel.add(rbStDenied, c);
 		c.gridx = 2;
-		indicatorsPanel.add(rbStPending, c);		
+		indicatorsPanel.add(rbStPending, c);
 		
 		
+		//radio button intervalle of ages
+		c.gridy = 8;
+		c.gridx = 0;
+		indicatorsPanel.add(rbAgeJeune);
+		c.gridx = 1;
+		indicatorsPanel.add(rbAgeAdulte);
+		c.gridx = 2;
+		indicatorsPanel.add(rbAgePreSenior);
+		c.gridy = 9;
+		c.gridx = 0;
+		indicatorsPanel.add(rbAgeSenior);
+		
+	
 		
 		rbImmo.addItemListener(new ItemListener() {
 
@@ -325,8 +356,14 @@ public class Indicators extends JFrame{
 		
 		
 		f.setVisible(true);
+		
 	}
  
+	private void actionOnAvgField() {
+		//TODO : créer l'algo pour factoriser le calcules des avg pour tous les champs
+		
+	}
+
 	private void applyTableFilter(String filterText) {
 		
 		
@@ -339,6 +376,14 @@ public class Indicators extends JFrame{
 	    	sorter.setRowFilter(RowFilter.regexFilter(escapedFilterText));
 	    }
 	}
+	
+	/*public void filterTableByAges(int ageMin, int ageMax) {
+		/*List<RowFilter<TableModel,String>> filters = new ArrayList<RowFilter<TableModel,String>>(2);
+		filters.add( RowFilter.rowFilter(ComparisonType.AFTER, ageMin) );
+		filters.add( RowFilter.rowFilter(ComparisonType.BEFORE, ageMax) 
+		RowFilter<Object, Object> rf = RowFilter.andFilter("selecta", 0);
+		sorter.setRowFilter(rf);
+	}*/
 	
 	
 	
@@ -373,6 +418,7 @@ public class Indicators extends JFrame{
 		
 		return moy;
 	}
+		
  
 	public static void main(String[] args) {
 		new Indicators();
