@@ -56,6 +56,17 @@ public class IndicatorsRebuild extends JFrame {
     	nbRowsField = new JTextField();
     	nbRowsField.setEditable(false);
     	
+    	avgLbl = new JLabel("Affichage des moyennes");
+    	
+    	avgInterestRateField = new JTextField();
+    	avgInterestRateField.setEditable(false);
+    	avgEmpruntAmountField = new JTextField();
+    	avgEmpruntAmountField.setEditable(false);
+    	avgAgeField = new JTextField();
+    	avgAgeField.setEditable(false);
+    	avgLengthField = new JTextField();
+    	avgLengthField.setEditable(false);
+    	
         final JComboBox<String> boxLoanType = new JComboBox<>(new String[]{"Tout","immobilier","personnel"});
         final JComboBox<String> boxLoanStatus = new JComboBox<>(new String[]{"Tout","accordé","refusé", "en cours"});
         JButton filterBtn = new JButton("filter");
@@ -81,6 +92,11 @@ public class IndicatorsRebuild extends JFrame {
         indicatorsPanel.add(boxLoanStatus);
         indicatorsPanel.add(filterBtn);
         indicatorsPanel.add(nbRowsField);
+        indicatorsPanel.add(avgLbl);
+        indicatorsPanel.add(avgInterestRateField);
+        indicatorsPanel.add(avgEmpruntAmountField);
+        indicatorsPanel.add(avgAgeField);
+        indicatorsPanel.add(avgLengthField);
         
         
         String[] cols = { "N° Pret", "Statut", "Taux interet", "Montant emprunté", "Type de prêt" , "Durée", "age"};
