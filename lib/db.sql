@@ -37,7 +37,7 @@ CREATE TABLE CLIENT
 (
 id_client INT PRIMARY KEY NOT NULL,
 id_employee INT,
-age INT;
+age INT,
 client_first_name VARCHAR2(100),
 client_last_name VARCHAR2(100),
 client_email VARCHAR2(100),
@@ -47,7 +47,7 @@ address VARCHAR2(100),
 zip_code VARCHAR2(100),
 salary VARCHAR2(10),
 charge VARCHAR2(10),
-debtRate VARCHAR2(5)
+debtRate VARCHAR2(5),
 FOREIGN KEY (id_employee) REFERENCES EMPLOYEE(id_employee) ON DELETE CASCADE
 );
 

@@ -41,9 +41,9 @@ public class SimulatorFixedRate {
 			this.cl.setCity(rs.getString(7));
 			this.cl.setAddress(rs.getString(8));
 			this.cl.setZipCode(rs.getString(9));
-			this.cl.setSalary(rs.getString(10));
-			this.cl.setCharge(rs.getString(11));
-			this.cl.setDebtRate(rs.getString(12));
+			this.cl.setSalary(rs.getString(11));
+			this.cl.setCharge(rs.getString(12));
+			this.cl.setDebtRate(rs.getString(13));
 				
 		}
 		
@@ -53,7 +53,7 @@ public class SimulatorFixedRate {
 	}
 	
 	public void simulate(String creditType, int amount, int duration, float rate){
-		if (creditType == "Crédit Immobilier" && duration<=5 && duration>=30 && amount>=50000){
+		if (creditType == "Crï¿½dit Immobilier" && duration<=5 && duration>=30 && amount>=50000){
 			//calculate installment
 			float rateFloat = (rate/100);
 			float rateMonth = (rateFloat/12);
@@ -62,7 +62,7 @@ public class SimulatorFixedRate {
 			double installment = (amount*rateMonth) / f;
 			System.out.println(installment);
 		}
-		else if (creditType == "Crédit Personnel" && amount<=1200 && amount>50000 && duration<=12){
+		else if (creditType == "Crï¿½dit Personnel" && amount<=1200 && amount>50000 && duration<=12){
 			float rateFloat = (rate/100);
 			float rateMonth = (rateFloat/12);
 			float durationL = (float)duration;
@@ -70,7 +70,7 @@ public class SimulatorFixedRate {
 			double installment = (amount*rateMonth) / f;
 			System.out.println(installment);
 		}
-		else if(creditType == "Crédit Professionnel"){
+		else if(creditType == "Crï¿½dit Professionnel"){
 			float rateFloat = (rate/100);
 			float rateMonth = (rateFloat/12);
 			float durationL = (float)duration;
