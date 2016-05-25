@@ -44,16 +44,16 @@ import org.jfree.ui.RectangleEdge;
 
 public class LineChart extends ApplicationFrame implements ChartMouseListener {
 	private JFreeChart lineChart;
-	private DefaultCategoryDataset lineChartDataset = new DefaultCategoryDataset();
+	//private DefaultCategoryDataset lineChartDataset = new DefaultCategoryDataset();
 	private final ChartPanel chartPanel;
 	private Crosshair xCrosshair;
 	private Crosshair yCrosshair;
 
-	public LineChart(String chartTitle) {
+	public LineChart(String chartTitle, DefaultCategoryDataset dataset) {
 		// TODO Auto-generated constructor stub
 		super(chartTitle);
 
-		lineChart = ChartFactory.createLineChart(chartTitle, "X", "Y", createDataset(),
+		lineChart = ChartFactory.createLineChart(chartTitle, "X", "Y", dataset,
 				PlotOrientation.VERTICAL, true, true, false);
 		final CategoryPlot plot = (CategoryPlot) lineChart.getPlot(); 
 		plot.setBackgroundPaint(Color.white); 
