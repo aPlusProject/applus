@@ -12,6 +12,7 @@ import edu.aplus.model.Client;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 
 public class ProspectSimulationPanel  extends JFrame{
 
@@ -24,29 +25,34 @@ public class ProspectSimulationPanel  extends JFrame{
 	private JLabel chargeL;
 	private JTextField debtRate;
 	private JLabel debtRateL;
+	private JComboBox creditType;
+	private JLabel creditTypeL;
 	private JTextField amount;
 	private JLabel amountL;
 	private JTextField duration;
 	private JLabel durationL;
 	private JTextField rate;
 	private JLabel rateL;
+	private JTextField rateInsurance;
+	private JLabel rateInsuranceL;
 	private JButton bouton;
+	private String[] possibleValues = {"Crédit Immobilier","Crédit Personnel","Crédit Professionnel"};
 
 	public ProspectSimulationPanel() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 400);
+		setBounds(200, 220, 500, 400);
 		
 		panel = new JPanel();
-		panel.setBorder(new EmptyBorder(3, 3, 3, 3));
+		panel.setBorder(new EmptyBorder(1, 1, 1, 1));
 		setContentPane(panel);
 		panel.setLayout(null);
 		
-		title1 = new JLabel("DonnÃ©es financiÃ¨res du prospect : ");
+		title1 = new JLabel("Données financières du client : ");
 		title1.setBounds(20, 20, 200, 30);
 		panel.add(title1);
 		
-		title2 = new JLabel("Renseignez les donnÃ©es du prÃªt : ");
+		title2 = new JLabel("Renseignez les données du prêt : ");
 		title2.setBounds(230, 20, 200, 30);
 		panel.add(title2);
 		
@@ -55,7 +61,7 @@ public class ProspectSimulationPanel  extends JFrame{
 		panel.add(salaryL);
 		
 		salary = new JTextField();
-		salary.setBounds(150, 80, 50, 20);
+		salary.setBounds(150, 80, 60, 20);
 		panel.add(salary);
 		salary.setColumns(20);
 		
@@ -64,7 +70,7 @@ public class ProspectSimulationPanel  extends JFrame{
 		panel.add(chargeL);
 		
 		charge = new JTextField();
-		charge.setBounds(150, 120, 50, 20);
+		charge.setBounds(150, 120, 60, 20);
 		panel.add(charge);
 		charge.setColumns(2);
 		
@@ -73,53 +79,71 @@ public class ProspectSimulationPanel  extends JFrame{
 		panel.add(debtRateL);
 		
 		debtRate = new JTextField();
-		debtRate.setBounds(150, 160, 50, 20);
+		debtRate.setBounds(150, 160, 60, 20);
 		panel.add(debtRate);
 		debtRate.setColumns(2);
 		
-		amountL = new JLabel("Montant du prÃªt : ");
-		amountL.setBounds(230, 80, 200, 15);
+
+		creditTypeL = new JLabel("Type du prêt : ");
+		creditTypeL.setBounds(230, 80, 200, 15);
+		panel.add(creditTypeL);
+		 	
+		creditType = new JComboBox(possibleValues);
+		creditType.setBounds(370, 80, 100, 20);
+		panel.add(creditType);
+		
+		amountL = new JLabel("Montant du prêt : ");
+		amountL.setBounds(230, 120, 200, 15);
 		panel.add(amountL);
 		
 		amount = new JTextField();
-		amount.setBounds(370, 80, 50, 20);
+		amount.setBounds(370, 120, 100, 20);
 		panel.add(amount);
 		amount.setColumns(2);
 		
-		durationL = new JLabel("DurÃ©e du prÃªt : ");
-		durationL.setBounds(230, 120, 200, 15);
+		durationL = new JLabel("Durée du prêt : ");
+		durationL.setBounds(230, 160, 200, 15);
 		panel.add(durationL);
 		
 		duration = new JTextField();
-		duration.setBounds(370, 120, 50, 20);
+		duration.setBounds(370, 160, 100, 20);
 		panel.add(duration);
 		duration.setColumns(2);
 		
-		rateL = new JLabel("Taux d'intÃ©rÃªt du prÃªt : ");
-		rateL.setBounds(230, 160, 250, 15);
+		rateL = new JLabel("Taux d'intérêt : ");
+		rateL.setBounds(230, 200, 250, 15);
 		panel.add(rateL);
 		
 		rate = new JTextField();
-		rate.setBounds(370, 160, 50, 20);
+		rate.setBounds(370, 200, 100, 20);
 		panel.add(rate);
 		rate.setColumns(2);
 		
+		rateInsuranceL = new JLabel("Taux d'assurance : ");
+		rateInsuranceL.setBounds(230, 240, 250, 15);
+		panel.add(rateInsuranceL);
+		
+		rateInsurance = new JTextField();
+		rateInsurance.setBounds(370, 240, 100, 20);
+		panel.add(rateInsurance);
+		rateInsurance.setColumns(2);
+		
 		bouton = new JButton("Enter");
-		bouton.setBounds(170, 250, 100, 20);
+		bouton.setBounds(190, 300, 100, 20);
 		panel.add(bouton);
 		
 	    //Add action listener to button
 	    bouton.addActionListener(new ActionListener() {
 	    	
 	    public void actionPerformed(ActionEvent e){
-	    		//Execute when button is pressed
+	    		/*//Execute when button is pressed
 	    		SimulatorFixedRate simulator = new SimulatorFixedRate();
 	    		int i = Integer.parseInt(amount.getText());
 	    		try {
 					simulator.getClientByID(i);
 				} catch (ClassNotFoundException | SQLException e1) {
 					e1.printStackTrace();
-				}
+				}*/
 	        }
 	    	
 	    }); 
@@ -129,7 +153,7 @@ public class ProspectSimulationPanel  extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SimulatoinPanel frame1 = new SimulatoinPanel();
+					ProspectSimulationPanel frame1 = new ProspectSimulationPanel();
 					frame1.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

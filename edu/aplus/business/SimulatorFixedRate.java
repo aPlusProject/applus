@@ -52,35 +52,21 @@ public class SimulatorFixedRate {
 		
 	}
 	
-	public void simulate(String creditType, int amount, int duration, float rate){
-		if (creditType == "Crï¿½dit Immobilier" && duration<=5 && duration>=30 && amount>=50000){
+public double simulate(String creditType, int amount, int duration, double rate){
+		
 			//calculate installment
-			float rateFloat = (rate/100);
-			float rateMonth = (rateFloat/12);
-			float durationL = (float)duration;
-			double f = 1 - (Math.pow(1+(rateMonth), -durationL));
+			double rateFloat = (rate/100);
+			double rateMonth = (rateFloat/12);
+			double f = (1 - Math.pow((1+rateMonth), -duration*12));
 			double installment = (amount*rateMonth) / f;
-			System.out.println(installment);
-		}
-		else if (creditType == "Crï¿½dit Personnel" && amount<=1200 && amount>50000 && duration<=12){
-			float rateFloat = (rate/100);
-			float rateMonth = (rateFloat/12);
-			float durationL = (float)duration;
-			double f = 1 - (Math.pow(1+(rateMonth), -durationL));
-			double installment = (amount*rateMonth) / f;
-			System.out.println(installment);
-		}
-		else if(creditType == "Crï¿½dit Professionnel"){
-			float rateFloat = (rate/100);
-			float rateMonth = (rateFloat/12);
-			float durationL = (float)duration;
-			double f = 1 - (Math.pow(1+(rateMonth), -durationL));
-			double installment = (amount*rateMonth) / f;
-			System.out.println(installment);
-		}
-		else {
-			String errorMessage = "Entrez des valeurs valides";
-		}
+			//System.out.println(installment);
+			return installment;
 	}
+		
+		public static void main(String[] args){
+			SimulatorFixedRate s = new SimulatorFixedRate();
+			double result = s.simulate("Crédit Immobilier", 200000, 20, 4.5);
+			System.out.println(result);
+		}
 		
 }
