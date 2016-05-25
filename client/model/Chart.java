@@ -1,22 +1,28 @@
 package client.model;
 
-import edu.aplus.gui.ChartFrame;
+import org.jfree.ui.RefineryUtilities;
+
+import edu.aplus.gui.LineChart;
 
 public class Chart {
 
-	private String chartName="";
+	private String chartName = "";
 	private int chartID;
-	
-	public void afficher(){
-		ChartFrame chartFrame = new ChartFrame();
-		chartFrame.setVisible(true);
+	private LineChart chart;
+
+	public void afficher() {
+		chart = new LineChart("Numer of Schools vs years");
+
+		chart.pack();
+		RefineryUtilities.centerFrameOnScreen(chart);
+		chart.setVisible(true);
 	}
-	
-	public void imprimer(){
-		
+
+	public void imprimer() {
+
 	}
-	
-	public void exporter(){
+
+	public void exporter() {
 		
 	}
 }
