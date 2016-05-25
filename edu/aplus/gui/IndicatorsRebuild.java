@@ -1,4 +1,4 @@
-package client.gui;
+package edu.aplus.gui;
 
 
 import java.awt.BorderLayout;
