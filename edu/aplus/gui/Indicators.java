@@ -178,8 +178,8 @@ public class Indicators extends JFrame{
 		rbStDenied = new JRadioButton("Refusé");
 		rbStPending = new JRadioButton("En cours");
 		
-		rbImmo = new JRadioButton("immobilier");
-		rbPerso = new JRadioButton("personnel");
+		rbImmo = new JRadioButton("Immobilier");
+		rbPerso = new JRadioButton("Personnel");
 		
 		cbGrp.add(rbStAllowed);
 		cbGrp.add(rbStDenied);
@@ -194,70 +194,65 @@ public class Indicators extends JFrame{
 		
 		c.anchor = GridBagConstraints.NORTH;
 		//c.fill = GridBagConstraints.HORIZONTAL;
-		
-		//checkbox on top
 		c.weightx = 1;
-		c.gridx = 0;
+		
+		
+		// bloc of age and lenght on top
 		c.gridy = 0;
+		c.gridx = 0;
+		indicatorsPanel.add(new JLabel("Calcul de moyennes : "), c);
+		
+		c.gridy = 0;
+		c.gridx = 1;
+		indicatorsPanel.add(btnAge, c);
+		c.gridx = 2;
+		indicatorsPanel.add(btnLenght, c);
+		
+		c.gridy = 1;
+		c.gridx = 1;
+		indicatorsPanel.add(moyAgeField, c);
+		c.gridx = 2;
+		indicatorsPanel.add(moyLengthField, c);
+		
+		//jump of 1 rows
+		c.gridy = 2;
+		c.gridx = 0;
+		indicatorsPanel.add(new JLabel("   "),c);
+		
+		//bloc of emprunt amount and interest rate
+		c.gridy = 3;
+		c.gridx = 1;
+		indicatorsPanel.add(btnEmpruntAmount, c);
+		c.gridx = 2;
+		indicatorsPanel.add(btnInterestRate, c);
+		c.gridy = 4;
+		c.gridx = 1;
+		indicatorsPanel.add(moyEmpruntAmountField, c);
+		c.gridx = 2;
+		indicatorsPanel.add(moyInterestRateField, c);
+		
+		//jump of 1 rows
+		c.gridy = 5;
+		c.gridx = 0;
+		indicatorsPanel.add(new JLabel("   "),c);
+		
+		//radio button type of loan
+		c.gridy = 6;
+		c.gridx = 0;
 		indicatorsPanel.add(rbImmo, c);
 		c.gridx = 1;
 		indicatorsPanel.add(rbPerso, c);
 		c.gridx = 2;
 		indicatorsPanel.add(nbRowsField, c);
 		
-		//jump of 2 rows
-		c.gridy = 1;
-		c.gridx = 0;
-		indicatorsPanel.add(new JLabel("   "),c);
-		c.gridy = 2;
-		indicatorsPanel.add(new JLabel("   "),c);
-		
-		// bloc of age and lenght
-		c.gridy = 5;
-		c.gridx = 0;
-		indicatorsPanel.add(new JLabel("Calcul de moyennes"), c);
-		
-		c.gridy = 3;
-		c.gridx = 2;
-		indicatorsPanel.add(btnAge, c);
-		c.gridx = 3;
-		indicatorsPanel.add(btnLenght, c);
-		
-		c.gridy = 4;
-		c.gridx = 2;
-		indicatorsPanel.add(moyAgeField, c);
-		c.gridx = 3;
-		indicatorsPanel.add(moyLengthField, c);
-		
-		
-		
-		
-		//jump of 1 rows
-		c.gridy = 5;
-		indicatorsPanel.add(new JLabel("   "),c);
-		
-		//bloc of emprunt amount and interest rate
-		c.gridy = 6;
-		c.gridx = 2;
-		indicatorsPanel.add(btnEmpruntAmount, c);
-		c.gridx = 3;
-		indicatorsPanel.add(btnInterestRate, c);
+		//radio button state of loans
 		c.gridy = 7;
-		c.gridx = 2;
-		indicatorsPanel.add(moyEmpruntAmountField, c);
-		c.gridx = 3;
-		indicatorsPanel.add(moyInterestRateField, c);
-		
-		c.gridy = 8;
 		c.gridx = 0;
 		indicatorsPanel.add(rbStAllowed, c);
 		c.gridx = 1;
 		indicatorsPanel.add(rbStDenied, c);
 		c.gridx = 2;
-		indicatorsPanel.add(rbStPending, c);
-		
-		
-		
+		indicatorsPanel.add(rbStPending, c);		
 		
 		
 		
