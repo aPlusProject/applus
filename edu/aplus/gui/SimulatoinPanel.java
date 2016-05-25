@@ -132,25 +132,34 @@ public class SimulatoinPanel  extends JFrame{
 		bouton.setBounds(190, 300, 100, 20);
 		panel.add(bouton);
 		
-		final String amountEntS = amount.getText();
-		final String durationEntS = duration.getText();
-		final String rateEntS = rate.getText();
-		final String rateInsuranceEntS = rateInsurance.getText();
-		final String creditTypeEnt = creditType.getName();
-		final int amountEnt = Integer.parseInt(amountEntS);
-		final int durationEnt = Integer.parseInt(durationEntS);
-		final float rateEnt = Float.parseFloat(rateEntS);
-		final int rateInsuranceEnt = Integer.parseInt(rateInsuranceEntS);
+		final JLabel d = new JLabel("Resultat : ");
+		d.setBounds(190, 330, 250, 15);
+		panel.add(d);
+		
+		
 		
 	    //Add action listener to button
 	    bouton.addActionListener(new ActionListener() {
 	    	
 	    public void actionPerformed(ActionEvent e){
 	    	
+	    	String amountEntS = amount.getText();
+			String durationEntS = duration.getText();
+			String rateEntS = rate.getText();
+			String rateInsuranceEntS = rateInsurance.getText();
+			String creditTypeEnt = creditType.getName();
+			int amountEnt = Integer.parseInt(amountEntS);
+			int durationEnt = Integer.parseInt(durationEntS);
+			double rateEnt = Double.parseDouble(rateEntS);
+			//final int rateInsuranceEnt = Integer.parseInt(rateInsuranceEntS);
+	    	
 	    	SimulatorFixedRate simulator = new SimulatorFixedRate();
-	    	simulator.simulate(creditTypeEnt, amountEnt, durationEnt, rateEnt);
-	    	ResultPanel frame1 = new ResultPanel();
-			frame1.setVisible(true);	
+	    	double d1 = simulator.calculateInstallment(creditTypeEnt, amountEnt, durationEnt, rateEnt);
+	    	String s = String.valueOf(d1);
+	    	d.setText(s);
+	    	
+	    	//ResultPanel frame1 = new ResultPanel();
+			//frame1.setVisible(true);	
 	        }
 	    	
 	    }); 

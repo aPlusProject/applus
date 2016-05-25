@@ -132,18 +132,32 @@ public class ProspectSimulationPanel  extends JFrame{
 		bouton.setBounds(190, 300, 100, 20);
 		panel.add(bouton);
 		
+		final JLabel d = new JLabel("Resultat : ");
+		d.setBounds(190, 330, 250, 15);
+		panel.add(d);
+		
 	    //Add action listener to button
 	    bouton.addActionListener(new ActionListener() {
 	    	
 	    public void actionPerformed(ActionEvent e){
-	    		/*//Execute when button is pressed
-	    		SimulatorFixedRate simulator = new SimulatorFixedRate();
-	    		int i = Integer.parseInt(amount.getText());
-	    		try {
-					simulator.getClientByID(i);
-				} catch (ClassNotFoundException | SQLException e1) {
-					e1.printStackTrace();
-				}*/
+	    	
+	    	String amountEntS = amount.getText();
+			String durationEntS = duration.getText();
+			String rateEntS = rate.getText();
+			String rateInsuranceEntS = rateInsurance.getText();
+			String creditTypeEnt = creditType.getName();
+			int amountEnt = Integer.parseInt(amountEntS);
+			int durationEnt = Integer.parseInt(durationEntS);
+			double rateEnt = Double.parseDouble(rateEntS);
+			//final int rateInsuranceEnt = Integer.parseInt(rateInsuranceEntS);
+	    	
+	    	SimulatorFixedRate simulator = new SimulatorFixedRate();
+	    	double d1 = simulator.calculateInstallment(creditTypeEnt, amountEnt, durationEnt, rateEnt);
+	    	String s = String.valueOf(d1);
+			d.setText(s);
+	    	
+	    	//ResultPanel frame1 = new ResultPanel();
+			//frame1.setVisible(true);	
 	        }
 	    	
 	    }); 
