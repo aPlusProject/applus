@@ -76,6 +76,7 @@ public class SimulatorFixedRate {
 		return installment;
 	}
 	
+	// have to correct auto incrementation of : id_loan
 	public void addLoan(int idClient, int idConseiller, int idLoanType, int idHistory, int askedAmount, 
 			int askedDuration, double askedRate, double askedRateInsurance) throws ClassNotFoundException, SQLException{
 		
