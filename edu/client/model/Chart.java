@@ -1,14 +1,18 @@
 package edu.client.model;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.RefineryUtilities;
 
 import edu.aplus.gui.LineChart;
+import edu.client.socket.ChartTCPClient;
 
 public class Chart {
 
 	private String chartName = "";
-	private int chartID;
+	//private int chartID;
 	private LineChart chart;
 	private DefaultCategoryDataset lineChartDataset;
 	
@@ -23,6 +27,22 @@ public class Chart {
 		chart.pack();
 		RefineryUtilities.centerFrameOnScreen(chart);
 		chart.setVisible(true);
+		
+		try {
+			ChartTCPClient clientSocket = new ChartTCPClient("LineChart");
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private DefaultCategoryDataset createDataset(){
