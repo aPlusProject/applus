@@ -29,12 +29,20 @@ public class LineChart extends ApplicationFrame {
 		lineChart = ChartFactory.createLineChart(chartTitle, "Years", "Number of Schools", lineChartDataset,
 				PlotOrientation.VERTICAL, true, true, false);
 
-		ChartPanel chartPanel = new ChartPanel(lineChart);
+		final ChartPanel chartPanel = new ChartPanel(lineChart);
 		chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
 		this.add(chartPanel,BorderLayout.CENTER);
 		
 		JPanel buttonPanel = new JPanel();
-        JButton printButton = new JButton("Print");
+        JButton printButton = new JButton("Print chart");
+        printButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				chartPanel.createChartPrintJob();
+			}
+		});
         buttonPanel.add(printButton);
         
         JButton exportButton = new JButton("Export to JPEG");
