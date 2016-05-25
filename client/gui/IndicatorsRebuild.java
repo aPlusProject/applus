@@ -4,6 +4,7 @@ package client.gui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -92,11 +93,13 @@ public class IndicatorsRebuild extends JFrame {
         indicatorsPanel.add(boxLoanStatus);
         indicatorsPanel.add(filterBtn);
         indicatorsPanel.add(nbRowsField);
+        
         indicatorsPanel.add(avgLbl);
-        indicatorsPanel.add(avgInterestRateField);
-        indicatorsPanel.add(avgEmpruntAmountField);
         indicatorsPanel.add(avgAgeField);
         indicatorsPanel.add(avgLengthField);
+        indicatorsPanel.add(avgInterestRateField);
+        indicatorsPanel.add(avgEmpruntAmountField);
+        
         
         
         String[] cols = { "N° Pret", "Statut", "Taux interet", "Montant emprunté", "Type de prêt" , "Durée", "age"};
@@ -117,7 +120,8 @@ public class IndicatorsRebuild extends JFrame {
         table.setRowSorter(sorter);
         
         nbRowsField.setText(table.getRowCount()+" trouvés");
-
+        setAllAvgField(6, 3, 2, 5);
+        
         add(indicatorsPanel,BorderLayout.EAST);
         add(new JScrollPane(table), BorderLayout.CENTER);
     }
@@ -162,7 +166,42 @@ public class IndicatorsRebuild extends JFrame {
     	
     	nbRowsField.setText(table.getRowCount()+" trouvés");
     	System.out.println(table.getRowCount());
+    	
+    	setAllAvgField(6, 3, 2, 5);
 
     	
     }
+    
+    
+    private double getAvgOfColByIdCol(int idCol) {
+    	
+    	double avg = 0;
+    	
+    	System.out.println("nombre de ligne "+table.getRowCount());
+    	
+    	if(table.getRowCount() != 0) {
+    		double sum = 0;
+    		for(int i=0; i < table.getRowCount(); i++) {
+    			sum = sum +  Double.parseDouble(table.getValueAt(i, idCol)+"");
+    		}
+    		
+    		avg = sum / table.getRowCount();
+    	}
+    	
+    	
+    	return avg;
+    	
+    }
+    
+    private void setAllAvgField(int idAgeCol, int idEmpruntAmountCol, int idInterestRateCol, int idLenghtCol) {
+    	
+    	DecimalFormat formatter = new DecimalFormat("#0.000");
+    	
+    	avgInterestRateField.setText(formatter.format(getAvgOfColByIdCol(idInterestRateCol)));
+        avgEmpruntAmountField.setText(formatter.format(getAvgOfColByIdCol(idEmpruntAmountCol)));
+        avgAgeField.setText(formatter.format(getAvgOfColByIdCol(idAgeCol)));
+        avgLengthField.setText(formatter.format(getAvgOfColByIdCol(idLenghtCol)));
+    }
+    
+    
 }
