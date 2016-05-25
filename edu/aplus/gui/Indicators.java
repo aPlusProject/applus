@@ -1,7 +1,7 @@
 package edu.aplus.gui;
 
 
-import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -24,6 +24,7 @@ import javax.swing.table.TableRowSorter;
 public class Indicators extends JFrame {
 	
 	private JPanel indicatorsPanel;
+	private JPanel arrayPanel;
 
     private JTable table;
     private DefaultTableModel model;
@@ -38,8 +39,7 @@ public class Indicators extends JFrame {
 
     public Indicators() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        //setLayout(new GridLayout(0, 1));
-        setSize(1000, 700);
+        setLayout(new FlowLayout());
         initComponents();
         pack();
         setVisible(true);
@@ -53,7 +53,9 @@ public class Indicators extends JFrame {
     private void initComponents() {
     	
     	
-    	indicatorsPanel = new JPanel();
+    	indicatorsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+    	arrayPanel = new JPanel(new FlowLayout());
+    	
     	nbRowsField = new JTextField();
     	nbRowsField.setEditable(false);
     	
@@ -102,6 +104,8 @@ public class Indicators extends JFrame {
         
         
         
+        
+        
         String[] cols = { "N° Pret", "Statut", "Taux interet", "Montant emprunté", "Type de prêt" , "Durée", "age"};
 		String[][] data = { { "01", "accordé", "2.5", "3000", "personnel", "2" , "20"},
 				{ "02", "refusé", "1.25", "30000", "immobilier", "8" ,"54"},
@@ -113,7 +117,8 @@ public class Indicators extends JFrame {
 				{ "08", "en cours", "2.05", "15000", "immobilier", "2" , "45"},
 				{ "09", "accordé", "2.05", "15000", "immobilier", "2" , "45"},
 			};
-
+		
+		
         table = new JTable(model = new DefaultTableModel(data,cols));
         
         sorter = new TableRowSorter<DefaultTableModel>(model);
@@ -122,8 +127,10 @@ public class Indicators extends JFrame {
         nbRowsField.setText(table.getRowCount()+" trouvés");
         setAllAvgField(6, 3, 2, 5);
         
-        add(indicatorsPanel,BorderLayout.EAST);
-        add(new JScrollPane(table), BorderLayout.CENTER);
+        arrayPanel.add(new JScrollPane(table));
+        add(arrayPanel);
+        add(indicatorsPanel);
+        
     }
     
     public void filterViaComboBox(JComboBox<String> box, int idCol) {

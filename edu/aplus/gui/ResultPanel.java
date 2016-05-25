@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import client.model.Chart;
+import edu.client.model.Chart;
 
 public class ResultPanel extends JFrame{
 	

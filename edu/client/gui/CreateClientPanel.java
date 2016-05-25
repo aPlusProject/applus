@@ -1,4 +1,4 @@
-package client.gui;
+package edu.client.gui;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -11,9 +11,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import client.model.EmployeePanelModel;
-
-public class UpdateClientPanel {
+public class CreateClientPanel {
 	
 	private JPanel mainPanel = new JPanel();
 	private JButton retour;
@@ -25,7 +23,7 @@ public class UpdateClientPanel {
         EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-                    JFrame frame = new JFrame("Modifier un client");
+                    JFrame frame = new JFrame("Creer un nouveau client");
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     frame.pack();
                     frame.setVisible(true);
@@ -37,7 +35,7 @@ public class UpdateClientPanel {
         
     }
 	
-	public UpdateClientPanel() {
+	public CreateClientPanel() {
 		retour = new JButton("Retour");
 		mainPanel.add(retour);
 	}

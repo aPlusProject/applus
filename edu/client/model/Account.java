@@ -1,4 +1,4 @@
-package client.model;
+package edu.client.model;
 
 import java.util.Calendar;
 import java.util.Date;

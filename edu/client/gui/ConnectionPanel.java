@@ -1,4 +1,4 @@
-package client.gui;
+package edu.client.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

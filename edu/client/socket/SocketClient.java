@@ -1,50 +1,43 @@
-package client.service;
+package edu.client.socket;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JLabel;
 
+public class SocketClient {
 
-
-public class Client {
-	
-	private String nom;
+	private Socket sck;
 	private String host;
 	private int port;
-	private Socket sck;
 	
-	public Client() {
+	
+	public SocketClient() {
 		
 	}
 	
-	public Client(String host, int port) {
+	public SocketClient(String host, int port) throws UnknownHostException, IOException {
+		this.sck = new Socket(host, port);
 		this.host = host;
 		this.port = port;
 	}
 	
-	
-	public void connect() throws UnknownHostException, IOException {
-		this.sck = new Socket(this.host, this.port);
-        System.out.println("connected to "+this.host+":"+this.port);
-		
-	}
-	
 	public void connectTo(String host, int port) throws UnknownHostException, IOException {
 		this.sck = new Socket(host, port);
-		System.out.println("connected to "+host+":"+port);
 	}
 	
-	public void envoyer(String message) throws IOException {
+	public Socket getSocket() {
+		return this.sck;
+	}
+	
+	public void send(String message) throws IOException {
 		OutputStream os = this.sck.getOutputStream();
         DataOutputStream dos = new DataOutputStream(os) ;
         dos.writeUTF(message);
@@ -52,14 +45,7 @@ public class Client {
         
 	}
 	
-	public void sendJsonFile(String json) throws IOException {
-		OutputStream os = this.sck.getOutputStream();
-        DataOutputStream dos = new DataOutputStream(os);
-        dos.writeUTF(json);
-	}
-	
-	
-	public void receive(JLabel label) throws IOException {
+	public void receive() throws IOException {
         try {
         	InputStream in = this.sck.getInputStream();
             DataInputStream dis =new DataInputStream(in);
@@ -67,10 +53,10 @@ public class Client {
             String msg = dis.readUTF() ;
             Logger.global.info("reçu : " +msg);
             System.out.println("Client get message : " +msg);
-            label.setText(msg);
          } catch(IOException exc) {
             Logger.global.log(Level.SEVERE,"serveur",exc) ;
          }
 	}
-
+	
+	
 }

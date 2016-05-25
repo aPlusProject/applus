@@ -1,4 +1,4 @@
-package client.model;
+package edu.client.model;
 
 import edu.aplus.model.HQ;
 

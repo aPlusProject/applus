@@ -1,4 +1,4 @@
-package client.model;
+package edu.client.model;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -7,9 +7,9 @@ import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import client.model.Client;
-import client.model.Employee;
-import client.socket.SocketClient;
+import edu.client.model.Client;
+import edu.client.model.Employee;
+import edu.client.socket.SocketClient;
 
 //import model.Client;
 //import model.Employee;

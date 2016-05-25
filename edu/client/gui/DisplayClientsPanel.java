@@ -1,4 +1,4 @@
-package client.gui;
+package edu.client.gui;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;

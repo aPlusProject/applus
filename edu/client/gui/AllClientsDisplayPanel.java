@@ -1,6 +1,4 @@
-package client.gui;
-import client.model.EmployeePanelModel;
-
+package edu.client.gui;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
@@ -21,6 +19,7 @@ import javax.swing.JTextField;
 
 import edu.aplus.model.Client;
 import edu.aplus.model.Employee;
+import edu.client.model.EmployeePanelModel;
 
 public class AllClientsDisplayPanel {
 
