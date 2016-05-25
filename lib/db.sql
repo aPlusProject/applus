@@ -37,6 +37,7 @@ CREATE TABLE CLIENT
 (
 id_client INT PRIMARY KEY NOT NULL,
 id_employee INT,
+age INT,
 client_first_name VARCHAR2(100),
 client_last_name VARCHAR2(100),
 client_email VARCHAR2(100),
@@ -54,7 +55,8 @@ FOREIGN KEY (id_employee) REFERENCES EMPLOYEE(id_employee) ON DELETE CASCADE
 CREATE TABLE LOAN_TYPE
 (
 id_loan_type INT PRIMARY KEY NOT NULL,
-loan_name VARCHAR2(100)
+loan_name VARCHAR2(100),
+rate FLOAT
 );
 
 CREATE TABLE HISTORY
