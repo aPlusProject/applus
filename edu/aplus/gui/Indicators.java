@@ -39,8 +39,7 @@ public class Indicators extends JFrame{
  
 	private JTable table;
 	private JFrame f;
-	private Checkbox boxImmo;
-	private Checkbox boxPerso;
+	
 	
 	private JTextField nbRowsField;	
 	private JTextField moyInterestRateField;
@@ -56,9 +55,11 @@ public class Indicators extends JFrame{
 	private JPanel indicatorsPanel;
 	private NumberFormat formatter;
 
-	private JRadioButton stAllowed;
-	private JRadioButton stDenied;
-	private JRadioButton stPending;
+	private JRadioButton rbStAllowed;
+	private JRadioButton rbStDenied;
+	private JRadioButton rbStPending;
+	private JRadioButton rbImmo;
+	private JRadioButton rbPerso;
 	
 	private TableRowSorter<TableModel> sorter;
 	
@@ -103,8 +104,7 @@ public class Indicators extends JFrame{
 		
 		//indicatorsPanel is the panel for common indicator that don't apply any calcul 
 		
-		boxImmo = new Checkbox("immobilier");
-		boxPerso = new Checkbox("personnel");
+		
 		nbRowsField = new JTextField();
 		
 		//the textfield display the total of rows in the table (recall after each changement of the table)
@@ -173,190 +173,140 @@ public class Indicators extends JFrame{
 		
 		ButtonGroup cbGrp = new ButtonGroup();
 		
-		/*stAllowed = new Checkbox("Accepté", cbGrp, false);
-		stDenied = new Checkbox("Refusé", cbGrp, false);
-		stPending = new Checkbox("En cours", cbGrp, false);*/
-		stAllowed = new JRadioButton("Accordé");
-		stDenied = new JRadioButton("Refusé");
-		stPending = new JRadioButton("En cours");
 		
-		cbGrp.add(stAllowed);
-		cbGrp.add(stDenied);
-		cbGrp.add(stPending);
+		rbStAllowed = new JRadioButton("Accordé");
+		rbStDenied = new JRadioButton("Refusé");
+		rbStPending = new JRadioButton("En cours");
+		
+		rbImmo = new JRadioButton("Immobilier");
+		rbPerso = new JRadioButton("Personnel");
+		
+		cbGrp.add(rbStAllowed);
+		cbGrp.add(rbStDenied);
+		cbGrp.add(rbStPending);
+		cbGrp.add(rbImmo);
+		cbGrp.add(rbPerso);
+		
+		
 		
 		indicatorsPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
 		c.anchor = GridBagConstraints.NORTH;
 		//c.fill = GridBagConstraints.HORIZONTAL;
-		
-		//checkbox on top
 		c.weightx = 1;
-		c.gridx = 0;
+		
+		
+		// bloc of age and lenght on top
 		c.gridy = 0;
-		indicatorsPanel.add(boxImmo, c);
+		c.gridx = 0;
+		indicatorsPanel.add(new JLabel("Calcul de moyennes : "), c);
+		
+		c.gridy = 0;
 		c.gridx = 1;
-		indicatorsPanel.add(boxPerso, c);
-		c.gridx = 2;
-		indicatorsPanel.add(nbRowsField, c);
-		
-		//jump of 2 rows
-		c.gridy = 1;
-		c.gridx = 0;
-		indicatorsPanel.add(new JLabel("   "),c);
-		c.gridy = 2;
-		indicatorsPanel.add(new JLabel("   "),c);
-		
-		// bloc of age and lenght
-		c.gridy = 5;
-		c.gridx = 0;
-		indicatorsPanel.add(new JLabel("Calcul de moyennes"), c);
-		
-		c.gridy = 3;
-		c.gridx = 2;
 		indicatorsPanel.add(btnAge, c);
-		c.gridx = 3;
+		c.gridx = 2;
 		indicatorsPanel.add(btnLenght, c);
 		
-		c.gridy = 4;
-		c.gridx = 2;
+		c.gridy = 1;
+		c.gridx = 1;
 		indicatorsPanel.add(moyAgeField, c);
-		c.gridx = 3;
+		c.gridx = 2;
 		indicatorsPanel.add(moyLengthField, c);
 		
-		
-		
-		
 		//jump of 1 rows
-		c.gridy = 5;
+		c.gridy = 2;
+		c.gridx = 0;
 		indicatorsPanel.add(new JLabel("   "),c);
 		
 		//bloc of emprunt amount and interest rate
-		c.gridy = 6;
-		c.gridx = 2;
+		c.gridy = 3;
+		c.gridx = 1;
 		indicatorsPanel.add(btnEmpruntAmount, c);
-		c.gridx = 3;
-		indicatorsPanel.add(btnInterestRate, c);
-		c.gridy = 7;
 		c.gridx = 2;
+		indicatorsPanel.add(btnInterestRate, c);
+		c.gridy = 4;
+		c.gridx = 1;
 		indicatorsPanel.add(moyEmpruntAmountField, c);
-		c.gridx = 3;
+		c.gridx = 2;
 		indicatorsPanel.add(moyInterestRateField, c);
 		
-		c.gridy = 8;
+		//jump of 1 rows
+		c.gridy = 5;
 		c.gridx = 0;
-		indicatorsPanel.add(stAllowed, c);
+		indicatorsPanel.add(new JLabel("   "),c);
+		
+		//radio button type of loan
+		c.gridy = 6;
+		c.gridx = 0;
+		indicatorsPanel.add(rbImmo, c);
 		c.gridx = 1;
-		indicatorsPanel.add(stDenied, c);
+		indicatorsPanel.add(rbPerso, c);
 		c.gridx = 2;
-		indicatorsPanel.add(stPending, c);
+		indicatorsPanel.add(nbRowsField, c);
+		
+		//radio button state of loans
+		c.gridy = 7;
+		c.gridx = 0;
+		indicatorsPanel.add(rbStAllowed, c);
+		c.gridx = 1;
+		indicatorsPanel.add(rbStDenied, c);
+		c.gridx = 2;
+		indicatorsPanel.add(rbStPending, c);		
 		
 		
 		
-		
-		
-		
-		boxImmo.addItemListener(new ItemListener() {
+		rbImmo.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				if(boxImmo.getState() && !boxPerso.getState()) {
-					applyTableFilter("immobilier");
-					nbRowsField.setText(table.getRowCount()+" sorties");
-				}
-				else if(boxImmo.getState() && boxPerso.getState()) {
-					applyTableFilter(null);
-					nbRowsField.setText(table.getRowCount()+" sorties");
-				}
-				else if(!boxImmo.getState() && !boxPerso.getState()) {
-					applyTableFilter("");
-					nbRowsField.setText(table.getRowCount()+" sorties");
-				}
-				else if(!boxImmo.getState() && boxPerso.getState()) {
-					applyTableFilter("personnel");
-					nbRowsField.setText(table.getRowCount()+" sorties");
-				}
-				
-				/*if(boxImmo.getState()) {
-					/*applyTableFilter("immobilier");
-					nbRowsField.setText(table.getRowCount()+" sorties");
-						List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
-			        filters.add(RowFilter.regexFilter("immobilier"));
-			        
-			        /*RowFilter<Object,Object> serviceFilter = RowFilter.andFilter(filters);
-			        sorter.setRowFilter(serviceFilter);
-				}
-				else {
-					
-				}*/
-				
+				applyTableFilter("immobilier");
+				nbRowsField.setText(table.getRowCount()+" sorties");
 			}
 			
 		});
 		
-		boxPerso.addItemListener(new ItemListener() {
+		rbPerso.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				if(boxPerso.getState() && !boxImmo.getState()) {
-					applyTableFilter("personnel");
-					nbRowsField.setText(table.getRowCount()+" sorties");
-				}
-				else if(boxPerso.getState() && boxImmo.getState() ){
-					applyTableFilter(null);
-					nbRowsField.setText(table.getRowCount()+" sorties");
-				}
-				else if(!boxPerso.getState() && !boxImmo.getState()) {
-					applyTableFilter("");
-					nbRowsField.setText(table.getRowCount()+" sorties");
-				}
-				else if(!boxPerso.getState() && boxImmo.getState()) {
-					applyTableFilter("immobilier");
-					nbRowsField.setText(table.getRowCount()+" sorties");
-				}
-				/*if(boxPerso.getState()) {
-					/*applyTableFilter("personnel");
-					nbRowsField.setText(table.getRowCount()+" sorties");
-					List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
-			        filters.add(RowFilter.regexFilter("personnel", 1));
-			        
-			        RowFilter<Object,Object> serviceFilter = RowFilter.andFilter(filters);
-			        /*sorter.setRowFilter(serviceFilter);
-			        
-			        
-				}*/
+				applyTableFilter("personnel");
+				nbRowsField.setText(table.getRowCount()+" sorties");
 			}
 			
 		});
 		
-		stAllowed.addActionListener(new ActionListener() {
+		rbStAllowed.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				applyTableFilter("");
+				//applyTableFilter("");
 				applyTableFilter("accordé");
+				nbRowsField.setText(table.getRowCount()+" sorties");
 				
 			}
 			
 		});
 		
-		stDenied.addActionListener(new ActionListener() {
+		rbStDenied.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				applyTableFilter("");
+				//applyTableFilter("");
 				applyTableFilter("refusé");
+				nbRowsField.setText(table.getRowCount()+" sorties");
 				
 			}
 			
 		});
 		
-		stPending.addActionListener(new ActionListener() {
+		rbStPending.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				applyTableFilter("");
+				//applyTableFilter("");
 				applyTableFilter("en cours");
+				nbRowsField.setText(table.getRowCount()+" sorties");
 				
 			}
 			
@@ -388,20 +338,8 @@ public class Indicators extends JFrame{
 	    	String escapedFilterText = Pattern.quote(filterText);
 	    	sorter.setRowFilter(RowFilter.regexFilter(escapedFilterText));
 	    }
-		// Add the wildcards to the right and to the left
-		//String completeFilterText = ".*" + escapedFilterText + ".*";
-		// Apply the filter on the table
-		//((DefaultRowSorter) table.getRowSorter())
-			//	.setRowFilter(RowFilter.regexFilter(completeFilterText)); 
-		
 	}
 	
-	/*private void filter(String text) {
-		
-		TableRowSorter sorter = new TableRowSorter(table.getModel());
-		sorter.setRowFilter(RowFilter.andFilter(escapedFilterText));
-		
-	}*/
 	
 	
 	/**
