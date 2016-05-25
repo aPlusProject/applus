@@ -1,22 +1,29 @@
 package client.model;
 
-import edu.aplus.gui.ChartFrame;
+import org.jfree.ui.RefineryUtilities;
+
+import edu.aplus.gui.LineChart;
 
 public class Chart {
 
-	private String chartName="";
+	private String chartName = "";
 	private int chartID;
+	private LineChart chart;
 	
-	public void afficher(){
-		ChartFrame chartFrame = new ChartFrame();
-		chartFrame.setVisible(true);
+	public Chart(String name){
+		chartName = name;
 	}
-	
-	public void imprimer(){
-		
+
+	public void afficher() {
+		chart = new LineChart(chartName);
+
+		chart.pack();
+		RefineryUtilities.centerFrameOnScreen(chart);
+		chart.setVisible(true);
 	}
-	
-	public void exporter(){
-		
+
+	public void imprimer() {
+
 	}
+
 }

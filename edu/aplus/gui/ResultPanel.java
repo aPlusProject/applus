@@ -114,7 +114,7 @@ public class ResultPanel extends JFrame{
 				// TODO Auto-generated method stub
 				System.out.println("Button cliked");
 				
-				Chart c1 = new Chart();
+				Chart c1 = new Chart("Loan history chart");
 				c1.afficher();
 			}
 		});

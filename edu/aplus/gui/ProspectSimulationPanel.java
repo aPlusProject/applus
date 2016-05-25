@@ -42,11 +42,11 @@ public class ProspectSimulationPanel  extends JFrame{
 		setContentPane(panel);
 		panel.setLayout(null);
 		
-		title1 = new JLabel("Données financières du prospect : ");
+		title1 = new JLabel("DonnÃ©es financiÃ¨res du prospect : ");
 		title1.setBounds(20, 20, 200, 30);
 		panel.add(title1);
 		
-		title2 = new JLabel("Renseignez les données du prêt : ");
+		title2 = new JLabel("Renseignez les donnÃ©es du prÃªt : ");
 		title2.setBounds(230, 20, 200, 30);
 		panel.add(title2);
 		
@@ -77,7 +77,7 @@ public class ProspectSimulationPanel  extends JFrame{
 		panel.add(debtRate);
 		debtRate.setColumns(2);
 		
-		amountL = new JLabel("Montant du prêt : ");
+		amountL = new JLabel("Montant du prÃªt : ");
 		amountL.setBounds(230, 80, 200, 15);
 		panel.add(amountL);
 		
@@ -86,7 +86,7 @@ public class ProspectSimulationPanel  extends JFrame{
 		panel.add(amount);
 		amount.setColumns(2);
 		
-		durationL = new JLabel("Durée du prêt : ");
+		durationL = new JLabel("DurÃ©e du prÃªt : ");
 		durationL.setBounds(230, 120, 200, 15);
 		panel.add(durationL);
 		
@@ -95,7 +95,7 @@ public class ProspectSimulationPanel  extends JFrame{
 		panel.add(duration);
 		duration.setColumns(2);
 		
-		rateL = new JLabel("Taux d'intérêt du prêt : ");
+		rateL = new JLabel("Taux d'intÃ©rÃªt du prÃªt : ");
 		rateL.setBounds(230, 160, 250, 15);
 		panel.add(rateL);
 		

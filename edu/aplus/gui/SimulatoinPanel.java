@@ -36,7 +36,7 @@ public class SimulatoinPanel  extends JFrame{
 	private JTextField rateInsurance;
 	private JLabel rateInsuranceL;
 	private JButton bouton;
-	private String[] possibleValues = {"Crédit Immobilier","Crédit Consommation","Crédit Revolving"};
+	private String[] possibleValues = {"Crédit Immobilier","Crédit Personnel","Crédit Professionnel"};
 
 	public SimulatoinPanel() {
 		

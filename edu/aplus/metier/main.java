@@ -17,55 +17,15 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-
-	
+import javax.swing.event.ListSelectionListener;	
 public class main {
 	
 	private DataSource ds;
 	private JPanel contentPanel;
 	private Connection co;
 	
-	public static void main(String[] args) {
-		
-		
-		EventQueue.invokeLater(new Runnable() {
-			
-			//ChooseLoanType
-			public void run() {
-				try {
-					ChooseLoanType frame = new ChooseLoanType();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				//homeLoan
-				try {
-					HomeLoan frame = new HomeLoan();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+	public static void main(String[] args) throws Exception  {
 
-				//personalLoan
-				try {
-					PersonalLoan frame = new PersonalLoan();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		new ChooseLoanType();
 
-				// professionalLoan
-				try {
-					ProfessionalLoan frame = new ProfessionalLoan();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				//creditRetrieval
-				try {
-					CreditRetrieval frame = new CreditRetrieval();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}}
+	}	}
