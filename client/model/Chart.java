@@ -9,9 +9,13 @@ public class Chart {
 	private String chartName = "";
 	private int chartID;
 	private LineChart chart;
+	
+	public Chart(String name){
+		chartName = name;
+	}
 
 	public void afficher() {
-		chart = new LineChart("Numer of Schools vs years");
+		chart = new LineChart(chartName);
 
 		chart.pack();
 		RefineryUtilities.centerFrameOnScreen(chart);
@@ -22,7 +26,4 @@ public class Chart {
 
 	}
 
-	public void exporter() {
-		
-	}
 }
