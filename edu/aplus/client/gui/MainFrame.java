@@ -10,8 +10,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import edu.aplus.client.panel.ArrayPanel;
-import edu.aplus.client.panel.IndicatorsPanel;
+import edu.aplus.client.panel.ArrayIndicatorsPanel;
+import edu.aplus.client.panel.FilterIndicatorsPanel;
+import edu.aplus.client.panel.MainPanel;
 
 import java.awt.GridLayout;
 import java.awt.MenuItem;
@@ -28,9 +29,9 @@ import java.awt.event.ActionListener;
  */
 public class MainFrame extends JFrame {
 
-	private mainPanel mainPanel;
-	private IndicatorsPanel indicatorsPanel;
-	private ArrayPanel arrayPanel;
+	private MainPanel mainPanel;
+	private FilterIndicatorsPanel indicatorsPanel;
+	private ArrayIndicatorsPanel arrayPanel;
 	
 	private static JMenuBar menubar;
 
@@ -59,7 +60,7 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 2000, 600);
-		mainPanel = new mainPanel();
+		mainPanel = new MainPanel();
 		
 		getContentPane().add(mainPanel);
 		
@@ -84,9 +85,9 @@ public class MainFrame extends JFrame {
 						remove(indicatorsPanel);
 						
 						
-						arrayPanel = new ArrayPanel();
+						arrayPanel = new ArrayIndicatorsPanel();
 						//lui fournir la table de l'autre panel et sorter
-						indicatorsPanel = new IndicatorsPanel(arrayPanel.getJTableObject(), arrayPanel.getSorterObject());
+						indicatorsPanel = new FilterIndicatorsPanel(arrayPanel.getJTableObject(), arrayPanel.getSorterObject());
 						
 						getContentPane().add(indicatorsPanel);
 						validate();
@@ -115,9 +116,9 @@ public class MainFrame extends JFrame {
 				
 				setJMenuBar(newMenubar);
 				
-				arrayPanel = new ArrayPanel();
+				arrayPanel = new ArrayIndicatorsPanel();
 				
-				indicatorsPanel = new IndicatorsPanel(arrayPanel.getJTableObject(), arrayPanel.getSorterObject());
+				indicatorsPanel = new FilterIndicatorsPanel(arrayPanel.getJTableObject(), arrayPanel.getSorterObject());
 				getContentPane().add(arrayPanel);
 				pack();
 				

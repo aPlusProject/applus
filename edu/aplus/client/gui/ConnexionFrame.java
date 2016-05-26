@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import edu.aplus.client.panel.ConnexionPanel;
+
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;

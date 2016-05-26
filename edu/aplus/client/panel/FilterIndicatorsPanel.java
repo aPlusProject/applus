@@ -16,7 +16,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-public class IndicatorsPanel extends JPanel {
+public class FilterIndicatorsPanel extends JPanel {
 	
 	private JLabel avgLbl;
     private JTextField nbRowsField;	
@@ -31,7 +31,7 @@ public class IndicatorsPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public IndicatorsPanel(JTable table, TableRowSorter<DefaultTableModel> sorter) {
+	public FilterIndicatorsPanel(JTable table, TableRowSorter<DefaultTableModel> sorter) {
 		
 		upTable = table;
 		upSorter = sorter;

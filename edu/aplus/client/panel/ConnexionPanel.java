@@ -1,4 +1,4 @@
-package edu.aplus.client.gui;
+package edu.aplus.client.panel;
 
 import java.awt.FlowLayout;
 import java.awt.TextField;

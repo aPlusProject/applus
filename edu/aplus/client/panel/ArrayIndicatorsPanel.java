@@ -8,7 +8,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-public class ArrayPanel extends JPanel {
+public class ArrayIndicatorsPanel extends JPanel {
 	
 	
 	private JTable table;
@@ -18,7 +18,7 @@ public class ArrayPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public ArrayPanel() {
+	public ArrayIndicatorsPanel() {
 		
 		setLayout(new FlowLayout());
 		
