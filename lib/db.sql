@@ -55,8 +55,8 @@ FOREIGN KEY (id_employee) REFERENCES EMPLOYEE(id_employee) ON DELETE CASCADE
 CREATE TABLE LOAN_TYPE
 (
 id_loan_type INT PRIMARY KEY NOT NULL,
-loan_name VARCHAR2(100)
-rate FLOAT
+loan_name VARCHAR2(100),
+rate FLOAT,
 );
 
 CREATE TABLE HISTORY
@@ -74,9 +74,9 @@ id_conseiller INT,
 id_loan_type INT,
 id_history INT,
 asked_amount INT,
-asked_duration INT;
-asked_rate FLOAT;
-asked_rateInsurance FLOAT;
+asked_duration INT,
+asked_rate FLOAT,
+asked_rateInsurance FLOAT,
 asked_date DATE,
 decision INT,
 FOREIGN KEY (id_loan_type) REFERENCES LOAN_TYPE(id_loan_type) ON DELETE CASCADE,
