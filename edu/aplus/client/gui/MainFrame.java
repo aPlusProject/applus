@@ -2,6 +2,8 @@ package edu.aplus.client.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -59,10 +61,16 @@ public class MainFrame extends JFrame {
 	 */
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 2000, 600);
+		//setBounds(50, 50, 1000, 1000);
+		setLayout(new GridBagLayout());
+		setSize(950, 600);
 		mainPanel = new MainPanel();
 		
 		getContentPane().add(mainPanel);
+		
+		final GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		
 		
 		mainPanel.setActionListener(new ActionListener() {
 
@@ -88,8 +96,8 @@ public class MainFrame extends JFrame {
 						arrayPanel = new ArrayIndicatorsPanel();
 						//lui fournir la table de l'autre panel et sorter
 						indicatorsPanel = new FilterIndicatorsPanel(arrayPanel.getJTableObject(), arrayPanel.getSorterObject());
-						
-						getContentPane().add(indicatorsPanel);
+						c.gridx = 1;
+						getContentPane().add(indicatorsPanel, c);
 						validate();
 						
 					}
@@ -119,10 +127,12 @@ public class MainFrame extends JFrame {
 				arrayPanel = new ArrayIndicatorsPanel();
 				
 				indicatorsPanel = new FilterIndicatorsPanel(arrayPanel.getJTableObject(), arrayPanel.getSorterObject());
-				getContentPane().add(arrayPanel);
-				pack();
 				
-				getContentPane().add(indicatorsPanel);
+				c.gridx = 0;
+				getContentPane().add(arrayPanel, c);
+				pack();
+				c.gridx = 1;
+				getContentPane().add(indicatorsPanel, c);
 				repaint();
 				
 		        setVisible(true);

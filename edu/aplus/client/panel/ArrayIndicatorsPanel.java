@@ -16,7 +16,7 @@ public class ArrayIndicatorsPanel extends JPanel {
 	private TableRowSorter<DefaultTableModel> sorter;
 
 	/**
-	 * Create the panel.
+	 * this panel allow the display of the array of all loans
 	 */
 	public ArrayIndicatorsPanel() {
 		
@@ -36,19 +36,29 @@ public class ArrayIndicatorsPanel extends JPanel {
 		
 		table = new JTable(model = new DefaultTableModel(data,cols));
 		
+		// create a sorter object to apply filter on it (FilterIndicatorsPanel.java)
 		sorter = new TableRowSorter<DefaultTableModel>(model);
         table.setRowSorter(sorter);
         
+        // set the array scrollable
         add(new JScrollPane(table));
 
 	}
 	
-	
+	/**
+	 * 
+	 * @return current JTable object
+	 * 
+	 */
 	public JTable getJTableObject() {
 		
 		return table;
 	}
 	
+	/**
+	 * 
+	 * @return current TableRowSorter<DefaultTableModel> object
+	 */
 	public TableRowSorter<DefaultTableModel> getSorterObject() {
 		
 		return sorter;

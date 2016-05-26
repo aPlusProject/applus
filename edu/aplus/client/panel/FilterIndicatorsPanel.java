@@ -1,6 +1,9 @@
 package edu.aplus.client.panel;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -29,20 +32,29 @@ public class FilterIndicatorsPanel extends JPanel {
 	private JTable upTable;
 
 	/**
-	 * Create the panel.
+	 * This panel allow to filter the indicators array
+	 * 
+	 * array needed
+	 * 
+	 * TableRowSorter needed
+	 * 
 	 */
 	public FilterIndicatorsPanel(JTable table, TableRowSorter<DefaultTableModel> sorter) {
+		
 		
 		upTable = table;
 		upSorter = sorter;
 		
-		this.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		this.setLayout(new GridBagLayout());
+		
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
 		
 		
 		nbRowsField = new JTextField();
     	nbRowsField.setEditable(false);
     	
-    	avgLbl = new JLabel("Affichage des moyennes");
+    	avgLbl = new JLabel("Affichage des moyennes : ");
     	
     	avgInterestRateField = new JTextField();
     	avgInterestRateField.setEditable(false);
@@ -67,18 +79,52 @@ public class FilterIndicatorsPanel extends JPanel {
             }
         });
         
-        add(new JLabel("Type de prêt :"));
-        add(boxLoanType);
-        add(new JLabel("Status du prêt :"));
-        add(boxLoanStatus);
-        add(filterBtn);
-        add(nbRowsField);
+        //first line of elements
+        c.gridy = 0;
+        c.gridx = 0;
+        add(new JLabel("Type de prêt :"), c);
+        c.gridx = 1;
+        add(new JLabel("Status du prêt :"), c);
+        c.gridx = 3;
+        add(filterBtn, c);
         
-        add(avgLbl);
-        add(avgAgeField);
-        add(avgLengthField);
-        add(avgInterestRateField);
-        add(avgEmpruntAmountField);
+        c.gridy = 1;
+        c.gridx = 0;
+        add(boxLoanStatus, c);
+        c.gridx = 1;
+        add(boxLoanType, c);
+        c.gridx = 3;
+        add(nbRowsField, c);
+        
+        //next line
+        c.gridy = 2;
+        c.gridx = 0;
+        add(new JLabel(" "), c);
+        
+        c.gridy = 3;
+        c.gridx = 0;
+        add(avgLbl, c);
+        
+        //2nd line of elements
+        c.gridy = 4;
+        c.gridx = 0;
+        add(new JLabel("Age : "), c);
+        c.gridx = 1;
+        add(avgAgeField, c);
+        c.gridx = 2;
+        add(new JLabel("Durée : "), c);
+        c.gridx = 3;
+        add(avgLengthField, c);
+        
+        c.gridy = 5;
+        c.gridx = 0;
+        add(new JLabel("Interêt perçus : "), c);
+        c.gridx = 1;
+        add(avgInterestRateField, c);
+        c.gridx = 2;
+        add(new JLabel("Montant Emprunté : "), c);
+        c.gridx = 3;
+        add(avgEmpruntAmountField, c);
         
         nbRowsField.setText(upTable.getRowCount()+" trouvés");
         setAllAvgField(upTable, 6, 3, 2, 5);
