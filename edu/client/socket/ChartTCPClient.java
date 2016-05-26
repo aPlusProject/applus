@@ -10,6 +10,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import edu.client.service.JSONChartParser;
+
 public class ChartTCPClient {
 
 	public String sendMsg;
@@ -25,11 +27,13 @@ public class ChartTCPClient {
 		BufferedReader br = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
 		receivedMsg=br.readLine();
 		System.out.println("Received: "+receivedMsg);
+		JSONChartParser chartinfo = new JSONChartParser(receivedMsg);
+		System.out.println(chartinfo.getResult());
 		
 		PrintWriter pw = new PrintWriter(socket1.getOutputStream(), true);
 
 		pw.println(sendMsg);
-		System.out.println("Send: "+sendMsg);
+		//System.out.println("Send: "+sendMsg);
 		br.close();
 		pw.close();
 		socket1.close();

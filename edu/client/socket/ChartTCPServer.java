@@ -60,10 +60,10 @@ public class ChartTCPServer {
 				 * "2016-05-10 00:00:00.0"} ]}
 				 */
 				System.out.println(rs.getString("ASKED_AMOUNT"));
-				returnMsg = "{" + rs.getString("ID_LOAN") + ":[ {ASKED_AMOUNT:" + rs.getString("ASKED_AMOUNT")
+				returnMsg = "{chart: {'" + rs.getString("ID_LOAN") + "':[ {ASKED_AMOUNT:" + rs.getString("ASKED_AMOUNT")
 						+ ", ASKED_DURATION:" + rs.getString("ASKED_DURATION") + ",ASKED_RATE:"
 						+ rs.getString("ASKED_RATE") + ", ASKED_RATEINSURANCE:" + rs.getString("ASKED_RATEINSURANCE")
-						+ ",ASKED_DATE:" + rs.getString("ASKED_DATE") + "} ]}}";
+						+ ",ASKED_DATE:'" + rs.getString("ASKED_DATE") + "'} ]}}";
 			}
 			rs.close();
 			ps.close();
