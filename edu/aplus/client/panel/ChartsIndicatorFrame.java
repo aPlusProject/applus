@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.sql.DataSource;
 import javax.swing.JFrame;
@@ -109,7 +110,7 @@ public class ChartsIndicatorFrame extends JFrame {
 	 */
 	public ArrayList<Integer> getAmountOfLoansByMonth(int year) throws ClassNotFoundException, SQLException {
 				
-		ArrayList<Integer> loanByYear = new ArrayList<Integer>();
+		ArrayList<Integer> listLoanByYear = new ArrayList<Integer>();
 		for(int i = 1; i <= 12; i++) {
 			
 			String sql = "SELECT COUNT(*) FROM LOAN "
@@ -125,15 +126,15 @@ public class ChartsIndicatorFrame extends JFrame {
 	        
 	        ResultSet rs = ps.executeQuery();
 	        while(rs.next()) { 
-	        	loanByYear.add(rs.getInt(1));
+	        	listLoanByYear.add(rs.getInt(1));
 	        }
 	        
-	        System.out.println("mois no"+loanByYear.size()+" : "+loanByYear.get(i-1)+" demandes");
+	        System.out.println("mois no"+listLoanByYear.size()+" : "+listLoanByYear.get(i-1)+" demandes");
 			
 		}
 			
 		
-		return loanByYear;
+		return listLoanByYear;
 	}
 	
 	public int getLoanAmountInAYear(int year) throws SQLException, ClassNotFoundException {
@@ -158,6 +159,24 @@ public class ChartsIndicatorFrame extends JFrame {
 		
 		
 		return loanAmount;
+	}
+	
+	
+	public ArrayList<Integer> getLoanAmountForEachYear() throws ClassNotFoundException, SQLException {
+		
+		ArrayList<Integer> listLoanEachYear = new ArrayList<Integer>();
+		
+		//get the current year for the the boucle
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		//add the amount of loan for each year until this current year
+		for(int i=2000; i <= year; i++) {
+			listLoanEachYear.add(this.getLoanAmountInAYear(i));
+			System.out.println("année no"+listLoanEachYear.size()+" : "+listLoanEachYear.get(i-2000)+" demandes");
+		}
+		
+		
+		return listLoanEachYear;
+		
 	}
 	
 	

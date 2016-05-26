@@ -68,6 +68,17 @@ public class ChartsIndicatorTest {
 		
 	}
 	
-	
+	@Test
+	public void testGetAmontOfYearSince2000() throws ClassNotFoundException, SQLException {
+		
+		System.out.println("testGetAmontOfYearSince2000");
+		
+		ChartsIndicatorFrame instance = new ChartsIndicatorFrame();
+		
+		
+		//17 complete years since 2000
+		assertTrue(instance.getLoanAmountForEachYear().size() == 17);
+		
+	}
 
 }
