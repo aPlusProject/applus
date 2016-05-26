@@ -10,8 +10,8 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
-
-import javax.sql.DataSource;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import edu.aplus.db.ConnectionPool;
 
@@ -42,11 +42,28 @@ public class ChartTCPServer {
 		conn.makeStack();
 		
 		co = conn.getConnection();
-		if (co != null) {
-			returnMsg="Connected";
-		}
-		else {
-			returnMsg="Failed";
+		try {
+			PreparedStatement ps;
+			ResultSet rs;
+
+
+			String sql = "SELECT CLIENT_EMAIL FROM CLIENT";
+
+			ps = co.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+
+			while(rs.next()) {
+
+				System.out.println(rs.getString("CLIENT_EMAIL"));
+				returnMsg=returnMsg+";"+rs.getString("CLIENT_EMAIL");
+			}
+			rs.close();
+			ps.close();
+		} catch (Exception e) {
+			throw e;
+		}finally{
+			try{co.close();}catch(Exception e){;}
 		}
 		
 		co.close();
