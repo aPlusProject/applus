@@ -50,8 +50,8 @@ public class ChartsIndicatorFrame extends JFrame {
 		
 		
 		JFreeChart lineChart = ChartFactory.createLineChart(
-		         "Graphique en fonction des années",
-		         "Years","Number of Schools",
+		         "Nombres de demande de prêts par années",
+		         "Années","Demandes de prêts",
 		         createDataset(),
 		         PlotOrientation.VERTICAL,
 		         true,true,false);
@@ -64,14 +64,50 @@ public class ChartsIndicatorFrame extends JFrame {
 	private DefaultCategoryDataset createDataset( )
 	   {
 	      DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
-	      dataset.addValue( 15 , "schools" , "1970" );
-	      dataset.addValue( 30 , "schools" , "1980" );
-	      dataset.addValue( 60 , "schools" ,  "1990" );
-	      dataset.addValue( 120 , "schools" , "2000" );
-	      dataset.addValue( 240 , "schools" , "2010" );
-	      dataset.addValue( 300 , "schools" , "2014" );
+	      dataset.addValue( 2657 , "Nombres de demandes" , "2000" );
+	      dataset.addValue( 5896 , "Nombres de demandes" , "2001" );
+	      dataset.addValue( 6523 , "Nombres de demandes" ,  "2002" );
+	      dataset.addValue( 7562 , "Nombres de demandes" , "2003" );
+	      dataset.addValue( 9624 , "Nombres de demandes" , "2004" );
+	      dataset.addValue( 1056 , "Nombres de demandes" , "2005" );
+	      dataset.addValue( 1345 , "Nombres de demandes" , "2006" );
+	      dataset.addValue( 1753 , "Nombres de demandes" , "2007" );
+	      dataset.addValue( 1654 , "Nombres de demandes" , "2008" );
+	      dataset.addValue( 2530 , "Nombres de demandes" , "2009" );
+	      dataset.addValue( 2375 , "Nombres de demandes" , "2010" );
+	      dataset.addValue( 3624 , "Nombres de demandes" , "2011" );
+	      dataset.addValue( 4521 , "Nombres de demandes" , "2012" );
+	      dataset.addValue( 2015 , "Nombres de demandes" , "2013" );
+	      dataset.addValue( 2536 , "Nombres de demandes" , "2014" );
+	      dataset.addValue( 2845 , "Nombres de demandes" , "2015" );
+	      dataset.addValue( 2456 , "Nombres de demandes" , "2016" );
 	      return dataset;
 	   }
+	
+	
+	/**
+	 * 
+	 * @param years > 0 
+	 * @param month [0,12] if month== 0: month ignored
+	 * @return the amount of loans by years and month
+	 */
+	public int getAmountOfLoansByTime(int years, int month) {
+		
+		int amountOfLoans = 0;
+		
+		String sql = "";
+		
+		if(month == 0) {
+			
+			sql = "SELECT COUNT(*) FROM LOAN WHERE "
+					+ "EXTRACT (YEAR FROM ASKED_DATE) = ?";
+			
+			
+		}
+		
+		
+		return amountOfLoans;
+	}
 	
 	
 
