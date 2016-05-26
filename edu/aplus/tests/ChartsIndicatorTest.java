@@ -59,6 +59,15 @@ public class ChartsIndicatorTest {
 		
 	}
 	
+	@Test
+	public void testGetAmountOfMonthInAYear() throws ClassNotFoundException, SQLException {
+		
+		ChartsIndicatorFrame instance = new ChartsIndicatorFrame();
+		
+		assertTrue(instance.getAmountOfLoansByMonth(2014).size() == 12);
+		
+	}
+	
 	
 
 }
