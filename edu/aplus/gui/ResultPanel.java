@@ -8,14 +8,17 @@ import java.net.UnknownHostException;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import edu.aplus.business.SimulatorFixedRate;
+import edu.aplus.model.Client;
+import edu.aplus.model.Loan;
 import edu.client.model.Chart;
 import edu.client.socket.ChartTCPClient;
 
 public class ResultPanel extends JFrame{
 	
 	private JPanel panel;
-	private JLabel resultL;
-	private JTextField result;
+	private JLabel creditTypeL;
+	private JTextField creditType;
 	private JLabel amountL;
 	private JTextField amount;
 	private JLabel durationL;
@@ -42,13 +45,13 @@ public class ResultPanel extends JFrame{
 		setContentPane(panel);
 		panel.setLayout(null);
 		
-		resultL = new JLabel("D�cision de la simulation : ");
-		resultL.setBounds(50, 20, 200, 30);
-		panel.add(resultL);
+		creditTypeL = new JLabel("D�cision de la simulation : ");
+		creditTypeL.setBounds(50, 20, 200, 30);
+		panel.add(creditTypeL);
 		
-		result = new JTextField();
-		result.setBounds(250, 20, 200, 30);
-		panel.add(result);
+		creditType = new JTextField();
+		creditType.setBounds(250, 20, 200, 30);
+		panel.add(creditType);
 		
 		amountL = new JLabel("Montant emprunt� : ");
 		amountL.setBounds(50, 50, 200, 30);
@@ -110,6 +113,10 @@ public class ResultPanel extends JFrame{
 		chartButton.setBounds(330, 320, 100, 40);
 		panel.add(chartButton);
 		
+		JButton saveButton = new JButton("Save loan");
+		saveButton.setBounds(230, 320, 100, 40);
+		panel.add(saveButton);
+		
 		chartButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -130,5 +137,30 @@ public class ResultPanel extends JFrame{
 	public static void main (String[] args){
 		ResultPanel frame1 = new ResultPanel();
 		frame1.setVisible(true);
+	}
+	public void remplir(Loan loan) {
+		String aM = String.valueOf(loan.getAskesAmount());
+		amount.setText(aM);
+		String aD = String.valueOf(loan.getAskedDuration() * 12);
+		duration.setText(aD);
+		String aR = String.valueOf(loan.getAskedRate());
+		rate.setText(aR);
+		String aRI = String.valueOf(loan.getAskedRateInsurance());
+		rateInsurance.setText(aRI);
+		SimulatorFixedRate simulator = new SimulatorFixedRate();
+    	double d1 = simulator.calculateInstallment(null, loan.getAskesAmount(), loan.getAskedDuration(), loan.getAskedRate());
+    	String s = String.valueOf(d1);
+    	installationWithoutIns.setText(s);
+    	double d2 = simulator.calculateFinalInstallment(null, loan.getAskesAmount(), loan.getAskedDuration(), loan.getAskedRate(), loan.getAskedRateInsurance());
+    	String s1 = String.valueOf(d2);
+    	installationWithIns.setText(s1);
+    	double t = loan.getAskesAmount() + (loan.getAskedRate() + loan.getAskedRateInsurance())*loan.getAskedDuration();
+    	total.setText(String.valueOf(t));
+    	
+		
+		//amountAsked = SimulatoinPanel.getAmount();
+		//amount.setText();
+		//charge.setText(client.getCharge());
+		//debtRate.setText(client.getDebtRate());
 	}
 }

@@ -1,6 +1,7 @@
 package edu.aplus.client.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -15,6 +16,8 @@ import javax.swing.border.EmptyBorder;
 import org.jfree.ui.RefineryUtilities;
 
 import edu.aplus.client.panel.ArrayIndicatorsPanel;
+import edu.aplus.client.panel.ChartsBarIndicatorPanel;
+import edu.aplus.client.panel.ChartsLineIndicatorPanel;
 import edu.aplus.client.panel.FilterIndicatorsPanel;
 import edu.aplus.client.panel.MainPanel;
 
@@ -22,6 +25,8 @@ import java.awt.GridLayout;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.Calendar;
 
 
 /**
@@ -36,6 +41,9 @@ public class MainFrame extends JFrame {
 	private MainPanel mainPanel;
 	private FilterIndicatorsPanel indicatorsPanel;
 	private ArrayIndicatorsPanel arrayPanel;
+	
+	private ChartsBarIndicatorPanel chartsBarIndicPanel;
+	private ChartsLineIndicatorPanel chartsLineIndicPanel;
 	
 	private static JMenuBar menubar;
 
@@ -65,7 +73,8 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//setBounds(50, 50, 1000, 1000);
 		setLayout(new GridBagLayout());
-		setSize(950, 600);
+		setSize(1200, 650);
+		setPreferredSize(new Dimension(1200, 650));
 		mainPanel = new MainPanel();
 		
 		getContentPane().add(mainPanel);
@@ -94,9 +103,11 @@ public class MainFrame extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						System.out.println("test Indicator");
 						
-						
+						remove(mainPanel);
 						remove(arrayPanel);
 						remove(indicatorsPanel);
+						//remove(chartsBarIndicPanel);
+						//remove(indicatorsPanel);
 						
 						
 						arrayPanel = new ArrayIndicatorsPanel();
@@ -108,6 +119,7 @@ public class MainFrame extends JFrame {
 						pack();
 						c.gridx = 1;
 						getContentPane().add(indicatorsPanel, c);
+						pack();
 						repaint();
 						
 					}
@@ -124,6 +136,35 @@ public class MainFrame extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						System.out.println("test charts");
+						
+						remove(mainPanel);
+						remove(arrayPanel);
+						remove(indicatorsPanel);
+						//remove(chartsBarIndicPanel);
+						//remove(indicatorsPanel);
+						
+						
+						int year = Calendar.getInstance().get(Calendar.YEAR);
+						System.out.println(year);
+						try {
+							chartsBarIndicPanel = new ChartsBarIndicatorPanel(year);
+							chartsLineIndicPanel = new ChartsLineIndicatorPanel();
+							c.gridx = 0;
+							c.gridy = 0;
+							remove(mainPanel);
+							getContentPane().add(chartsBarIndicPanel);
+							
+							pack();
+							c.gridx = 1;
+							getContentPane().add(chartsLineIndicPanel);
+							pack();
+							repaint();
+							
+							
+						} catch (ClassNotFoundException | SQLException e1) {
+							
+							e1.printStackTrace();
+						}
 						
 					}
 					
