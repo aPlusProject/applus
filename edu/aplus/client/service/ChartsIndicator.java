@@ -100,26 +100,62 @@ public class ChartsIndicator {
 	
 	public DefaultCategoryDataset createDatasetForIncrementalLine() throws ClassNotFoundException, SQLException{
 		
-		System.out.println("ok1");
-	      DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-	      System.out.println("ok2");
+		System.out.println("in createDatasetForIncrementalLine");
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+	  
+		ChartsIndicator instance = new ChartsIndicator();
+	  
+		ArrayList<Integer> list = instance.getLoanAmountForEachYear();
+		
+		
+		int valueToIncrement = 0;   //need for the incremental process
+		for(int i=0; i<list.size(); i++) {
+		  
+			System.out.println("Année "+(2000+i)+" demande :"+(list.get(i)+valueToIncrement));
+			
+			//creation of the dataset for the charts 
+		  dataset.addValue((list.get(i)+valueToIncrement), "Evolution des demandes", (2000+i)+"");
+		  valueToIncrement = valueToIncrement + list.get(i);
+		  
+		}
 	      
-	      ChartsIndicator instance = new ChartsIndicator();
-	      System.out.println("ok3");
-	      
-	      ArrayList<Integer> list = instance.getLoanAmountForEachYear();
-	      
-	      int valueToIncrement = 0;
-	      for(int i=0; i<list.size(); i++) {
-	    	  
-	    	  System.out.println("Année "+(2000+i)+" demande :"+(list.get(i)+valueToIncrement));
-	    	  
-	    	  dataset.addValue((list.get(i)+valueToIncrement), "Evolution des demandes", (2000+i)+"");
-	    	  valueToIncrement = valueToIncrement + list.get(i);
-	      }
-	      
-	      return dataset;
-	   }
+	    return dataset;
+	}
+	
+	public DefaultCategoryDataset createDatasetForBarChart(int year) throws ClassNotFoundException, SQLException {
+		
+		
+		ArrayList<String> yearList = new ArrayList<String>();
+		yearList.add("Janvier");
+		yearList.add("Février");
+		yearList.add("Mars");
+		yearList.add("Avril");
+		yearList.add("Mai");
+		yearList.add("Juin");
+		yearList.add("Juillet");
+		yearList.add("Aout");
+		yearList.add("Septemblre");
+		yearList.add("Octobre");
+		yearList.add("Novembre");
+		yearList.add("Décembre");
+		
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		
+		ChartsIndicator instance = new ChartsIndicator();
+		
+		ArrayList<Integer> list = instance.getAmountOfLoansByMonth(year);
+		
+		for(int i=0; i<list.size(); i++) {
+			  
+			//creation of the dataset for the charts 
+		  dataset.addValue((list.get(i)), "Nombre de prêts demandés par mois", yearList.get(i));  // example : amount = 8 for the month 0 = janvier 
+		  
+		}
+		
+		return dataset;
+		
+		
+	}
 	
 
 }

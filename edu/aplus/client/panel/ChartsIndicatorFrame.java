@@ -63,19 +63,25 @@ public class ChartsIndicatorFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		//JFreeChart barChart = ChartFactory.createBarChart("Nombres de demande de prêts par années", "année", "Nombre de demandes", createDataset());
-		
 		ChartsIndicator cIndic = new ChartsIndicator();
 		
-		CategoryDataset ds = cIndic.createDatasetForIncrementalLine();
+		
+		CategoryDataset datasetBar = cIndic.createDatasetForBarChart(2016);
+		
+		
+		JFreeChart barChart = ChartFactory.createBarChart("Nombres de demande de prêts par années", "année", "Nombre de demandes", datasetBar);
+		
+		
+		
+		CategoryDataset datasetLine = cIndic.createDatasetForIncrementalLine();
 		JFreeChart lineChart = ChartFactory.createLineChart(
 		         "Nombres de demandes de prêts au cours des années",
 		         "Années","Demandes de prêts",
-		         ds,
+		         datasetLine,
 		         PlotOrientation.VERTICAL,
 		         true,true,false);
 		         
-		      ChartPanel chartPanel = new ChartPanel( lineChart );
+		      ChartPanel chartPanel = new ChartPanel( barChart );
 		      chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
 		      setContentPane( chartPanel );
 	}
