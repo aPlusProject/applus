@@ -12,6 +12,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.jfree.ui.RefineryUtilities;
+
 import edu.aplus.client.panel.ArrayIndicatorsPanel;
 import edu.aplus.client.panel.FilterIndicatorsPanel;
 import edu.aplus.client.panel.MainPanel;
@@ -46,7 +48,7 @@ public class MainFrame extends JFrame {
 				try {
 					MainFrame frame = new MainFrame();
 					
-					
+					RefineryUtilities.centerFrameOnScreen( frame );
 					
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -84,21 +86,29 @@ public class MainFrame extends JFrame {
 				
 				JMenu indicatorMenu = new JMenu("Indicateurs");
 				JMenuItem openIndicator = new JMenuItem("Acceder");
+				
+				// point on filterIndicator view when we clique on the button
 				openIndicator.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						System.out.println("test Indicator");
 						
+						
+						remove(arrayPanel);
 						remove(indicatorsPanel);
 						
 						
 						arrayPanel = new ArrayIndicatorsPanel();
-						//lui fournir la table de l'autre panel et sorter
+						
+						//reaffect the needed panels
 						indicatorsPanel = new FilterIndicatorsPanel(arrayPanel.getJTableObject(), arrayPanel.getSorterObject());
+						c.gridx = 0;
+						getContentPane().add(arrayPanel, c);
+						pack();
 						c.gridx = 1;
 						getContentPane().add(indicatorsPanel, c);
-						validate();
+						repaint();
 						
 					}
 					
@@ -107,6 +117,8 @@ public class MainFrame extends JFrame {
 				
 				JMenu chartsMenu = new JMenu("Graphiques");
 				JMenuItem openCharts = new JMenuItem("Acceder");
+				
+				// point on chartes Indicator view when we clique on the button
 				openCharts.addActionListener(new ActionListener() {
 
 					@Override

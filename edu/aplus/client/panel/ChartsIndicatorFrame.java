@@ -29,8 +29,7 @@ public class ChartsIndicatorFrame extends JFrame {
 			public void run() {
 				try {
 					ChartsIndicatorFrame frame = new ChartsIndicatorFrame();
-					//frame.pack();
-					//RefineryUtilities.centerFrameOnScreen( frame );
+					RefineryUtilities.centerFrameOnScreen( frame );
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

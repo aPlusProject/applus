@@ -65,15 +65,16 @@ public class FilterIndicatorsPanel extends JPanel {
     	avgLengthField = new JTextField();
     	avgLengthField.setEditable(false);
     	
+    	//create the two combos box needed of the filtering process
         final JComboBox<String> boxLoanType = new JComboBox<>(new String[]{"Tout","immobilier","personnel"});
         final JComboBox<String> boxLoanStatus = new JComboBox<>(new String[]{"Tout","accordé","refusé", "en cours"});
         JButton filterBtn = new JButton("filter");
         
+        //call the filter process on the button clique
         filterBtn.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                //filterViaComboBox(boxLoanType, 4);
             	doubleFilter(upSorter, upTable, boxLoanType.getSelectedItem().toString(), 4, boxLoanStatus.getSelectedItem().toString(), 1);
             	
             }
@@ -86,7 +87,7 @@ public class FilterIndicatorsPanel extends JPanel {
         c.gridx = 1;
         add(new JLabel("Status du prêt :"), c);
         c.gridx = 3;
-        add(filterBtn, c);
+        add(nbRowsField, c);
         
         c.gridy = 1;
         c.gridx = 0;
@@ -94,7 +95,7 @@ public class FilterIndicatorsPanel extends JPanel {
         c.gridx = 1;
         add(boxLoanType, c);
         c.gridx = 3;
-        add(nbRowsField, c);
+        add(filterBtn, c);
         
         //next line
         c.gridy = 2;
@@ -127,11 +128,26 @@ public class FilterIndicatorsPanel extends JPanel {
         add(avgEmpruntAmountField, c);
         
         nbRowsField.setText(upTable.getRowCount()+" trouvés");
+        
+        //calcule all avg from the current table
         setAllAvgField(upTable, 6, 3, 2, 5);
 
 	}
 	
-public void doubleFilter(TableRowSorter<DefaultTableModel> sorter, JTable table, String stringFiltre1, int idColFiltre1, String stringFiltre2, int idColFiltre2) {
+	
+	/**
+	 * 
+	 * @param sorter come from the same class of table
+	 * @param table  need a array
+	 * @param stringFiltre1  filtre no1
+	 * @param idColFiltre1   col that apply the filtre no1
+	 * @param stringFiltre2  filtre no2
+	 * @param idColFiltre2   col that apply the filtre no2
+	 * 
+	 * This method handle the double filtrate of an array
+	 * 
+	 */
+	public void doubleFilter(TableRowSorter<DefaultTableModel> sorter, JTable table, String stringFiltre1, int idColFiltre1, String stringFiltre2, int idColFiltre2) {
     	
     	RowFilter<DefaultTableModel, Object> rfType = null;
     	RowFilter<DefaultTableModel, Object> rfStatus = null;
@@ -166,6 +182,16 @@ public void doubleFilter(TableRowSorter<DefaultTableModel> sorter, JTable table,
     	
     }
 
+	/**
+	 * 
+	 * @param table need an array
+	 * @param idAgeCol  indentify the age col of the array
+	 * @param idEmpruntAmountCol   indentify the Emprunt Amount col of the array
+	 * @param idInterestRateCol   indentify the InterestRate col of the array
+	 * @param idLenghtCol   indentify the Lenght of loans col of the array
+	 * 
+	 * This method apply all calcul on the textfields
+	 */
 	private void setAllAvgField(JTable table, int idAgeCol, int idEmpruntAmountCol, int idInterestRateCol, int idLenghtCol) {
 	
 		DecimalFormat formatter = new DecimalFormat("#0.000");
@@ -177,6 +203,12 @@ public void doubleFilter(TableRowSorter<DefaultTableModel> sorter, JTable table,
 	
 	}
 	
+	/**
+	 * 
+	 * @param table need an array
+	 * @param idCol  identifiy the array col that apply the avg calcul
+	 * @return the avg of the array col
+	 */
 	private double getAvgOfColByIdCol(JTable table, int idCol) {
     	
     	double avg = 0;

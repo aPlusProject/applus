@@ -13,17 +13,20 @@ public class MainPanel extends JPanel {
 	private ActionListener action;
 
 	/**
-	 * Create the panel.
+	 * The MainPanel display all use case define in the project
 	 */
 	public MainPanel() {
 		
+		//go to indicators use case
 		gotoIndicatorsBtn = new JButton("Voir les indicateurs");
-		
 		add(gotoIndicatorsBtn);
 
 	}
 	
-	
+	/**
+	 * 
+	 * @param actionListener 
+	 */
 	public void setActionListener(ActionListener actionListener) {
 		
 		gotoIndicatorsBtn.addActionListener(actionListener);
