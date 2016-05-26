@@ -12,7 +12,8 @@ import java.net.UnknownHostException;
 
 public class ChartTCPClient {
 
-	public String msg;
+	public String sendMsg;
+	private String receivedMsg="";
 
 	public ChartTCPClient(String msg)
 			throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
@@ -22,11 +23,13 @@ public class ChartTCPClient {
 		socket1 = new Socket(InetAddress.getLocalHost(), portNumber);
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
-
+		receivedMsg=br.readLine();
+		System.out.println("Received: "+receivedMsg);
+		
 		PrintWriter pw = new PrintWriter(socket1.getOutputStream(), true);
 
-		pw.println(msg);
-		System.out.println("Send: "+msg);
+		pw.println(sendMsg);
+		System.out.println("Send: "+sendMsg);
 		br.close();
 		pw.close();
 		socket1.close();
