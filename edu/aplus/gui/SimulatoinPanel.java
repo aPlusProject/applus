@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import edu.aplus.business.SimulatorFixedRate;
 import edu.aplus.model.Client;
+import edu.aplus.model.Loan;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -96,10 +98,10 @@ public class SimulatoinPanel  extends JFrame{
 		amountL.setBounds(230, 120, 200, 15);
 		panel.add(amountL);
 		
-		amount = new JTextField();
-		amount.setBounds(370, 120, 100, 20);
-		panel.add(amount);
-		amount.setColumns(2);
+		setAmount(new JTextField());
+		getAmount().setBounds(370, 120, 100, 20);
+		panel.add(getAmount());
+		getAmount().setColumns(2);
 		
 		durationL = new JLabel("Durée du prêt : ");
 		durationL.setBounds(230, 160, 200, 15);
@@ -143,23 +145,37 @@ public class SimulatoinPanel  extends JFrame{
 	    	
 	    public void actionPerformed(ActionEvent e){
 	    	
-	    	String amountEntS = amount.getText();
+	    	Loan loan = new Loan();
+	    
+	    	String amountEntS = getAmount().getText();
 			String durationEntS = duration.getText();
 			String rateEntS = rate.getText();
 			String rateInsuranceEntS = rateInsurance.getText();
 			String creditTypeEnt = creditType.getName();
 			int amountEnt = Integer.parseInt(amountEntS);
 			int durationEnt = Integer.parseInt(durationEntS);
-			double rateEnt = Double.parseDouble(rateEntS);
-			//final int rateInsuranceEnt = Integer.parseInt(rateInsuranceEntS);
+			float rateEnt = Float.parseFloat(rateEntS);
+			float rateInsuranceEnt = Float.parseFloat(rateInsuranceEntS);
 	    	
-	    	SimulatorFixedRate simulator = new SimulatorFixedRate();
-	    	double d1 = simulator.calculateInstallment(creditTypeEnt, amountEnt, durationEnt, rateEnt);
-	    	String s = String.valueOf(d1);
-	    	d.setText(s);
+			loan.setAskedAmount(amountEnt);
+			loan.setAskedDuration(durationEnt);
+			loan.setAskedRate(rateEnt);
+			loan.setAskedRateInsurance(rateInsuranceEnt);
 	    	
-	    	//ResultPanel frame1 = new ResultPanel();
-			//frame1.setVisible(true);	
+			SimulatorFixedRate simulator = new SimulatorFixedRate();
+			ResultPanel frame1 = new ResultPanel();
+			frame1.remplir(loan);
+			frame1.setVisible(true);	
+			
+	    //	double d1 = simulator.calculateInstallment(creditTypeEnt, amountEnt, durationEnt, rateEnt);
+	    	//String s = String.valueOf(d1);
+	    	//d.setText(s);
+	    	
+	    	
+	    	
+	    	
+	    	
+	    
 	        }
 	    	
 	    }); 
@@ -183,6 +199,14 @@ public void remplir(Client client) {
 	salary.setText(client.getSalary());
 	charge.setText(client.getCharge());
 	debtRate.setText(client.getDebtRate());
+}
+
+public JTextField getAmount() {
+	return amount;
+}
+
+public void setAmount(JTextField amount) {
+	this.amount = amount;
 }
 	
 }
