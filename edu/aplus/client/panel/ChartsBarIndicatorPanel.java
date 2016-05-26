@@ -37,7 +37,7 @@ public class ChartsBarIndicatorPanel extends JPanel {
 		
 		
 		ChartPanel chartPanel = new ChartPanel( barChart );
-	    chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
+	    chartPanel.setPreferredSize( new java.awt.Dimension( 550 , 310 ) );
 
 		add(chartPanel);
 		

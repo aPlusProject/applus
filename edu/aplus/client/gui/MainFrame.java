@@ -17,6 +17,7 @@ import org.jfree.ui.RefineryUtilities;
 
 import edu.aplus.client.panel.ArrayIndicatorsPanel;
 import edu.aplus.client.panel.ChartsBarIndicatorPanel;
+import edu.aplus.client.panel.ChartsLineIndicatorPanel;
 import edu.aplus.client.panel.FilterIndicatorsPanel;
 import edu.aplus.client.panel.MainPanel;
 
@@ -42,6 +43,7 @@ public class MainFrame extends JFrame {
 	private ArrayIndicatorsPanel arrayPanel;
 	
 	private ChartsBarIndicatorPanel chartsBarIndicPanel;
+	private ChartsLineIndicatorPanel chartsLineIndicPanel;
 	
 	private static JMenuBar menubar;
 
@@ -146,13 +148,16 @@ public class MainFrame extends JFrame {
 						System.out.println(year);
 						try {
 							chartsBarIndicPanel = new ChartsBarIndicatorPanel(year);
+							chartsLineIndicPanel = new ChartsLineIndicatorPanel();
 							c.gridx = 0;
 							c.gridy = 0;
 							remove(mainPanel);
-							getContentPane().add(chartsBarIndicPanel, c);
+							getContentPane().add(chartsBarIndicPanel);
 							
 							pack();
-							
+							c.gridx = 1;
+							getContentPane().add(chartsLineIndicPanel);
+							pack();
 							repaint();
 							
 							
