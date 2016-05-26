@@ -3,12 +3,18 @@ package edu.aplus.gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import edu.aplus.business.SimulatorFixedRate;
 import edu.aplus.model.Client;
+import edu.aplus.service.JsonParser_new;
+import edu.client.socket.ChartTCPClient;
+import edu.client.socket.TCPClient;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -56,29 +62,62 @@ public class GetClientInfoPanel  extends JFrame{
 	    		//Execute when button is pressed
 	    		SimulatorFixedRate simulator = new SimulatorFixedRate();
 	    		int i = Integer.parseInt(text.getText());
+	    	
+	    		
+	    		//client = simulator.getClientByID(i);
 	    		try {
-					client = simulator.getClientByID(i);
+	    			
+					client = getclientfromServer(i);
 					
-					if(client == null)  {
-						JFrame frame = new JFrame("Client does not exist");
-						JOptionPane.showMessageDialog(frame,
-						"Client with this number does not exist",
-						"Warning message",
-						JOptionPane.WARNING_MESSAGE);
-						System.exit(0);
-					}
-					else {
-						SimulatoinPanel frame1 = new SimulatoinPanel();
-						frame1.remplir(client);
-						frame1.setVisible(true);	
-					}
-					
-				} catch (ClassNotFoundException | SQLException e1) {
+				} catch (UnknownHostException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				
+				
+				if(client == null)  {
+					JFrame frame = new JFrame("Client does not exist");
+					JOptionPane.showMessageDialog(frame,
+					"Client with this number does not exist",
+					"Warning message",
+					JOptionPane.WARNING_MESSAGE);
+					System.exit(0);
+				}
+				else {
+					SimulatoinPanel frame1 = new SimulatoinPanel();
+					frame1.remplir(client);
+					frame1.setVisible(true);	
 				}
 	        }
 	    	
 	    }); 
+	}
+	
+	public Client getclientfromServer(int Clientid) throws UnknownHostException, ClassNotFoundException, IOException, InterruptedException {
+		
+		String recievedmsg;
+		TCPClient clientTcp = new TCPClient();
+		
+		recievedmsg = clientTcp.SendRecieve("getclientbyID");
+		
+		recievedmsg = clientTcp.SendRecieve(""+Clientid);
+		
+		JsonParser_new jparser = new JsonParser_new();
+		
+		return jparser.JSonToObject(recievedmsg);
+
+		
 	}
 	
 	public static void main(String[] args) {
