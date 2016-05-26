@@ -10,6 +10,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import edu.client.model.Chart;
 import edu.client.service.JSONChartParser;
 
 public class ChartTCPClient {
@@ -28,7 +29,9 @@ public class ChartTCPClient {
 		receivedMsg=br.readLine();
 		System.out.println("Received: "+receivedMsg);
 		JSONChartParser chartinfo = new JSONChartParser(receivedMsg);
-		System.out.println(chartinfo.getResult());
+		
+		Chart c1 = new Chart("Loan evolution chart",chartinfo.getAmount(),chartinfo.getDuration(),chartinfo.getRate(),chartinfo.getRate_insurance(),chartinfo.getYear(),chartinfo.getMonth());
+		c1.afficher();
 		
 		PrintWriter pw = new PrintWriter(socket1.getOutputStream(), true);
 

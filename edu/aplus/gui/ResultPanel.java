@@ -2,11 +2,14 @@ package edu.aplus.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.UnknownHostException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import edu.client.model.Chart;
+import edu.client.socket.ChartTCPClient;
 
 public class ResultPanel extends JFrame{
 	
@@ -113,9 +116,12 @@ public class ResultPanel extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				System.out.println("Button cliked");
-				
-				Chart c1 = new Chart("Loan history chart");
-				c1.afficher();
+				try {
+					ChartTCPClient clientSocket = new ChartTCPClient("LineChart");
+				} catch (ClassNotFoundException | IOException | InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
