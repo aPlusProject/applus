@@ -31,9 +31,9 @@ public class ChartsIndicatorTest {
 		
 		ChartsIndicatorFrame instance = new ChartsIndicatorFrame();
 		
-		int loansNbIn2016 = instance.getAmountOfLoansByTime(2016, 0);
+		int loansNbIn = instance.getLoanAmountInAYear(2011);
 		
-		int loansNbIn2016FromSQL = 0;
+		int loansNbFromSQL = 0;
 		
 		DataSource ds = DBConnector.createDataSource();
         Connection co = ds.getConnection();
@@ -42,21 +42,23 @@ public class ChartsIndicatorTest {
 				+ "EXTRACT (YEAR FROM ASKED_DATE) = ?";
         
         PreparedStatement ps = co.prepareStatement(sql);
-        ps.setInt(1, 2016);
+        ps.setInt(1, 2011);
         
         ResultSet rs = ps.executeQuery();
         while(rs.next()) { 
-        	loansNbIn2016FromSQL = rs.getInt(1);
+        	loansNbFromSQL = rs.getInt(1);
         }
         
-        System.out.println("Nombre de prêt depuis req sql : "+loansNbIn2016FromSQL);
-        System.out.println("Nombre de prêt depuis methode : "+loansNbIn2016);
+        System.out.println("Nombre de prêt depuis req sql : "+loansNbFromSQL);
+        System.out.println("Nombre de prêt depuis methode : "+loansNbIn);
 
 		
 		
-		assertTrue(loansNbIn2016 == loansNbIn2016FromSQL);
+		assertTrue(loansNbIn == loansNbFromSQL);
 		
 		
 	}
+	
+	
 
 }

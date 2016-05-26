@@ -2,7 +2,13 @@ package edu.aplus.client.panel;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
+import javax.sql.DataSource;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -14,6 +20,8 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.RefineryUtilities;
 
+import edu.aplus.db.DBConnector;
+
 public class ChartsIndicatorFrame extends JFrame {
 
 	private JPanel contentPane;
@@ -23,9 +31,11 @@ public class ChartsIndicatorFrame extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		/*EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					ChartsIndicatorFrame frame = new ChartsIndicatorFrame();
@@ -35,7 +45,11 @@ public class ChartsIndicatorFrame extends JFrame {
 					e.printStackTrace();
 				}
 			}
-		});
+		});*/
+		
+		ChartsIndicatorFrame instance = new ChartsIndicatorFrame();
+		
+		instance.getAmountOfLoansByMonth(2016);
 	}
 
 	/**
@@ -48,7 +62,7 @@ public class ChartsIndicatorFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		
+		JFreeChart barChart = ChartFactory.createBarChart("Nombres de demande de prêts par années", "année", "Nombre de demandes", createDataset());
 		JFreeChart lineChart = ChartFactory.createLineChart(
 		         "Nombres de demande de prêts par années",
 		         "Années","Demandes de prêts",
@@ -56,7 +70,7 @@ public class ChartsIndicatorFrame extends JFrame {
 		         PlotOrientation.VERTICAL,
 		         true,true,false);
 		         
-		      ChartPanel chartPanel = new ChartPanel( lineChart );
+		      ChartPanel chartPanel = new ChartPanel( barChart );
 		      chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
 		      setContentPane( chartPanel );
 	}
@@ -87,26 +101,63 @@ public class ChartsIndicatorFrame extends JFrame {
 	
 	/**
 	 * 
-	 * @param years > 0 
-	 * @param month [0,12] if month== 0: month ignored
-	 * @return the amount of loans by years and month
+	 *  @param year > 0
+	 *  
+	 *  @return ArrayList<Integer> number of loans for each month
+	 *  january = arraylist.get(0) and december = arraylist.get(11)
+	 *  
 	 */
-	public int getAmountOfLoansByTime(int years, int month) {
-		
-		int amountOfLoans = 0;
-		
-		String sql = "";
-		
-		if(month == 0) {
+	public ArrayList<Integer> getAmountOfLoansByMonth(int year) throws ClassNotFoundException, SQLException {
+				
+		ArrayList<Integer> loanByYear = new ArrayList<Integer>();
+		for(int i = 1; i <= 12; i++) {
 			
-			sql = "SELECT COUNT(*) FROM LOAN WHERE "
-					+ "EXTRACT (YEAR FROM ASKED_DATE) = ?";
+			String sql = "SELECT COUNT(*) FROM LOAN "
+					+ "WHERE EXTRACT (YEAR FROM ASKED_DATE) = ? "
+					+ "AND EXTRACT (MONTH FROM ASKED_DATE) = ?";
 			
+			DataSource ds = DBConnector.createDataSource();
+	        Connection co = ds.getConnection();
+	        
+	        PreparedStatement ps = co.prepareStatement(sql);
+	        ps.setInt(1, year);
+	        ps.setInt(2, i);
+	        
+	        ResultSet rs = ps.executeQuery();
+	        while(rs.next()) { 
+	        	loanByYear.add(rs.getInt(1));
+	        }
+	        
+	        System.out.println("mois no"+loanByYear.size()+" : "+loanByYear.get(i-1)+" demandes");
 			
 		}
+			
+		
+		return loanByYear;
+	}
+	
+	public int getLoanAmountInAYear(int year) throws SQLException, ClassNotFoundException {
+		
+		int loanAmount = 0;
 		
 		
-		return amountOfLoans;
+		DataSource ds = DBConnector.createDataSource();
+        Connection co = ds.getConnection();
+        
+        String sql = "SELECT COUNT(*) FROM LOAN WHERE "
+				+ "EXTRACT (YEAR FROM ASKED_DATE) = ?";
+        
+        PreparedStatement ps = co.prepareStatement(sql);
+        ps.setInt(1, year);
+        
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()) { 
+        	loanAmount = rs.getInt(1);
+        }
+		co.close();
+		
+		
+		return loanAmount;
 	}
 	
 	
