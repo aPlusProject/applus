@@ -16,6 +16,8 @@ public class SimulatorFixedRate {
 	Client cl = null;
 	Employee employe = new Employee();
 
+	//If the simulator is a client of the bank, by his client number, 
+	//the employee can have all his information like.
 	public Client getClientByID(int idClient) throws ClassNotFoundException, SQLException {
 		
 		ConnectionPool conn = employe.getPool();
@@ -55,6 +57,7 @@ public class SimulatorFixedRate {
 		
 	}
 	
+	//Calculate installment having interest rate
 	public double calculateInstallment(String creditType, int amount, int duration, double rate){
 		
 			//calculate installment
@@ -65,6 +68,7 @@ public class SimulatorFixedRate {
 			return installment;
 	}	
 	
+	//Calculate installment having interest rate and insurance rate
 	public double calculateFinalInstallment(String creditType, int amount, int duration, double rate, double rateInsurance){
 		
 		//calculate installment
@@ -76,7 +80,7 @@ public class SimulatorFixedRate {
 		return installment;
 	}
 	
-	// have to correct auto incrementation of : id_loan
+	//According to the information filled for the simulation, employee can save this simulation as a loan on the DB.
 	public void addLoan(int idClient, int idConseiller, int idLoanType, int idHistory, int askedAmount, 
 			int askedDuration, double askedRate, double askedRateInsurance) throws ClassNotFoundException, SQLException{
 		
