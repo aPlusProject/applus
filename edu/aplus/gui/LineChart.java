@@ -11,6 +11,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.IOException;
+import java.text.NumberFormat;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,6 +25,7 @@ import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
@@ -31,9 +33,12 @@ import org.jfree.chart.panel.CrosshairOverlay;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.Crosshair;
+import org.jfree.chart.plot.DatasetRenderingOrder;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
@@ -43,37 +48,58 @@ import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RectangleEdge;
 
 public class LineChart extends ApplicationFrame implements ChartMouseListener {
-	private JFreeChart lineChart;
-	//private DefaultCategoryDataset lineChartDataset = new DefaultCategoryDataset();
+	private JFreeChart chart;
+	// private DefaultCategoryDataset lineChartDataset = new
+	// DefaultCategoryDataset();
 	private final ChartPanel chartPanel;
 	private Crosshair xCrosshair;
 	private Crosshair yCrosshair;
 
-	public LineChart(String chartTitle, DefaultCategoryDataset dataset) {
+	public LineChart(String chartTitle, DefaultCategoryDataset dataset1, DefaultCategoryDataset dataset2) {
 		// TODO Auto-generated constructor stub
 		super(chartTitle);
 
-		lineChart = ChartFactory.createLineChart(chartTitle, "X", "Y", dataset,
-				PlotOrientation.VERTICAL, true, true, false);
-		final CategoryPlot plot = (CategoryPlot) lineChart.getPlot(); 
-		plot.setBackgroundPaint(Color.white); 
-		plot.setRangeGridlinePaint(Color.lightGray); 
-		plot.setDomainGridlinesVisible(true); 
-		plot.setRangeGridlinesVisible(true); 
+		final CategoryPlot plot = new CategoryPlot();
 
-		final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis(); 
-		rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits()); 
-		rangeAxis.setAutoRangeIncludesZero(true); 
+		// first chart (interet and assurance)
+		final CategoryItemRenderer renderer = new BarRenderer();
+		// renderer.setLabelGenerator(generator);
+		renderer.setItemLabelsVisible(true);
+		plot.setDataset(dataset1);
+		plot.setRenderer(renderer);
+		plot.setRangeAxis(new NumberAxis("Euro"));
 
-		final LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer(); 
-		renderer.setBaseToolTipGenerator(new StandardCategoryToolTipGenerator()); 
+		// 2nd chart
+		final ValueAxis rangeAxis2 = new NumberAxis("Euro");
+		plot.setRangeAxis(1, rangeAxis2);
+
+		plot.setDataset(2, dataset2);
+		CategoryItemRenderer renderer2 = new LineAndShapeRenderer();
+		plot.setRenderer(2, renderer2);
+		plot.mapDatasetToRangeAxis(2, 1);
+		plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
+		plot.setDomainAxis(new CategoryAxis("Month"));
+		plot.getDomainAxis().setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+
+		plot.setOrientation(PlotOrientation.VERTICAL);
+		plot.setBackgroundPaint(Color.white);
+		plot.setRangeGridlinePaint(Color.lightGray);
+		plot.setDomainGridlinesVisible(true);
+		plot.setRangeGridlinesVisible(true);
+
+		renderer.setBaseToolTipGenerator(
+				new StandardCategoryToolTipGenerator("{0}, {1}, {2}", NumberFormat.getInstance()));
+
+		renderer2.setBaseToolTipGenerator(new StandardCategoryToolTipGenerator());
 		renderer.setSeriesStroke(0, new BasicStroke(2.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND));
-		renderer.setShapesVisible(true);
-		
-		chartPanel = new ChartPanel(lineChart);
-		chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
-		chartPanel.addChartMouseListener(this);
+	
 
+		chart = new JFreeChart(plot);
+		
+		// add the chart to a panel...
+		chartPanel = new ChartPanel(chart);
+		chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
+	
 
 		this.add(chartPanel, BorderLayout.CENTER);
 
@@ -104,21 +130,10 @@ public class LineChart extends ApplicationFrame implements ChartMouseListener {
 
 	}
 
-	private DefaultCategoryDataset createDataset() {
-		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		dataset.addValue(15, "schools", "1970");
-		dataset.addValue(30, "schools", "1980");
-		dataset.addValue(60, "schools", "1990");
-		dataset.addValue(120, "schools", "2000");
-		dataset.addValue(240, "schools", "2010");
-		dataset.addValue(300, "schools", "2014");
-		return dataset;
-	}
-
 	private void saveAsJPEG() {
-		File lineChartFile = new File("LineChart.jpeg");
+		File ChartFile = new File("Chart.jpeg");
 		try {
-			ChartUtilities.saveChartAsJPEG(lineChartFile, lineChart, 640, 480);
+			ChartUtilities.saveChartAsJPEG(ChartFile, chart, 640, 480);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -134,7 +149,7 @@ public class LineChart extends ApplicationFrame implements ChartMouseListener {
 	@Override
 	public void chartMouseMoved(ChartMouseEvent event) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

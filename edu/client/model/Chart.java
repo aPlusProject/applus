@@ -15,6 +15,7 @@ public class Chart {
 	// private int chartID;
 	private LineChart chart;
 	private DefaultCategoryDataset lineChartDataset;
+	private DefaultCategoryDataset barChartDataset;
 	private String amount;
 	private String duration;
 	private String rate;
@@ -40,62 +41,45 @@ public class Chart {
 
 	public void afficher() {
 
-		chart = new LineChart(chartName, this.createDataset());
+		this.createDataset();
+		chart = new LineChart(chartName, lineChartDataset,barChartDataset);
 		chart.pack();
 		RefineryUtilities.centerFrameOnScreen(chart);
 		chart.setVisible(true);
 	}
 
-	private DefaultCategoryDataset createDataset() {
+	private void createDataset() {
+		barChartDataset = new DefaultCategoryDataset();
 		lineChartDataset = new DefaultCategoryDataset();
 		int duree = Integer.parseInt(duration);
-		int start = Integer.parseInt(month);
+		//int start = Integer.parseInt(month);
 		int total = Integer.parseInt(amount);
-		int taux = Integer.parseInt(rate);
+		//monthly rate
+		float taux = (float)Integer.parseInt(rate)/12;
+		float tauxAssurance = (float)Integer.parseInt(rate_insurance)/12;
+		
 		float interet=0;
 		float assurance=0;
-		int tauxAssurance = Integer.parseInt(rate_insurance);
+		float capitalRestant=total;
+		float capitalRembourse=0;
+		float mensualite=total/(duree*12);
+		
+		
 		for (int i = 0; i < duree * 12; i++) {
-			interet = interet+((total/duree*12)*((float)taux/12));
-			assurance = assurance+((total/duree*12)*((float)tauxAssurance/12));
-			lineChartDataset.addValue(total - (i+1) * total / (duree * 12), "Capital restant", i + 1 + "");
-			lineChartDataset.addValue((i+1) * total / (duree * 12), "Capital remboursee", i + 1 + "");
-			lineChartDataset.addValue(interet, "Interet", i + 1 + "");
-			lineChartDataset.addValue(assurance, "Assurance",
-					i + 1 + "");
+			interet=(capitalRestant*taux)/100;
+			mensualite=interet+(total/(duree*12));
+			capitalRestant=capitalRestant-mensualite;
+			capitalRembourse=capitalRembourse+mensualite;
+			assurance=(capitalRestant*tauxAssurance)/100;
 			
-
+			barChartDataset.addValue(capitalRestant, "Capital restant", i + 1 + "");
+			barChartDataset.addValue(capitalRembourse, "Capital remboursee", i + 1 + "");
+			lineChartDataset.addValue(interet, "Interet", i + 1 + "");
+			lineChartDataset.addValue(assurance, "Assurance",i + 1 + "");
+			
 		}
-		/*
-		 * lineChartDataset.addValue(15, "Capital restant", "1970");
-		 * lineChartDataset.addValue(30, "Capital restant", "1980");
-		 * lineChartDataset.addValue(60, "Capital restant", "1990");
-		 * lineChartDataset.addValue(120, "Capital restant", "2000");
-		 * lineChartDataset.addValue(240, "Capital restant", "2010");
-		 * lineChartDataset.addValue(300, "Capital restant", "2014");
-		 * 
-		 * lineChartDataset.addValue(20, "Capital remboursé", "1970");
-		 * lineChartDataset.addValue(30, "Capital remboursé", "1980");
-		 * lineChartDataset.addValue(50, "Capital remboursé", "1990");
-		 * lineChartDataset.addValue(100, "Capital remboursé", "2000");
-		 * lineChartDataset.addValue(220, "Capital remboursé", "2010");
-		 * lineChartDataset.addValue(320, "Capital remboursé", "2014");
-		 * 
-		 * lineChartDataset.addValue(20, "Intérêt", "1970");
-		 * lineChartDataset.addValue(15, "Intérêt", "1980");
-		 * lineChartDataset.addValue(30, "Intérêt", "1990");
-		 * lineChartDataset.addValue(100, "Intérêt", "2000");
-		 * lineChartDataset.addValue(200, "Intérêt", "2010");
-		 * lineChartDataset.addValue(320, "Intérêt", "2014");
-		 * 
-		 * lineChartDataset.addValue(20, "Assurance", "1970");
-		 * lineChartDataset.addValue(15, "Assurance", "1980");
-		 * lineChartDataset.addValue(25, "Assurance", "1990");
-		 * lineChartDataset.addValue(80, "Assurance", "2000");
-		 * lineChartDataset.addValue(120, "Assurance", "2010");
-		 * lineChartDataset.addValue(250, "Assurance", "2014");
-		 */
-		return lineChartDataset;
+
+		
 	}
 
 }
