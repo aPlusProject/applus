@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import org.junit.Test;
 
-import edu.aplus.service.ChartsIndicator;
+import edu.aplus.service.ChartsIndicatorExpose;
 import edu.client.service.JSONChartParser;
 import edu.client.socket.ChartTCPClient;
 import edu.client.socket.ChartTCPServer;

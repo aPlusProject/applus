@@ -10,7 +10,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.CategoryDataset;
 
-import edu.aplus.service.ChartsIndicator;
+import edu.aplus.service.ChartsIndicatorExpose;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +25,7 @@ public class ChartsBarIndicatorPanel extends JPanel {
 	private JButton btn;
 	
 	private CategoryDataset datasetBar;
-	private ChartsIndicator cIndic;
+	private ChartsIndicatorExpose cIndic;
 	
 	private ChartPanel chartPanel;
 	
@@ -41,7 +41,7 @@ public class ChartsBarIndicatorPanel extends JPanel {
 		//setLayout(new BorderLayout(0, 0));
 		//setPreferredSize(new Dimension(5000, 3100));
 		
-		cIndic = new ChartsIndicator();
+		cIndic = new ChartsIndicatorExpose();
 		
 		datasetBar = cIndic.createDatasetForBarChart(year);
 		

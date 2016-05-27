@@ -14,7 +14,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import edu.aplus.db.DBConnector;
 
-public class ChartsIndicator {
+public class ChartsIndicatorExpose {
 	
 
 
@@ -104,7 +104,7 @@ public class ChartsIndicator {
 		System.out.println("in createDatasetForIncrementalLine");
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 	  
-		ChartsIndicator instance = new ChartsIndicator();
+		ChartsIndicatorExpose instance = new ChartsIndicatorExpose();
 	  
 		ArrayList<Integer> list = instance.getLoanAmountForEachYear();
 		
@@ -142,7 +142,7 @@ public class ChartsIndicator {
 		
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
-		ChartsIndicator instance = new ChartsIndicator();
+		ChartsIndicatorExpose instance = new ChartsIndicatorExpose();
 		
 		ArrayList<Integer> list = instance.getAmountOfLoansByMonth(year);
 		

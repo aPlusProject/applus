@@ -23,7 +23,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.RefineryUtilities;
 
 import edu.aplus.db.DBConnector;
-import edu.aplus.service.ChartsIndicator;
+import edu.aplus.service.ChartsIndicatorExpose;
 
 public class ChartsIndicatorFrame extends JFrame {
 
@@ -63,7 +63,7 @@ public class ChartsIndicatorFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		ChartsIndicator cIndic = new ChartsIndicator();
+		ChartsIndicatorExpose cIndic = new ChartsIndicatorExpose();
 		
 		
 		CategoryDataset datasetBar = cIndic.createDatasetForBarChart(2016);

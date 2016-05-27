@@ -10,7 +10,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 
-import edu.aplus.service.ChartsIndicator;
+import edu.aplus.service.ChartsIndicatorExpose;
 
 public class ChartsLineIndicatorPanel extends JPanel {
 
@@ -21,7 +21,7 @@ public class ChartsLineIndicatorPanel extends JPanel {
 	 */
 	public ChartsLineIndicatorPanel() throws ClassNotFoundException, SQLException {
 		
-		ChartsIndicator cIndic = new ChartsIndicator();
+		ChartsIndicatorExpose cIndic = new ChartsIndicatorExpose();
 		
 		CategoryDataset datasetLine = cIndic.createDatasetForIncrementalLine();
 		

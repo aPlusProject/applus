@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import edu.aplus.client.panel.ChartsIndicatorFrame;
 import edu.aplus.db.DBConnector;
-import edu.aplus.service.ChartsIndicator;
+import edu.aplus.service.ChartsIndicatorExpose;
 
 public class ChartsIndicatorTest {
 
@@ -30,7 +30,7 @@ public class ChartsIndicatorTest {
 
 		System.out.println("testGetAmountOfLoansByYears");
 		
-		ChartsIndicator instance = new ChartsIndicator();
+		ChartsIndicatorExpose instance = new ChartsIndicatorExpose();
 		
 		int loansNbIn = instance.getLoanAmountInAYear(2011);
 		
@@ -63,7 +63,7 @@ public class ChartsIndicatorTest {
 	@Test
 	public void testGetAmountOfMonthInAYear() throws ClassNotFoundException, SQLException {
 		
-		ChartsIndicator instance = new ChartsIndicator();
+		ChartsIndicatorExpose instance = new ChartsIndicatorExpose();
 		
 		assertTrue(instance.getAmountOfLoansByMonth(2014).size() == 12);
 		
@@ -74,7 +74,7 @@ public class ChartsIndicatorTest {
 		
 		System.out.println("testGetAmontOfYearSince2000");
 		
-		ChartsIndicator instance = new ChartsIndicator();
+		ChartsIndicatorExpose instance = new ChartsIndicatorExpose();
 		
 		
 		//17 complete years since 2000
