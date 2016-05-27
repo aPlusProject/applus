@@ -5,7 +5,12 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
+import edu.aplus.db.ConnectionPool;
+import edu.aplus.metier.*;
 import javax.sql.DataSource;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,18 +19,26 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import edu.aplus.metier.ChooseLoanType;
+import edu.aplus.model.Rate;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;	
+import javax.swing.event.ListSelectionListener;
+
 public class main {
 	
 	private DataSource ds;
 	private JPanel contentPanel;
-	private Connection co;
+	//private Connection co;
+	private static Rate rate;
 	
-	public static void main(String[] args) throws Exception  {
+	public static void main( String[] args) throws Exception  {
 
-		new ChooseLoanType();
+		ChooseLoanType clt = new ChooseLoanType();
+		//new CalculateRate();
+		//clt.setVisible(true);
+		//System.out.println(clt.getLoanDuration());
 
 	}	}

@@ -9,12 +9,17 @@ import java.sql.Statement;
 import javax.sql.DataSource;
 
 import edu.aplus.db.DBConnector;
+import edu.aplus.db.ConnectionPool;
+
+
+
 
 public class Rate {
 	
 	private int id;
 	private int value;
 	private String name;
+	private ConnectionPool pool;
 	
 	
 	
@@ -41,7 +46,7 @@ public class Rate {
 	 * get the name of the rate
 	 */
 	public String getName() {
-		return name;
+		return this.name;
 	}
 	
 	public void setValue(int value) {
@@ -64,5 +69,21 @@ public class Rate {
 		return rateValue;
 	}
 		
+	
+	public String getRate(){
+		return this.getRate();
+	}
+	
+	public void setId(int id){
+		this.id = id;
+	}
+	
+	public void setRate(String name){
+		this.name = name;
+	}
+	public ConnectionPool getPool() {
+		return this.pool;
+	}
 
 }
+

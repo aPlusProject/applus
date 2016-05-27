@@ -97,8 +97,10 @@ FOREIGN KEY (id_client) REFERENCES CLIENT(id_client) ON DELETE CASCADE
 CREATE TABLE RATE
 (
 id_rate INT PRIMARY KEY NOT NULL,
-rate_value INT,
-rate_first_name VARCHAR2(100)
+rate_value FLOAT,
+rate_type VARCHAR2(100),
+rate_agency FLOAT,
+rate_duration INT
 );
 
 CREATE TABLE RATE_HISTORY
