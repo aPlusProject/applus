@@ -6,14 +6,14 @@ import java.net.UnknownHostException;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.RefineryUtilities;
 
-import edu.aplus.gui.LineChart;
+import edu.aplus.gui.BarLineChart;
 import edu.client.socket.ChartTCPClient;
 
 public class Chart {
 
 	private String chartName = "";
 	// private int chartID;
-	private LineChart chart;
+	private BarLineChart chart;
 	private DefaultCategoryDataset lineChartDataset;
 	private DefaultCategoryDataset barChartDataset;
 	private String amount;
@@ -42,7 +42,7 @@ public class Chart {
 	public void afficher() {
 
 		this.createDataset();
-		chart = new LineChart(chartName, lineChartDataset,barChartDataset);
+		chart = new BarLineChart(chartName, lineChartDataset,barChartDataset);
 		chart.pack();
 		RefineryUtilities.centerFrameOnScreen(chart);
 		chart.setVisible(true);

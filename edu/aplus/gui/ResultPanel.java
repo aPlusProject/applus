@@ -122,7 +122,7 @@ public class ResultPanel extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("Button cliked");
+				//System.out.println("Button cliked");
 				try {
 					ChartTCPClient clientSocket = new ChartTCPClient("LineChart");
 				} catch (ClassNotFoundException | IOException | InterruptedException e1) {

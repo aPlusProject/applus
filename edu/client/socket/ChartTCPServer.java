@@ -24,6 +24,10 @@ public class ChartTCPServer {
 	private static String receivedMsg;
 	private static String returnMsg = "";
 
+	public static String getReturnMsg() {
+		return returnMsg;
+	}
+
 	public static void main(String args[]) throws Exception {
 
 		servSocket = new ServerSocket(port);

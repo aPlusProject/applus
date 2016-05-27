@@ -47,7 +47,7 @@ import org.jfree.data.general.DatasetUtilities;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RectangleEdge;
 
-public class LineChart extends ApplicationFrame implements ChartMouseListener {
+public class BarLineChart extends ApplicationFrame implements ChartMouseListener {
 	private JFreeChart chart;
 	// private DefaultCategoryDataset lineChartDataset = new
 	// DefaultCategoryDataset();
@@ -55,7 +55,7 @@ public class LineChart extends ApplicationFrame implements ChartMouseListener {
 	private Crosshair xCrosshair;
 	private Crosshair yCrosshair;
 
-	public LineChart(String chartTitle, DefaultCategoryDataset dataset1, DefaultCategoryDataset dataset2) {
+	public BarLineChart(String chartTitle, DefaultCategoryDataset dataset1, DefaultCategoryDataset dataset2) {
 		// TODO Auto-generated constructor stub
 		super(chartTitle);
 
