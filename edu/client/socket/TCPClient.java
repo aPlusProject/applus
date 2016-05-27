@@ -14,32 +14,28 @@ public class TCPClient {
 
 	public String msg;
 	public String receivedMsg;
-	
-	BufferedReader br = null;
-	PrintWriter pw = null;
-	Socket socket1;
+	public BufferedReader br = null;
+	public PrintWriter pw = null;
+	public Socket socket1;
 
 	public TCPClient() throws UnknownHostException, IOException{
 		
 		int portNumber = 1234;
-
 		socket1 = new Socket(InetAddress.getLocalHost(), portNumber);
 	}
 	
 	public String SendRecieve(String msg)
 			throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
 
-		
-
-		 br = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
-		 pw = new PrintWriter(socket1.getOutputStream(), true);
-
+		br = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
+		pw = new PrintWriter(socket1.getOutputStream(), true);
 		pw.println(msg);
+		
 		System.out.println("CLIENT:Send: " + msg);
 	
 		receivedMsg = br.readLine();
+		
 		System.out.println("CLIENT Recieved: "+receivedMsg);
-	
 		
 		return receivedMsg;
 	}

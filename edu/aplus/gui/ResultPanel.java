@@ -4,15 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.UnknownHostException;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
+import com.google.gson.Gson;
 import edu.aplus.business.SimulatorFixedRate;
 import edu.aplus.model.Client;
 import edu.aplus.model.Loan;
+import edu.aplus.service.JsonParser_new;
 import edu.client.model.Chart;
 import edu.client.socket.ChartTCPClient;
+import edu.client.socket.TCPClient;
 
 public class ResultPanel extends JFrame{
 	
@@ -35,6 +36,8 @@ public class ResultPanel extends JFrame{
 	private JTextField total;
 	private JButton chartButton;
 	
+	Loan loanresult = null;
+	
 	public ResultPanel(){
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,7 +48,7 @@ public class ResultPanel extends JFrame{
 		setContentPane(panel);
 		panel.setLayout(null);
 		
-		creditTypeL = new JLabel("Dï¿½cision de la simulation : ");
+		creditTypeL = new JLabel("Type du prêt demandé : ");
 		creditTypeL.setBounds(50, 20, 200, 30);
 		panel.add(creditTypeL);
 		
@@ -53,7 +56,7 @@ public class ResultPanel extends JFrame{
 		creditType.setBounds(250, 20, 200, 30);
 		panel.add(creditType);
 		
-		amountL = new JLabel("Montant empruntï¿½ : ");
+		amountL = new JLabel("Montant emprunté : ");
 		amountL.setBounds(50, 50, 200, 30);
 		panel.add(amountL);
 		
@@ -61,7 +64,7 @@ public class ResultPanel extends JFrame{
 		amount.setBounds(250, 50, 200, 30);
 		panel.add(amount);
 		
-		durationL = new JLabel("Durï¿½e (nb mois) : ");
+		durationL = new JLabel("Durée (nb mois) : ");
 		durationL.setBounds(50, 80, 200, 30);
 		panel.add(durationL);
 		
@@ -69,7 +72,7 @@ public class ResultPanel extends JFrame{
 		duration.setBounds(250, 80, 200, 30);
 		panel.add(duration);
 		
-		rateL = new JLabel("Taux d'intï¿½rï¿½t fixe : ");
+		rateL = new JLabel("Taux d'intérêt fixe : ");
 		rateL.setBounds(50, 110, 200, 30);
 		panel.add(rateL);
 		
@@ -77,7 +80,7 @@ public class ResultPanel extends JFrame{
 		rate.setBounds(250, 110, 200, 30);
 		panel.add(rate);
 		
-		installationWithoutInsL = new JLabel("Mensualitï¿½ hors assurance : ");
+		installationWithoutInsL = new JLabel("Mensualité hors assurance : ");
 		installationWithoutInsL.setBounds(70, 150, 200, 30);
 		panel.add(installationWithoutInsL);
 		
@@ -93,7 +96,7 @@ public class ResultPanel extends JFrame{
 		rateInsurance.setBounds(250, 190, 200, 30);
 		panel.add(rateInsurance);
 		
-		installationWithInsL = new JLabel("Mensualitï¿½ avec assurance : ");
+		installationWithInsL = new JLabel("Mensualité avec assurance : ");
 		installationWithInsL.setBounds(70, 230, 200, 30);
 		panel.add(installationWithInsL);
 		
@@ -101,7 +104,7 @@ public class ResultPanel extends JFrame{
 		installationWithIns.setBounds(270, 230, 200, 30);
 		panel.add(installationWithIns);
 		
-		totalL = new JLabel("Coï¿½t total du crï¿½dit : ");
+		totalL = new JLabel("Coût total du crédit : ");
 		totalL.setBounds(70, 270, 200, 30);
 		panel.add(totalL);
 		
@@ -117,16 +120,36 @@ public class ResultPanel extends JFrame{
 		saveButton.setBounds(230, 320, 100, 40);
 		panel.add(saveButton);
 		
+		
+		saveButton.addActionListener(new ActionListener() {
+		
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("Button clicked");
+				
+				try {
+					
+					System.out.println(saveLoan(loanresult));
+					
+				} catch (ClassNotFoundException | IOException | InterruptedException e1) {
+					
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		
 		chartButton.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				//System.out.println("Button cliked");
+				
+				System.out.println("Button cliked");
 				try {
+					
 					ChartTCPClient clientSocket = new ChartTCPClient("LineChart");
+							
 				} catch (ClassNotFoundException | IOException | InterruptedException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 			}
@@ -134,11 +157,17 @@ public class ResultPanel extends JFrame{
 		
 	}
 	
+	
 	public static void main (String[] args){
+		
 		ResultPanel frame1 = new ResultPanel();
 		frame1.setVisible(true);
 	}
-	public void remplir(Loan loan) {
+	
+	
+	public void remplir(Loan loan, String installment, String installmentFinal) {
+		
+		this.loanresult = loan;		
 		String aM = String.valueOf(loan.getAskesAmount());
 		amount.setText(aM);
 		String aD = String.valueOf(loan.getAskedDuration() * 12);
@@ -147,20 +176,24 @@ public class ResultPanel extends JFrame{
 		rate.setText(aR);
 		String aRI = String.valueOf(loan.getAskedRateInsurance());
 		rateInsurance.setText(aRI);
-		SimulatorFixedRate simulator = new SimulatorFixedRate();
-    	double d1 = simulator.calculateInstallment(null, loan.getAskesAmount(), loan.getAskedDuration(), loan.getAskedRate());
-    	String s = String.valueOf(d1);
-    	installationWithoutIns.setText(s);
-    	double d2 = simulator.calculateFinalInstallment(null, loan.getAskesAmount(), loan.getAskedDuration(), loan.getAskedRate(), loan.getAskedRateInsurance());
-    	String s1 = String.valueOf(d2);
+    	String s = installment;
+    	installationWithoutIns.setText(s); 	
+    	String s1 = installmentFinal;
     	installationWithIns.setText(s1);
     	double t = loan.getAskesAmount() + (loan.getAskedRate() + loan.getAskedRateInsurance())*loan.getAskedDuration();
     	total.setText(String.valueOf(t));
-    	
-		
-		//amountAsked = SimulatoinPanel.getAmount();
-		//amount.setText();
-		//charge.setText(client.getCharge());
-		//debtRate.setText(client.getDebtRate());
 	}
+	
+	public String saveLoan(Loan loan) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
+		
+		JsonParser_new jparser = new JsonParser_new();
+		 
+		TCPClient clientTcp = new TCPClient();
+		
+		String recievedmsg = clientTcp.SendRecieve("saveLoan");
+		
+		recievedmsg = clientTcp.SendRecieve(jparser.ObjectToJSonLoan(loan));
+		
+		return recievedmsg;		
+	}	
 }

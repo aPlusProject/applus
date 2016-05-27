@@ -21,12 +21,13 @@ public class Loan {
 	private static String loanType;
 	private History history;
 	private int askedAmount;
-	private int askedDuration; //durée en année
-	private float askedRate; //taux d'intêret
-	private float askedRateInsurance; //taux d'assurance
+	private int askedDuration; //in year
+	private float askedRate; //interest rate
+	private float askedRateInsurance; //insurance rate
 	private Date askedDate;    //peut etre le mauvaise importe
 	private int decision;  //documenter les valeurs  que peut prendre decision
 	private DataSource ds;
+	private static int loanTypeID;
 
 
 	public Loan(Client client, Employee counsellor, String loanType, History history, int askedAmount, 
@@ -103,37 +104,33 @@ public class Loan {
 		while(rs.next()) {
 			loanName = rs.getString(1);
 		}
-
-
-
+		
 		return loanName;
 	}
-
-
 
 	public void setLoanType(String loanType) {
 		this.loanType = loanType;
 	}
+	
+	public void setLoanTypeID(int loanTypeID) {
+		this.loanTypeID = loanTypeID;
+	}
 
-
+	public int getLoanTypeID() {
+		return this.loanTypeID;
+	}
 
 	public History getHistory() {
 		return history;
 	}
 
-
-
 	public void setHistory(History history) {
 		this.history = history;
 	}
 
-
-
 	public int getAskesAmount() {
 		return askedAmount;
 	}
-
-
 
 	public void setAskedAmount(int askedAmount) {
 		this.askedAmount = askedAmount;
@@ -167,35 +164,35 @@ public class Loan {
 		return askedDate;
 	}
 
-
-
 	public void setAskedDate(Date askedDate) {
 		this.askedDate = askedDate;
 	}
-
-
 
 	public int getDecision() {
 		return decision;
 	}
 
-
+	public String getLoanType() {
+		return this.loanType;
+	}
 
 	public void setDecision(int decision) {
 		this.decision = decision;
 	}
-
+	
 	public int getFileFees() {
 		//TODO: algo pour determiner le frais de dossier en fonction du pret
 		return 0;
 	}
 
 	public static void displayLoans(Connection co) throws SQLException {
+		
 		String sql = "Select * FROM LOAN";
 		PreparedStatement ps = co.prepareStatement(sql);
 
 		ResultSet rs = ps.executeQuery();
 		System.out.println("ID LOAN | ASKED AMOUNT | ASKED DATE");
+		
 		while(rs.next()) {
 			int montant = rs.getInt("asked_amount");
 			Date date = rs.getDate("asked_date");
@@ -204,9 +201,4 @@ public class Loan {
 
 		}
 	}
-
-
-
-
-
 }
