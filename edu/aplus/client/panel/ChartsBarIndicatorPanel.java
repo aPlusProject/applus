@@ -3,6 +3,7 @@ package edu.aplus.client.panel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -14,8 +15,13 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 
 import edu.aplus.service.ChartsIndicator;
+import java.awt.FlowLayout;
+import javax.swing.JComboBox;
 
 public class ChartsBarIndicatorPanel extends JPanel {
+	
+	
+	private JComboBox<Integer> comboBoxYears;
 
 	/**
 	 * Create the panel.
@@ -30,6 +36,8 @@ public class ChartsBarIndicatorPanel extends JPanel {
 		ChartsIndicator cIndic = new ChartsIndicator();
 		
 		
+		JComboBox<Integer> comboBoxYears = cIndic.getListOfYear();
+		
 		CategoryDataset datasetBar = cIndic.createDatasetForBarChart(year);
 		
 		
@@ -37,6 +45,8 @@ public class ChartsBarIndicatorPanel extends JPanel {
 		
 		
 		ChartPanel chartPanel = new ChartPanel( barChart );
+		FlowLayout flowLayout = (FlowLayout) chartPanel.getLayout();
+		flowLayout.setHgap(0);
 	    chartPanel.setPreferredSize( new java.awt.Dimension( 550 , 310 ) );
 
 		add(chartPanel);

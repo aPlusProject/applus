@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.sql.DataSource;
+import javax.swing.JComboBox;
 
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -15,8 +16,8 @@ import edu.aplus.db.DBConnector;
 
 public class ChartsIndicator {
 	
-	
-	
+
+
 	/**
 	 * 
 	 *  @param year > 0
@@ -155,6 +156,32 @@ public class ChartsIndicator {
 		return dataset;
 		
 		
+	}
+	
+	
+	
+	/**
+	 * 
+	 * @return  a combo list of Integer from this current year from 2000
+ 	 */
+	public JComboBox<Integer> getListOfYear() {
+		
+		
+		JComboBox<Integer> comboBoxYears = new JComboBox<Integer>();
+		
+		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		int firstYear = 2000;
+		
+		comboBoxYears.addItem(currentYear);
+		while(comboBoxYears.getItemAt(comboBoxYears.getItemCount()-1) != 2000) {
+			
+			comboBoxYears.addItem(currentYear--);
+			
+			System.out.println(comboBoxYears.getItemAt(comboBoxYears.getItemCount()-1));
+			
+		}
+		
+		return comboBoxYears;
 	}
 	
 

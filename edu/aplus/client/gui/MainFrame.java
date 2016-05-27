@@ -72,15 +72,20 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//setBounds(50, 50, 1000, 1000);
-		setLayout(new GridBagLayout());
+		getContentPane().setLayout(new GridBagLayout());
 		setSize(1200, 650);
 		setPreferredSize(new Dimension(1200, 650));
 		mainPanel = new MainPanel();
 		
+		/*GridBagConstraints gbc_mainPanel = new GridBagConstraints();
+		gbc_mainPanel.weighty = 0.1;
+		gbc_mainPanel.weightx = 0.1;*/
 		getContentPane().add(mainPanel);
 		
 		final GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.1;
+		c.weighty = 0.1;
 		
 		
 		mainPanel.setActionListener(new ActionListener() {
@@ -106,8 +111,8 @@ public class MainFrame extends JFrame {
 						remove(mainPanel);
 						remove(arrayPanel);
 						remove(indicatorsPanel);
-						//remove(chartsBarIndicPanel);
-						//remove(indicatorsPanel);
+						remove(chartsBarIndicPanel);
+						remove(chartsLineIndicPanel);
 						
 						
 						arrayPanel = new ArrayIndicatorsPanel();
@@ -140,14 +145,14 @@ public class MainFrame extends JFrame {
 						remove(mainPanel);
 						remove(arrayPanel);
 						remove(indicatorsPanel);
-						//remove(chartsBarIndicPanel);
-						//remove(indicatorsPanel);
+						remove(chartsBarIndicPanel);
+						remove(chartsLineIndicPanel);
 						
 						
-						int year = Calendar.getInstance().get(Calendar.YEAR);
-						System.out.println(year);
+						int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+						System.out.println(currentYear);
 						try {
-							chartsBarIndicPanel = new ChartsBarIndicatorPanel(year);
+							chartsBarIndicPanel = new ChartsBarIndicatorPanel(currentYear);
 							chartsLineIndicPanel = new ChartsLineIndicatorPanel();
 							c.gridx = 0;
 							c.gridy = 0;
@@ -180,6 +185,20 @@ public class MainFrame extends JFrame {
 				arrayPanel = new ArrayIndicatorsPanel();
 				
 				indicatorsPanel = new FilterIndicatorsPanel(arrayPanel.getJTableObject(), arrayPanel.getSorterObject());
+				try {
+					chartsBarIndicPanel = new ChartsBarIndicatorPanel(2016);
+					chartsLineIndicPanel = new ChartsLineIndicatorPanel();
+					
+					chartsBarIndicPanel.setVisible(false);
+					chartsLineIndicPanel.setVisible(false);
+					
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				
 				
 				c.gridx = 0;
 				getContentPane().add(arrayPanel, c);
