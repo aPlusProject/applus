@@ -22,8 +22,8 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.RefineryUtilities;
 
-import edu.aplus.client.service.ChartsIndicator;
 import edu.aplus.db.DBConnector;
+import edu.aplus.service.ChartsIndicator;
 
 public class ChartsIndicatorFrame extends JFrame {
 

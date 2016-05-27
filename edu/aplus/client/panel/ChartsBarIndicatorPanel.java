@@ -13,7 +13,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 
-import edu.aplus.client.service.ChartsIndicator;
+import edu.aplus.service.ChartsIndicator;
 
 public class ChartsBarIndicatorPanel extends JPanel {
 

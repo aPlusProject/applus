@@ -1,4 +1,4 @@
-package edu.aplus.client.service;
+package edu.aplus.service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

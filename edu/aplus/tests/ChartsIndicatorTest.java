@@ -12,8 +12,8 @@ import javax.sql.DataSource;
 import org.junit.Test;
 
 import edu.aplus.client.panel.ChartsIndicatorFrame;
-import edu.aplus.client.service.ChartsIndicator;
 import edu.aplus.db.DBConnector;
+import edu.aplus.service.ChartsIndicator;
 
 public class ChartsIndicatorTest {
 
