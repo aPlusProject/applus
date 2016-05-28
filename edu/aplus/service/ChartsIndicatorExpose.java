@@ -170,10 +170,10 @@ public class ChartsIndicatorExpose {
 		JComboBox<Integer> comboBoxYears = new JComboBox<Integer>();
 		
 		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-		int firstYear = 2000;
 		
 		comboBoxYears.addItem(currentYear);
-		while(comboBoxYears.getItemAt(comboBoxYears.getItemCount()-1) != 2000) {
+		currentYear--;
+		while(comboBoxYears.getItemAt(comboBoxYears.getItemCount()-1).intValue() != 2000) {
 			
 			comboBoxYears.addItem(currentYear--);
 			
