@@ -239,7 +239,7 @@ public String  getLoanResultfromServer(Loan loan) throws UnknownHostException, I
 	return recievedmsg;		
 }	
 	
-	// a remplir
+//Fill the financial information of the client fetched from DB.
 public void remplir(Client client) {
 	
 	this.client = client;

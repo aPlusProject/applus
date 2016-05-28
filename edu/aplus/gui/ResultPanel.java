@@ -164,7 +164,7 @@ public class ResultPanel extends JFrame{
 		frame1.setVisible(true);
 	}
 	
-	
+	//Fill the credit information with and without the insurance rate and display the installments.
 	public void remplir(Loan loan, String installment, String installmentFinal) {
 		
 		this.loanresult = loan;		
@@ -184,6 +184,7 @@ public class ResultPanel extends JFrame{
     	total.setText(String.valueOf(t));
 	}
 	
+	//Save the simulation result as a loan to the Loan table in the DB.
 	public String saveLoan(Loan loan) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
 		
 		JsonParser_new jparser = new JsonParser_new();
