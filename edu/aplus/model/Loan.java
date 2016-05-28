@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
@@ -22,16 +21,14 @@ public class Loan {
 	private static String loanType;
 	private History history;
 	private int askedAmount;
-	private int askedDuration; //durÃ©e en annÃ©e
-	private float askedRate; //taux d'intÃªret
-	private float askedRateInsurance; //taux d'assurance
+	private int askedDuration; //in year
+	private float askedRate; //interest rate
+	private float askedRateInsurance; //insurance rate
 	private Date askedDate;    //peut etre le mauvaise importe
 	private int decision;  //documenter les valeurs  que peut prendre decision
 	private DataSource ds;
-	
-	
-	private String decisionLibelle;
-	private String loanTypeLibelle;
+	private static int loanTypeID;
+
 
 	public Loan(Client client, Employee counsellor, String loanType, History history, int askedAmount, 
 			int askedDuration, float askedRate, float askedRateInsurance, Date askedDate, int decision) {
@@ -107,130 +104,33 @@ public class Loan {
 		while(rs.next()) {
 			loanName = rs.getString(1);
 		}
-
-
-
+		
 		return loanName;
 	}
-	
-	public ArrayList<Loan> getLoansListForArrayIndicator() throws ClassNotFoundException, SQLException {
-		
-		
-		ConnectionPool pool = new ConnectionPool();
-		pool.makeStack();
-		Connection co = pool.getConnection();
-		
-		
-		PreparedStatement ps;
-		ResultSet rs;
-
-		ArrayList<Loan> listLoans = new ArrayList<Loan>();
-		
-		String sql = "SELECT id_loan_type, asked_amount, asked_duration, asked_rate,  asked_date, decision FROM LOAN";
-		ps = co.prepareStatement(sql);
-		rs = ps.executeQuery();
-		
-		
-		Loan aLoan = null;
-		
-		rs = ps.executeQuery();
-		while(rs.next()) {
-			
-			aLoan = new Loan();
-			
-			aLoan.setLoanTypeLibelle(rs.getInt(1));
-			aLoan.setAskedAmount(rs.getInt(2));
-			aLoan.setAskedDuration(rs.getInt(3));
-			aLoan.setAskedRate(rs.getLong(4));
-			aLoan.setAskedDate(rs.getDate(5));
-			aLoan.setDecisionLibelle(rs.getInt(6));
-			
-			
-			listLoans.add(aLoan);
-			
-			
-		}
-		
-		
-		
-		
-		return listLoans;
-		
-		
-		
-		
-	}
-
-
 
 	public void setLoanType(String loanType) {
 		this.loanType = loanType;
 	}
+	
+	public void setLoanTypeID(int loanTypeID) {
+		this.loanTypeID = loanTypeID;
+	}
 
-
-	public void setLoanTypeLibelle(int idTypeLoan) {
-		
-		
-		if(idTypeLoan == 1) {
-			loanTypeLibelle = "immobilier";
-		}
-		else if(idTypeLoan == 2) {
-			loanTypeLibelle = "consommation";
-		}
-		else if(idTypeLoan == 3) {
-			loanTypeLibelle = "professionnel";
-		}
-		else {
-			loanTypeLibelle = "autre";
-		}
-		
-		
+	public int getLoanTypeID() {
+		return this.loanTypeID;
 	}
-	
-	public String getLoanTypeLibelle() {
-		
-		return loanTypeLibelle;
-	}
-	
-	public void setDecisionLibelle(int idDecision) {
-		
-		if(idDecision == 0) {
-			decisionLibelle = "accordé";
-		}
-		else if(idDecision == 1) {
-			decisionLibelle = "refusé";
-		}
-		else if(idDecision == 2) {
-			decisionLibelle = "en cours";
-		}
-		else {
-			decisionLibelle = "refusé";
-		}
-		
-	}
-	
-	public String getDecisionLibelle() {
-		return decisionLibelle;
-	}
-	
 
 	public History getHistory() {
 		return history;
 	}
 
-
-
 	public void setHistory(History history) {
 		this.history = history;
 	}
 
-
-
 	public int getAskesAmount() {
 		return askedAmount;
 	}
-
-
 
 	public void setAskedAmount(int askedAmount) {
 		this.askedAmount = askedAmount;
@@ -264,35 +164,35 @@ public class Loan {
 		return askedDate;
 	}
 
-
-
 	public void setAskedDate(Date askedDate) {
 		this.askedDate = askedDate;
 	}
-
-
 
 	public int getDecision() {
 		return decision;
 	}
 
-
+	public String getLoanType() {
+		return this.loanType;
+	}
 
 	public void setDecision(int decision) {
 		this.decision = decision;
 	}
-
+	
 	public int getFileFees() {
 		//TODO: algo pour determiner le frais de dossier en fonction du pret
 		return 0;
 	}
 
 	public static void displayLoans(Connection co) throws SQLException {
+		
 		String sql = "Select * FROM LOAN";
 		PreparedStatement ps = co.prepareStatement(sql);
 
 		ResultSet rs = ps.executeQuery();
 		System.out.println("ID LOAN | ASKED AMOUNT | ASKED DATE");
+		
 		while(rs.next()) {
 			int montant = rs.getInt("asked_amount");
 			Date date = rs.getDate("asked_date");
@@ -300,26 +200,5 @@ public class Loan {
 			System.out.println(idLoan+"       | "+montant+"        | "+date);
 
 		}
-		
-		
-		
-		
-		
 	}
-	
-	
-	public static void  main(String[] arg0) throws ClassNotFoundException, SQLException {
-		
-		Loan instance = new Loan();
-		
-		ArrayList<Loan> list = instance.getLoansListForArrayIndicator();
-		
-		
-		System.out.println("size of the list from table Loan : "+list.size());
-	}
-
-
-
-
-
 }

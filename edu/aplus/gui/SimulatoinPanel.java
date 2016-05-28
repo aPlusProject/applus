@@ -3,13 +3,27 @@ package edu.aplus.gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import edu.aplus.business.SimulatorFixedRate;
 import edu.aplus.model.Client;
 import edu.aplus.model.Loan;
+import edu.aplus.service.JsonParser_new;
+import edu.client.socket.TCPClient;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -18,6 +32,7 @@ import javax.swing.JComboBox;
 
 public class SimulatoinPanel  extends JFrame{
 
+	private static final String Clientid = null;
 	private JPanel panel;
 	private JLabel title1;
 	private JLabel title2;
@@ -38,8 +53,8 @@ public class SimulatoinPanel  extends JFrame{
 	private JTextField rateInsurance;
 	private JLabel rateInsuranceL;
 	private JButton bouton;
-	private String[] possibleValues = {"Crédit Immobilier","Crédit Personnel","Crédit Professionnel"};
-
+	private String[] possibleValues = {"1.Crédit Immobilier","2.Crédit Personnel","3.Crédit Professionnel"};
+	Client client = null;
 	public SimulatoinPanel() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -157,26 +172,42 @@ public class SimulatoinPanel  extends JFrame{
 			float rateEnt = Float.parseFloat(rateEntS);
 			float rateInsuranceEnt = Float.parseFloat(rateInsuranceEntS);
 	    	
+			
+			
 			loan.setAskedAmount(amountEnt);
+			loan.setClient(client);
 			loan.setAskedDuration(durationEnt);
 			loan.setAskedRate(rateEnt);
 			loan.setAskedRateInsurance(rateInsuranceEnt);
-	    	
-			SimulatorFixedRate simulator = new SimulatorFixedRate();
-			ResultPanel frame1 = new ResultPanel();
-			frame1.remplir(loan);
-			frame1.setVisible(true);	
+			//loan.setLoanTypeID(creditType.getSelectedIndex() +3);
+			//loan.setLoanTypeID(Integer.parseInt(creditTypeEnt.substring(0, 1)));
 			
-	    //	double d1 = simulator.calculateInstallment(creditTypeEnt, amountEnt, durationEnt, rateEnt);
-	    	//String s = String.valueOf(d1);
-	    	//d.setText(s);
-	    	
-	    	
-	    	
-	    	
-	    	
-	    
-	        }
+			Loan loanresult;
+			try {
+				//loanresult = getLoanResultfromServer(loan);
+				
+				String recievedmsg  = getLoanResultfromServer(loan);
+
+				Map<String,Object> map = new HashMap<String,Object>();
+				Gson gson = new Gson();
+				
+				map = (Map<String,Object>) gson.fromJson(recievedmsg, map.getClass());
+				
+				double installment =  (double) map.get("installment");
+						
+				double installmentFinal = (double) map.get("installmentFinal");
+				
+				SimulatorFixedRate simulator = new SimulatorFixedRate();
+				ResultPanel frame1 = new ResultPanel();
+				
+				frame1.remplir(loan, String.valueOf(installment), String.valueOf(installmentFinal) );
+				frame1.setVisible(true);	
+				
+			} catch (ClassNotFoundException | IOException | InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	      }
 	    	
 	    }); 
 	}
@@ -194,8 +225,24 @@ public class SimulatoinPanel  extends JFrame{
 		});
 	}
 
-	// a remplir
+public String  getLoanResultfromServer(Loan loan) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
+	
+	Gson gson = new Gson();
+	JsonParser_new jparser = new JsonParser_new();
+	 
+	TCPClient clientTcp = new TCPClient();
+	
+	String recievedmsg = clientTcp.SendRecieve("calculateLoan");
+	
+	recievedmsg = clientTcp.SendRecieve(jparser.ObjectToJSonLoan(loan));
+		
+	return recievedmsg;		
+}	
+	
+//Fill the financial information of the client fetched from DB.
 public void remplir(Client client) {
+	
+	this.client = client;
 	salary.setText(client.getSalary());
 	charge.setText(client.getCharge());
 	debtRate.setText(client.getDebtRate());

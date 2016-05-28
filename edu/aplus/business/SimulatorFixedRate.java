@@ -16,6 +16,8 @@ public class SimulatorFixedRate {
 	Client cl = null;
 	Employee employe = new Employee();
 
+	//If the simulator is a client of the bank, by his client number, 
+	//the employee can have all his information like.
 	public Client getClientByID(int idClient) throws ClassNotFoundException, SQLException {
 		
 		ConnectionPool conn = employe.getPool();
@@ -55,6 +57,7 @@ public class SimulatorFixedRate {
 		
 	}
 	
+	//Calculate installment having interest rate
 	public double calculateInstallment(String creditType, int amount, int duration, double rate){
 		
 			//calculate installment
@@ -65,6 +68,7 @@ public class SimulatorFixedRate {
 			return installment;
 	}	
 	
+	//Calculate installment having interest rate and insurance rate
 	public double calculateFinalInstallment(String creditType, int amount, int duration, double rate, double rateInsurance){
 		
 		//calculate installment
@@ -76,30 +80,40 @@ public class SimulatorFixedRate {
 		return installment;
 	}
 	
-	// have to correct auto incrementation of : id_loan
+	//According to the information filled for the simulation, employee can save this simulation as a loan on the DB.
 	public void addLoan(int idClient, int idConseiller, int idLoanType, int idHistory, int askedAmount, 
 			int askedDuration, double askedRate, double askedRateInsurance) throws ClassNotFoundException, SQLException{
+		
+		System.out.println("Add loan begin");
 		
 		ConnectionPool conn = employe.getPool();
 		Connection co;
 		conn = new ConnectionPool();
 		conn.makeStack();
 		co = conn.getConnection();
-		//System.out.println("Connecté");
+		
+		System.out.println("Connecté");
+		
 		PreparedStatement ps;
 		ResultSet rs;
 		String sql;		
 		
 		sql = "INSERT INTO LOAN (id_loan, id_client, id_conseiller, id_loan_type, "
 				+ "id_history, asked_amount, asked_duration, asked_rate, asked_rateInsurance, asked_date, decision) "
-				+ "VALUES (4,"+idClient+","+idConseiller+","+idLoanType+","+idHistory+","+askedAmount+","+askedDuration+","+askedRate+","+askedRateInsurance+",SYSDATE,0)";
+				+ "VALUES (10,"+idClient+","+idConseiller+","+idLoanType+","+idHistory+","+askedAmount+","+askedDuration+","
+						+ ""+askedRate+","+askedRateInsurance+",SYSDATE,0)";
+		
+		
+		//System.out.println(sql);
 		
 		ps = co.prepareStatement(sql);
 		rs = ps.executeQuery();
-		//System.out.println("Envoyé");
+		
+		System.out.println("Envoyé");
+		
 		co.commit();
 		conn.closeConnection(co);
-		//System.out.println("Fermé");
 		
+		System.out.println("Fermé");		
 	}
 }
