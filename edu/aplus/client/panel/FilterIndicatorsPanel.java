@@ -109,9 +109,9 @@ public class FilterIndicatorsPanel extends JPanel {
         //2nd line of elements
         c.gridy = 4;
         c.gridx = 0;
-        add(new JLabel("Age : "), c);
+        //add(new JLabel("Age : "), c);
         c.gridx = 1;
-        add(avgAgeField, c);
+        //add(avgAgeField, c);
         c.gridx = 2;
         add(new JLabel("Durée : "), c);
         c.gridx = 3;
@@ -119,7 +119,7 @@ public class FilterIndicatorsPanel extends JPanel {
         
         c.gridy = 5;
         c.gridx = 0;
-        add(new JLabel("Interêt perçus : "), c);
+        add(new JLabel("Taux d'interêt : "), c);
         c.gridx = 1;
         add(avgInterestRateField, c);
         c.gridx = 2;
@@ -196,6 +196,7 @@ public class FilterIndicatorsPanel extends JPanel {
 	private void setAllAvgField(JTable table, int idAgeCol, int idEmpruntAmountCol, int idInterestRateCol, int idLenghtCol) {
 	
 		DecimalFormat formatter = new DecimalFormat("#0.000");
+		
 		
 		avgInterestRateField.setText(formatter.format(getAvgOfColByIdCol(table, idInterestRateCol)));
 	    avgEmpruntAmountField.setText(formatter.format(getAvgOfColByIdCol(table, idEmpruntAmountCol)));
