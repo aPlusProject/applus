@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
@@ -28,6 +29,9 @@ public class Loan {
 	private int decision;  //documenter les valeurs  que peut prendre decision
 	private DataSource ds;
 	private static int loanTypeID;
+	
+	private String decisionLibelle;
+	private String loanTypeLibelle;
 
 
 	public Loan(Client client, Employee counsellor, String loanType, History history, int askedAmount, 
@@ -200,5 +204,93 @@ public class Loan {
 			System.out.println(idLoan+"       | "+montant+"        | "+date);
 
 		}
+	}
+	
+public ArrayList<Loan> getLoansListForArrayIndicator() throws ClassNotFoundException, SQLException {
+		
+		
+		ConnectionPool pool = new ConnectionPool();
+		pool.makeStack();
+		Connection co = pool.getConnection();
+		
+		
+		PreparedStatement ps;
+		ResultSet rs;
+
+		ArrayList<Loan> listLoans = new ArrayList<Loan>();
+		
+		String sql = "SELECT id_loan_type, asked_amount, asked_duration, asked_rate,  asked_date, decision FROM LOAN";
+		ps = co.prepareStatement(sql);
+		rs = ps.executeQuery();
+		
+		
+		Loan aLoan = null;
+		
+		rs = ps.executeQuery();
+		while(rs.next()) {
+			
+			aLoan = new Loan();
+			
+			aLoan.setLoanTypeLibelle(rs.getInt(1));
+			aLoan.setAskedAmount(rs.getInt(2));
+			aLoan.setAskedDuration(rs.getInt(3));
+			aLoan.setAskedRate(rs.getLong(4));
+			aLoan.setAskedDate(rs.getDate(5));
+			aLoan.setDecisionLibelle(rs.getInt(6));
+			
+			
+			listLoans.add(aLoan);
+			
+			
+		}
+		
+		return listLoans;
+		
+	}
+
+
+	public void setLoanTypeLibelle(int idTypeLoan) {
+		
+		
+		if(idTypeLoan == 1) {
+			loanTypeLibelle = "immobilier";
+		}
+		else if(idTypeLoan == 2) {
+			loanTypeLibelle = "consommation";
+		}
+		else if(idTypeLoan == 3) {
+			loanTypeLibelle = "professionnel";
+		}
+		else {
+			loanTypeLibelle = "autre";
+		}
+		
+		
+	}
+
+	public String getLoanTypeLibelle() {
+		
+		return loanTypeLibelle;
+	}
+	
+	public void setDecisionLibelle(int idDecision) {
+		
+		if(idDecision == 0) {
+			decisionLibelle = "accordé";
+		}
+		else if(idDecision == 1) {
+			decisionLibelle = "refusé";
+		}
+		else if(idDecision == 2) {
+			decisionLibelle = "en cours";
+		}
+		else {
+			decisionLibelle = "refusé";
+		}
+		
+	}
+	
+	public String getDecisionLibelle() {
+		return decisionLibelle;
 	}
 }
