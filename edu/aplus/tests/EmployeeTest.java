@@ -21,7 +21,7 @@ public class EmployeeTest extends TestCase{
 	
 	private Employee employee;    
     
-    @Test
+    /*@Test
     public void testGetLoanAmount() throws ClassNotFoundException, SQLException {
     	System.out.println("testGetLoanAmount");
     	
@@ -46,7 +46,7 @@ public class EmployeeTest extends TestCase{
         }
     	
     	assertTrue(loanList.size() == sizeLoan);
-    }
+    }*/
     
     @Test
     public void testNotResponsableGetAllLoan() throws ClassNotFoundException, SQLException {
