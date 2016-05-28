@@ -261,8 +261,8 @@ public class Fenetre extends JFrame {
 		      model.addRow(new Object[]{"Total des interets/mois", mois1+" €", mois2+" €", mois3+" €"});
 		      model.addRow(new Object[]{"Total des interets", total1+" €", total2+" €", total3+" €"});
 		      model.addRow(new Object[]{"Taux d'endettement", calcul.txdendettement(id_loan1), calcul.txdendettement(id_loan2), 0});
-		      model.addRow(new Object[]{"Niveau d'endettement", "Column 2", "Column 3", "Column 3"});
-		      model.addRow(new Object[]{"Poids dans la mensualité", "Column 2", "Column 3", "Column 3"});
+		     // model.addRow(new Object[]{"Niveau d'endettement", "Column 2", "Column 3", "Column 3"});
+		     // model.addRow(new Object[]{"Poids dans la mensualité", "Column 2", "Column 3", "Column 3"});
 		      i=0;
 		      //compare((String)combo.getSelectedItem(),(String)combo2.getSelectedItem());
 		      
