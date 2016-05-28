@@ -66,7 +66,7 @@ public class FilterIndicatorsPanel extends JPanel {
     	avgLengthField.setEditable(false);
     	
     	//create the two combos box needed of the filtering process
-        final JComboBox<String> boxLoanType = new JComboBox<>(new String[]{"Tout","immobilier","personnel"});
+        final JComboBox<String> boxLoanType = new JComboBox<>(new String[]{"Tout","immobilier","consommation", "professionnel", "autre"});
         final JComboBox<String> boxLoanStatus = new JComboBox<>(new String[]{"Tout","accordé","refusé", "en cours"});
         JButton filterBtn = new JButton("filter");
         
@@ -75,7 +75,7 @@ public class FilterIndicatorsPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-            	doubleFilter(upSorter, upTable, boxLoanType.getSelectedItem().toString(), 4, boxLoanStatus.getSelectedItem().toString(), 1);
+            	doubleFilter(upSorter, upTable, boxLoanType.getSelectedItem().toString(), 0, boxLoanStatus.getSelectedItem().toString(), 5);
             	
             }
         });
@@ -130,7 +130,8 @@ public class FilterIndicatorsPanel extends JPanel {
         nbRowsField.setText(upTable.getRowCount()+" trouvés");
         
         //calcule all avg from the current table
-        setAllAvgField(upTable, 6, 3, 2, 5);
+        // idAgeCol, int idEmpruntAmountCol, int idInterestRateCol, int idLenghtCol
+        setAllAvgField(upTable, 1, 1, 3, 2);
 
 	}
 	
@@ -177,7 +178,7 @@ public class FilterIndicatorsPanel extends JPanel {
     	nbRowsField.setText(table.getRowCount()+" trouvés");
     	System.out.println(table.getRowCount());
     	
-    	setAllAvgField(table, 6, 3, 2, 5);
+    	setAllAvgField(table, 1, 1, 3, 2);
 
     	
     }
@@ -218,6 +219,7 @@ public class FilterIndicatorsPanel extends JPanel {
     	if(table.getRowCount() != 0) {
     		double sum = 0;
     		for(int i=0; i < table.getRowCount(); i++) {
+    			System.out.println("Value in table = "+table.getValueAt(i, idCol));
     			sum = sum +  Double.parseDouble(table.getValueAt(i, idCol)+"");
     		}
     		

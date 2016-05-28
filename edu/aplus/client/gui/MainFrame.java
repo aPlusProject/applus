@@ -115,7 +115,11 @@ public class MainFrame extends JFrame {
 						remove(chartsLineIndicPanel);
 						
 						
-						arrayPanel = new ArrayIndicatorsPanel();
+						try {
+							arrayPanel = new ArrayIndicatorsPanel();
+						} catch (ClassNotFoundException | SQLException e1) {
+							e1.printStackTrace();
+						}
 						
 						//reaffect the needed panels
 						indicatorsPanel = new FilterIndicatorsPanel(arrayPanel.getJTableObject(), arrayPanel.getSorterObject());
@@ -182,7 +186,11 @@ public class MainFrame extends JFrame {
 				
 				setJMenuBar(newMenubar);
 				
-				arrayPanel = new ArrayIndicatorsPanel();
+				try {
+					arrayPanel = new ArrayIndicatorsPanel();
+				} catch (ClassNotFoundException | SQLException e2) {
+					e2.printStackTrace();
+				}
 				
 				indicatorsPanel = new FilterIndicatorsPanel(arrayPanel.getJTableObject(), arrayPanel.getSorterObject());
 				try {
@@ -193,7 +201,6 @@ public class MainFrame extends JFrame {
 					chartsLineIndicPanel.setVisible(false);
 					
 				} catch (ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				

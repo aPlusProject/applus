@@ -1,12 +1,15 @@
 package edu.aplus.client.panel;
 
 import java.awt.FlowLayout;
+import java.sql.SQLException;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+
+import edu.aplus.service.ArrayIndicatorExpose;
 
 public class ArrayIndicatorsPanel extends JPanel {
 	
@@ -17,22 +20,30 @@ public class ArrayIndicatorsPanel extends JPanel {
 
 	/**
 	 * this panel allow the display of the array of all loans
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public ArrayIndicatorsPanel() {
+	public ArrayIndicatorsPanel() throws ClassNotFoundException, SQLException {
 		
 		setLayout(new FlowLayout());
 		
-		String[] cols = { "N° Pret", "Statut", "Taux interet", "Montant emprunté", "Type de prêt" , "Durée", "age"};
-		String[][] data = { { "01", "accordé", "2.5", "3000", "personnel", "2" , "20"},
-				{ "02", "refusé", "1.25", "30000", "immobilier", "8" ,"54"},
-				{"03", "en cours", "2.00", "5000", "personnel", "3", "35"}, 
-				{ "04", "en cours", "1.25", "30000", "personnel", "10" , "58"},
-				{ "05", "refusé", "1.50", "3000", "immobilier", "5" , "38"},
-				{ "06", "accordé", "1.25", "30000", "personnel", "10" , "68"},
-				{ "07", "accordé", "1.25", "30000", "personnel", "4" , "22"},
-				{ "08", "en cours", "2.05", "15000", "immobilier", "2" , "45"},
-				{ "09", "accordé", "2.05", "15000", "immobilier", "2" , "45"},
-		};
+		//					0				1			2		3		4			5
+		String[] cols = { "Type de prêt", "Montant", "Durée", "Taux", "Date" , "Decision"};
+		
+		ArrayIndicatorExpose arrayIndicExpose = new ArrayIndicatorExpose();
+		
+		String[][] data = arrayIndicExpose.getData();
+		
+		/*String[][] data = { { "01", "accordé", "2.5", "3000", "personnel", "2"},
+				{ "02", "refusé", "1.25", "30000", "immobilier", "8"},
+				{"03", "en cours", "2.00", "5000", "personnel", "3"}, 
+				{ "04", "en cours", "1.25", "30000", "personnel", "10"},
+				{ "05", "refusé", "1.50", "3000", "immobilier", "5"},
+				{ "06", "accordé", "1.25", "30000", "personnel", "10"},
+				{ "07", "accordé", "1.25", "30000", "personnel", "4"},
+				{ "08", "en cours", "2.05", "15000", "immobilier", "2"},
+				{ "09", "accordé", "2.05", "15000", "immobilier", "2"},
+		};*/
 		
 		table = new JTable(model = new DefaultTableModel(data,cols));
 		
