@@ -1,6 +1,7 @@
 package edu.aplus.metier;
 
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,18 +28,16 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+
+/* To launch my GUI 
+ * 
+ */
 public class main {
 	
-	private DataSource ds;
-	private JPanel contentPanel;
-	//private Connection co;
-	private static Rate rate;
 	
 	public static void main( String[] args) throws Exception  {
 
-		ChooseLoanType clt = new ChooseLoanType();
-		//new CalculateRate();
-		//clt.setVisible(true);
-		//System.out.println(clt.getLoanDuration());
+		new ChooseLoanType();
+		
 
 	}	}

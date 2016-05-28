@@ -25,7 +25,14 @@ import edu.aplus.model.Rate;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import edu.aplus.model.Loan;
-
+/* The most important part of the project is is this class
+ * We first have an IHM which allow us to choose the rate type that we want, so that it will display its rates loan.
+ * We use for that : 
+ * RateType: the type of the loan so type of rate ( we consider that the rate value depends also on the type
+ * RateLoan : The rate corresponding to that type
+ * DefaultcomboBoxModel: is a generic class used to fill the comboBox by getting the information in the databae
+ * 
+ */
 
 class DemoModelItem {
 	public String RateType;
@@ -100,7 +107,7 @@ public class ChooseLoanType  extends JFrame{
 		this.durationInt = durationInt;
 	}
 	
-	public ChooseLoanType() throws Exception  {
+	public ChooseLoanType() throws Exception  { // constructor
 		setBounds(100, 100, 600, 400);
 		setTitle ("Choix du type de prêt");
 		JComboBox<DemoModelItem> comboBox = new JComboBox<DemoModelItem>();
@@ -121,13 +128,13 @@ public class ChooseLoanType  extends JFrame{
 
 		comboBox.addItemListener(new ItemListener() {
 			@Override
-			public void itemStateChanged(ItemEvent e) {
+			public void itemStateChanged(ItemEvent e) { // to know which item is selected
 				if (e.getStateChange() == 1){
 					//System.out.println("Jai choisi une valeur, je dois l'afficher dans une nouvelle fenetre"+ e.getItem());
 					final DemoModelItem itemSelected = (DemoModelItem) e.getItem();
 					System.out.println(e.getItem().toString());
 					RateType = e.getItem().toString();
-					final JFrame frame = new JFrame(RateType);
+					final JFrame frame = new JFrame(RateType);// name of the frame can be "Pret immo, conso, or profesionnel"
 					frame.getContentPane().setLayout(null);
 					frame.setBounds(100, 100, 600, 400);
 
@@ -137,10 +144,10 @@ public class ChooseLoanType  extends JFrame{
 					final JLabel label = new JLabel("Taux d'intérêt: ");
 					label.setBounds(10,30,100,20);
 
-					final JTextField champ = new JTextField(itemSelected.RateLoan+"");
+					final JTextField champ = new JTextField(itemSelected.RateLoan+""); // it displays the rateloan of the loan type selected
 					champ.setBounds(110,30,100,20);
 
-					final JButton modify = new JButton("Modifier le taux");
+					final JButton modify = new JButton("Modifier le taux"); // it is in order to let the director modify the rate and add it into a new column in the datatable
 					modify.setBounds(220,30,130,20);
 
 					modify.addActionListener(new ActionListener() {
@@ -158,7 +165,7 @@ public class ChooseLoanType  extends JFrame{
 								PreparedStatement ps ;
 								Connection co = conn.getConnection();
 
-								
+								// rate_agency is the column for the new rate"( modified by the director)
 								String query = "UPDATE RATE SET RATE_AGENCY = "+champ.getText()+" WHERE RATE_TYPE ='"+RateType+"'";
 
 								System.out.println(query);
@@ -168,7 +175,7 @@ public class ChooseLoanType  extends JFrame{
 								//ps.executeUpdate();
 								rs = ps.executeQuery();
 
-								javax.swing.JOptionPane.showMessageDialog(null,"Vous êtes sur le point de modifier le taux d'intérêt"); 
+								javax.swing.JOptionPane.showMessageDialog(null,"Vous avez bien modifié le taux d'intérêt de l'agence"); 
 
 
 							} catch (SQLException e) {
@@ -198,7 +205,7 @@ public class ChooseLoanType  extends JFrame{
 							final JTextField entrerDuree = new JTextField();
 							entrerDuree.setBounds(10,50,120,30);
 
-							final JButton validerDuree = new JButton("Valider");
+							final JButton validerDuree = new JButton("Valider"); // là on peut modifier la durée et ajouter le taux correspondant
 							validerDuree.setBounds(10,90,120,30);
 							validerDuree.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent actionEvent) {
@@ -211,7 +218,7 @@ public class ChooseLoanType  extends JFrame{
 									try{
 										ResultSet rs;
 										PreparedStatement ps ;
-										Connection co = conn.getConnection();
+										Connection co = conn.getConnection(); //this rate was already written in the database
 										String query = "SELECT RATE_VALUE FROM RATE WHERE RATE_DURATION ="+entrerDuree.getText()+" AND RATE_TYPE = '"+itemSelected.RateType+"'";      
 
 										ps = co.prepareStatement(query);
@@ -222,7 +229,6 @@ public class ChooseLoanType  extends JFrame{
 											champ.setText(rs.getString("RATE_VALUE"));
 										}
 										
-										//setLoanDuration(entrerDuree.getText());
 										String durationString = entrerDuree.getText();
 										int durationInt; 
 										durationInt = Integer.parseInt(durationString); 
@@ -236,22 +242,13 @@ public class ChooseLoanType  extends JFrame{
 										ps.close();
 										frame.setVisible(true);
 
-										//System.out.println(itemSelected.RateLoan+"");
-										//System.out.println(query);
-										//ps = co.prepareStatement(query);
-
-										//ps.setString(1, champ.getText());
-										//ps.executeUpdate();
-										//rs = ps.executeQuery();
-
-
-
+				
 									} catch (SQLException e) {
 										e.printStackTrace();
 									}
 									PreparedStatement ps;
-							} });// nd of duree add action listenrr
-							JButton back2frame = new JButton ("Retour");
+							} });// nd of duree add action listener
+							JButton back2frame = new JButton ("Retour"); // get back to the last frame opened
 							back2frame.setBounds(140,90,100,30);
 
 							back2frame.addActionListener(new ActionListener() {
@@ -262,7 +259,6 @@ public class ChooseLoanType  extends JFrame{
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
-									//clt.setVisible(true);
 								}
 							});
 							
@@ -276,7 +272,7 @@ public class ChooseLoanType  extends JFrame{
 
 
 						} });
-					final JButton riskCost = new JButton("Evaluer risque");
+					final JButton riskCost = new JButton("Evaluer risque"); // the frame to evaluate the risks of changing the rate
 					riskCost.setBounds(10,70,100,20);
 					riskCost.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent actionEvent) {
@@ -285,8 +281,8 @@ public class ChooseLoanType  extends JFrame{
 								frame3.getContentPane().setLayout(null);
 
 								frame3.setTitle("Evaluer risque");
-								frame3.setBounds(100, 100, 300, 300);
-								frame3.getContentPane().setBounds(100, 100, 300, 300);
+								frame3.setBounds(100, 100, 350, 300);
+								frame3.getContentPane().setBounds(100, 100, 350, 300);
 								final JLabel labelSetPret = new JLabel ("Taux de la maison-mere:");
 								labelSetPret.setBounds(10,10,200,30);
 								final JTextField hqRate = new JTextField();
@@ -302,17 +298,17 @@ public class ChooseLoanType  extends JFrame{
 											e1.printStackTrace();
 										}
 										try{
-											ResultSet rs, rs2;
+											ResultSet rs, rs2; // because we want the both rates
 											PreparedStatement ps ;
 											PreparedStatement ps2 ;
 
 											Connection co = conn.getConnection();
-											String query = "SELECT RATE_VALUE FROM RATE WHERE RATE_DURATION ="+getLoanDuration()+" AND RATE_TYPE = '"+itemSelected.RateType+"'";      
-											String query2 = "SELECT RATE_AGENCY FROM RATE WHERE RATE_DURATION ="+getLoanDuration()+" AND RATE_TYPE = '"+itemSelected.RateType+"'";    
+						/*Rate of HQ */		String query = "SELECT RATE_VALUE FROM RATE WHERE RATE_DURATION ="+getLoanDuration()+" AND RATE_TYPE = '"+itemSelected.RateType+"'";      
+						/* Rate of agency*/String query2 = "SELECT RATE_AGENCY FROM RATE WHERE RATE_DURATION ="+getLoanDuration()+" AND RATE_TYPE = '"+itemSelected.RateType+"'";    
 											System.out.println(query);
 											System.out.println(query2);
 
-											ps = co.prepareStatement(query);
+											ps = co.prepareStatement(query); // 
 											ps2 = co.prepareStatement(query2);
 											rs = ps.executeQuery();
 											rs2 = ps2.executeQuery();
@@ -337,9 +333,14 @@ public class ChooseLoanType  extends JFrame{
 											e.printStackTrace();
 										}
 										
-													
-										
+										JButton editProfile = new JButton ("Editer profil");
+										editProfile.setBounds(120,150,100,20);
+										editProfile.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent actionEvent) {
+												 new frameProfile();
+											} });
 										frame3.getContentPane().add(labelSetPret);
+										frame3.getContentPane().add(editProfile);
 										frame3.getContentPane().add(hqRate);		
 										frame3.getContentPane().add(agencyRate);
 										frame3.getContentPane().add(labelAgencyRate);
@@ -371,16 +372,12 @@ public class ChooseLoanType  extends JFrame{
 
 
 					frame.setVisible(true);
-					//frame.pack();
-					//System.out.println(itemSelected.RateLoan);
+				
 
 				}}
 
 		});
 
-
-		//contentPanel.add(comboBox);
-		//pack();
 		setVisible(true);
 	}
 

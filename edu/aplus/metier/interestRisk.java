@@ -10,34 +10,55 @@ package edu.aplus.metier;
 import edu.aplus.model.Client;
 import edu.aplus.model.Rate;
 import edu.aplus.metier.ChooseLoanType;
-import edu.aplus.metier.CalculateRate;
+import edu.aplus.metier.frameProfile;
 
+/* This class named interestRisk allows to define the risks depending on the profile of the client
+ * This assessment of the risks taken by the bank is made by six parameters:
+ *  age : age of client
+ *  salary : salary per month of client
+ *  charge : what the client spends per month
+ *  credit : the amount of credit he has to give to other banks if he's contracted credits
+ *  status : the type of professional contract if the client works
+ *  etatSante: to check if the client is healthy
+ *  We will use this class for frameProfile in order to display the list of risks.
+ */
 public class interestRisk {
 
 	private String typeLoan;
 	private Rate rate;
-	private Client client;
+	frameProfile fp;
+	private int salary;
+	private String etatSante ;
+	private String status ;
+	private int charge;
+	private int credit ;
+	private int age ;
 
-	 
-	public interestRisk(int salary, int restantVivre, int debtRatio, int etatSant) {
+
+	public interestRisk(int salary, String etatSante, String status, int credit, int age, int charge) {
 		// setters
+		this.salary = frameProfile.getSalary();
+		this.etatSante = frameProfile.getHealth();
+		this.charge=  frameProfile.getCharge();
+		this.credit = frameProfile.getCredit();
+		this.age = frameProfile.getAge();
+		this.status = frameProfile.getStatus();
+
 	}
 
-	/**
-	 * This method is used to show the risks according the different parameters
-	 * 
-	 * @param typeLoan
-	 * 
-	 * @return str
-	 * str = list of the risks
-	 */
+
 	public String Risk() {
 
-		String setRisk = "";
+
+		/*String setRisk = "";
 		int salary = Integer.parseInt(client.getSalary());
 		int restantVivre = Integer.parseInt(client.getSalary())-Integer.parseInt(client.getCharge());
 		int debtRatio = Integer.parseInt(client.getCharge())/Integer.parseInt(client.getSalary());
-		int etatSante= 0;
+		int etatSante= 0;*/
+
+		String setRisk = "";
+		//int salary-charge = salary-charge;
+		//int salary/(charge+credit)*100 = salary/(charge+credit)*100;
 
 		// LOAN HOME
 		// FIRST INDICATOR : SITUATION FINANCIERE
@@ -50,22 +71,22 @@ public class interestRisk {
 		 */
 
 
-		if ((client.getAge() > 18 && client.getAge() <= 25) && salary < 24000) { // CLIENT BETWEEN 18 N 25 HAVING UNDER 24000 OF SALARY
-			if(debtRatio >= 30 && restantVivre < 800) // debtRatio more than 30 & restantVivre under 800 euros
-				setRisk = "(Liste des risques ici)"; // increase rate_interest otherwise loss of bank
-			else if(debtRatio < 30 && restantVivre < 800) //good debtRation but badRestantVivre
+		if ((age > 18 && age <= 25) && salary < 24000) { // CLIENT BETWEEN 18 N 25 HAVING UNDER 24000 OF SALARY
+			if((charge+credit)/salary*100 >= 30 && (salary-charge) < 800)// debtRatio more than 30 & restantVivre under 800 euros
+				setRisk = "Risques d'endettement"; // increase rate_interest otherwise loss of bank
+			else if((charge+credit)/salary*100 < 30 && (salary-charge) < 800) //good debtRation but badRestantVivre
 				switch(etatSante){ // look at Health state
-				case 0:// Good health
-					setRisk= "(Liste risques)"; // Bank wont increase interest
+				case "bon":// Good health
+					setRisk= "Risques moindre d'endettement"; // Bank wont increase interest
 					break;
-				case 1: // Sick person
-					setRisk= "(Liste risques)"; // Bank will increase
+				case "bad": // Sick person
+					setRisk= "Risques d'endettement"; // Bank will increase
 					break;
 				}
-			else if(debtRatio >= 30 && restantVivre >= 800) // bad DebtRatio & good RestantVivre
-				setRisk= "(Liste risques)"; // increase interest
+			else if(salary/(charge+credit)*100 >= 30 && salary-charge >= 800) // bad DebtRatio & good RestantVivre
+				setRisk= "Risques d'endettement"; // increase interest
 			else
-				setRisk= "(Liste risques)"; //GOOD profile , decrease interest to maintain client
+				setRisk= "Bonnes prévisions de marge"; //GOOD profile , decrease interest to maintain client
 
 		}
 
@@ -74,22 +95,22 @@ public class interestRisk {
 		 */
 
 
-		else if ((client.getAge() > 18 && client.getAge() <= 25) && (salary >= 24000 && salary < 45000)) { // CLIENT BETWEEN 18 N 25 HAVING UNDER 24000 OF SALARY
-			if(debtRatio >= 30 && restantVivre < 800) // debtRatio more than 30 & restantVivre under 800 euros
-				setRisk = "(Liste des risques ici)"; // increase rate_interest otherwise loss of bank
-			else if(debtRatio < 30 && restantVivre < 800) //good debtRation but badRestantVivre
+		else if ((age > 18 && age <= 25) && (salary >= 24000 && salary < 45000)) { // CLIENT BETWEEN 18 N 25 HAVING UNDER 24000 OF SALARY
+			if(salary/(charge+credit)*100 >= 30 && salary-charge < 800) // debtRatio more than 30 & restantVivre under 800 euros
+				setRisk = "Risques d'endettement"; // increase rate_interest otherwise loss of bank
+			else if(salary/(charge+credit)*100 < 30 && salary-charge < 800) //good debtRation but badRestantVivre
 				switch(etatSante){ // look at Health state
-				case 0:// Good health
-					setRisk= "(Liste risques)"; // Bank wont increase interest
+				case "bon":// Good health
+					setRisk= "Risques moindre d'endettement"; // Bank wont increase interest
 					break;
-				case 1: // Sick person
-					setRisk= "(Liste risques)"; // Bank will increase
+				case "bad": // Sick person
+					setRisk= "Risques d'endettement"; // Bank will increase
 					break;
 				}
-			else if(debtRatio >= 30 && restantVivre >= 800) // bad DebtRatio & good RestantVivre
-				setRisk= "(Liste risques)"; // increase interest
+			else if(salary/(charge+credit)*100 >= 30 && salary-charge >= 800) // bad DebtRatio & good RestantVivre
+				setRisk= "Risques d'endettement"; // increase interest
 			else
-				setRisk= "(Liste risques)"; //GOOD profile , decrease interest to maintain client
+				setRisk= "Bonnes prévisions de marge"; //GOOD profile , decrease interest to maintain client
 
 		}
 
@@ -100,22 +121,22 @@ public class interestRisk {
 		 */
 
 
-		else if ((client.getAge() > 25 && client.getAge() <= 50) && (salary < 24000)) { // CLIENT BETWEEN 25 N 50 HAVING UNDER 24000 OF SALARY
-			if(debtRatio >= 30 && restantVivre < 800) // bad debtRatio & restantVivre under 800euros
-				setRisk = "(Liste des risques ici)"; // increase rate_interest otherwise loss of bank
-			else if(debtRatio < 30 && restantVivre < 800) //good debtRatio but badRestantVivre
+		else if ((age > 25 && age <= 50) && (salary < 24000)) { // CLIENT BETWEEN 25 N 50 HAVING UNDER 24000 OF SALARY
+			if(salary/(charge+credit)*100 >= 30 && salary-charge < 800) // bad debtRatio & restantVivre under 800euros
+				setRisk = "Risques d'endettement"; // increase rate_interest otherwise loss of bank
+			else if(salary/(charge+credit)*100 < 30 && salary-charge < 800) //good debtRatio but badRestantVivre
 				switch(etatSante){ // look at Health state
-				case 0:// Good health
-					setRisk= "(Liste risques)"; // Bank wont increase interest
+				case "bon":// Good health
+					setRisk= "Risques moindre d'endettement"; // Bank wont increase interest
 					break;
-				case 1: // Sick person
-					setRisk= "(Liste risques)"; // Bank will increase
+				case "bad": // Sick person
+					setRisk= "Risques d'endettement"; // Bank will increase
 					break;
 				}
-			else if(debtRatio >= 30 && restantVivre >= 800) // bad DebtRatio & good RestantVivre
-				setRisk= "(Liste risques)"; // increase interest
+			else if(salary/(charge+credit)*100 >= 30 && salary-charge >= 800) // bad DebtRatio & good RestantVivre
+				setRisk= "Risques d'endettement"; // increase interest
 			else
-				setRisk= "(Liste risques)"; //GOOD profile , decrease interest to maintain client
+				setRisk= "Bonnes prévisions de marge"; //GOOD profile , decrease interest to maintain client
 
 		}
 
@@ -123,129 +144,129 @@ public class interestRisk {
 		 * being between 25 & 50 and having good salary
 		 */
 
-		else if ((client.getAge() > 25 && client.getAge() <= 50) && (salary >= 24000) && (salary <= 45000)) { // CLIENT BETWEEN 25 N 50 HAVING UNDER 24000 OF SALARY
-			if(debtRatio >= 30 && restantVivre < 800) // bad debtRatio & restantVivre under 800euros
-				setRisk = "(Liste des risques ici)"; // increase rate_interest otherwise loss of bank
-			else if(debtRatio < 30 && restantVivre < 800) //good debtRatio but badRestantVivre
+		else if ((age > 25 && age <= 50) && (salary >= 24000) && (salary <= 45000)) { // CLIENT BETWEEN 25 N 50 HAVING UNDER 24000 OF SALARY
+			if(salary/(charge+credit)*100 >= 30 && salary-charge < 800) // bad debtRatio & restantVivre under 800euros
+				setRisk = "Risques d'endettement"; // increase rate_interest otherwise loss of bank
+			else if(salary/(charge+credit)*100 < 30 && salary-charge < 800) //good debtRatio but badRestantVivre
 				switch(etatSante){ // look at Health state
-				case 0:// Good health
-					setRisk= "(Liste risques)"; // Bank wont increase interest
+				case "bon":// Good health
+					setRisk= "Risques moindre d'endettement"; // Bank wont increase interest
 					break;
-				case 1: // Sick person
-					setRisk= "(Liste risques)"; // Bank will increase
+				case "bad": // Sick person
+					setRisk= "Risques d'endettement"; // Bank will increase
 					break;
 				}
-			else if(debtRatio >= 30 && restantVivre >= 800) // bad DebtRatio & good RestantVivre
-				setRisk= "(Liste risques)"; // increase interest
+			else if(salary/(charge+credit)*100 >= 30 && salary-charge >= 800) // bad DebtRatio & good RestantVivre
+				setRisk= "Risques d'endettement)"; // increase interest
 			else
-				setRisk= "(Liste risques)"; //GOOD profile , decrease interest to maintain client
+				setRisk= "Bonnes prévisions de marge financière"; //GOOD profile , decrease interest to maintain client
 
 		}
 
 		/* client being between 25 & 50
 		 * having salary between 45 & 70k euros
 		 */
-		else if ((client.getAge() > 25 && client.getAge() <= 50) && (salary >= 45000) && (salary <= 70000)) { // CLIENT BETWEEN 25 N 50 HAVING UNDER 24000 OF SALARY
-			if(debtRatio >= 30 && restantVivre < 800) // bad debtRatio & restantVivre under 800euros
-				setRisk = "(Liste des risques ici)"; // increase rate_interest otherwise loss of bank
-			else if(debtRatio < 30 && restantVivre < 800) //good debtRatio but badRestantVivre
+		else if ((age > 25 && age <= 50) && (salary >= 45000) && (salary <= 70000)) { // CLIENT BETWEEN 25 N 50 HAVING UNDER 24000 OF SALARY
+			if(salary/(charge+credit)*100 >= 30 && salary-charge < 800) // bad debtRatio & restantVivre under 800euros
+				setRisk = "Grosses pertes de la banque"; // increase rate_interest otherwise loss of bank
+			else if(salary/(charge+credit)*100 < 30 && salary-charge < 800) //good debtRatio but badRestantVivre
 				switch(etatSante){ // look at Health state
-				case 0:// Good health
-					setRisk= "(Liste risques)"; // Bank wont increase interest
+				case "bon":// Good health
+					setRisk= "La diminution du taux d'intérêt présente un risque à long terme"; // Bank wont increase interest
 					break;
-				case 1: // Sick person
-					setRisk= "(Liste risques)"; // Bank will increase
+				case "bad": // Sick person
+					setRisk= "Risque d'endettement"; // Bank will increase
 					break;
 				}
-			else if(debtRatio >= 30 && restantVivre >= 800) // bad DebtRatio & good RestantVivre
-				setRisk= "(Liste risques)"; // increase interest
+			else if(salary/(charge+credit)*100 >= 30 && salary-charge >= 800) // bad DebtRatio & good RestantVivre
+				setRisk= "Risque d'endettement"; // increase interest
 			else
-				setRisk= "(Liste risques)"; //GOOD profile , decrease interest to maintain client
+				setRisk= "Bonnes prévisions, la diminution du taux d'intérêt n'influer pas sur la plus-value"; //GOOD profile , decrease interest to maintain client
 
 		}
 		/* client being between 25 & 50
 		 * having salary > 70k euros
 		 */
-		else if ((client.getAge() > 25 && client.getAge() <= 50) && salary >= 70000) { // CLIENT BETWEEN 25 N 50 HAVING UNDER 24000 OF SALARY
-			if(debtRatio >= 30 && restantVivre < 800) // bad debtRatio & restantVivre under 800euros
-				setRisk = "(Liste des risques ici)"; // increase rate_interest otherwise loss of bank
-			else if(debtRatio < 30 && restantVivre < 800) //good debtRatio but badRestantVivre
+		else if ((age > 25 && age <= 50) && salary >= 70000) { // CLIENT BETWEEN 25 N 50 HAVING UNDER 24000 OF SALARY
+			if(salary/(charge+credit)*100 >= 30 && salary-charge < 800) // bad debtRatio & restantVivre under 800euros
+				setRisk = "Risque d'endettement, pertes de l'établissement à prévenir)"; // increase rate_interest otherwise loss of bank
+			else if(salary/(charge+credit)*100 < 30 && salary-charge < 800) //good debtRatio but badRestantVivre
 				switch(etatSante){ // look at Health state
-				case 0:// Good health
-					setRisk= "(Liste risques)"; // Bank wont increase interest
+				case "bon":// Good health
+					setRisk= "(Le maintien du taux de la maison-mère permet de prévoir le risque d'endettement avant la terme du prêt)"; // Bank wont increase interest
 					break;
-				case 1: // Sick person
-					setRisk= "(Liste risques)"; // Bank will increase
+				case "bad": // Sick person
+					setRisk= "Risque d'endettement de la banque"; // Bank will increase
 					break;
 				}
-			else if(debtRatio >= 30 && restantVivre >= 800) // bad DebtRatio & good RestantVivre
-				setRisk= "(Liste risques)"; // increase interest
+			else if(salary/(charge+credit)*100 >= 30 && salary-charge >= 800) // bad DebtRatio & good RestantVivre
+				setRisk= "Risque d'endettement de la banque"; // increase interest
 			else
-				setRisk= "(Liste risques)"; //GOOD profile , decrease interest to maintain client
+				setRisk= "Bonnes prévisions de marge"; //GOOD profile , decrease interest to maintain client
 
 		}
 		/* now (50,65)
 		 * 
 		 */
 
-		else if ((client.getAge() > 50 && client.getAge() <= 65) && salary < 30000) { // CLIENT BETWEEN 25 N 50 HAVING UNDER 24000 OF SALARY
-			if(debtRatio >= 30 && restantVivre < 800) // bad debtRatio & restantVivre under 800euros
-				setRisk = "(Liste des risques ici)"; // increase rate_interest otherwise loss of bank
-			else if(debtRatio < 30 && restantVivre < 800) //good debtRatio but badRestantVivre
+		else if ((age > 50 && age <= 65) && salary < 30000) { // CLIENT BETWEEN 25 N 50 HAVING UNDER 24000 OF SALARY
+			if(salary/(charge+credit)*100 >= 30 && salary-charge < 800) // bad debtRatio & restantVivre under 800euros
+				setRisk = "Risques d'endettement"; // increase rate_interest otherwise loss of bank
+			else if(salary/(charge+credit)*100 < 30 && salary-charge < 800) //good debtRatio but badRestantVivre
 				switch(etatSante){ // look at Health state
-				case 0:// Good health
-					setRisk= "(Liste risques)"; // Bank wont increase interest
+				case "bon":// Good health
+					setRisk= "Risque moindre d'endettement"; // Bank wont increase interest
 					break;
-				case 1: // Sick person
-					setRisk= "(Liste risques)"; // Bank will increase
+				case "bad": // Sick person
+					setRisk= "Risques d'endettement"; // Bank will increase
 					break;
 				}
-			else if(debtRatio >= 30 && restantVivre >= 800) // bad DebtRatio & good RestantVivre
-				setRisk= "(Liste risques)"; // increase interest
+			else if(salary/(charge+credit)*100 >= 30 && salary-charge >= 800) // bad DebtRatio & good RestantVivre
+				setRisk= "Risques d'endettement"; // increase interest
 			else
-				setRisk= "(Liste risques)"; //GOOD profile , decrease interest to maintain client
+				setRisk= "Bonnes prévisions de marge"; //GOOD profile , decrease interest to maintain client
 
 		}
 		// salary > 30000
-		else if ((client.getAge() > 50 && client.getAge() <= 65) && salary >= 30000) { // CLIENT BETWEEN 25 N 50 HAVING UNDER 24000 OF SALARY
-			if(debtRatio >= 30 && restantVivre < 800) // bad debtRatio & restantVivre under 800euros
-				setRisk = "(Liste des risques ici)"; // increase rate_interest otherwise loss of bank
-			else if(debtRatio < 30 && restantVivre < 800) //good debtRatio but badRestantVivre
+		else if ((age > 50 && age <= 65) && salary >= 30000) { // CLIENT BETWEEN 25 N 50 HAVING UNDER 24000 OF SALARY
+			if(salary/(charge+credit)*100 >= 30 && salary-charge < 800) // bad debtRatio & restantVivre under 800euros
+				setRisk = "Risques d'endettement"; // increase rate_interest otherwise loss of bank
+			else if(salary/(charge+credit)*100 < 30 && salary-charge < 800) //good debtRatio but badRestantVivre
 				switch(etatSante){ // look at Health state
-				case 0:// Good health
-					setRisk= "(Liste risques)"; // Bank wont increase interest
+				case "bon":// Good health
+					setRisk= "Risques moindres d'endettement"; // Bank wont increase interest
 					break;
-				case 1: // Sick person
-					setRisk= "(Liste risques)"; // Bank will increase
+				case "bad": // Sick person
+					setRisk= "Risques d'endettement"; // Bank will increase
 					break;
 				}
-			else if(debtRatio >= 30 && restantVivre >= 800) // bad DebtRatio & good RestantVivre
-				setRisk= "(Liste risques)"; // increase interest
+			else if(salary/(charge+credit)*100 >= 30 && salary-charge >= 800) // bad DebtRatio & good RestantVivre
+				setRisk= "Risques d'endettement"; // increase interest
 			else
-				setRisk= "(Liste risques)"; //GOOD profile , decrease interest to maintain client
+				setRisk= "Bonnes prévisions de marge"; //GOOD profile , decrease interest to maintain client
 
 		}
 
-		else if (client.getAge() >65) { // CLIENT in "retraite" 
-			if(debtRatio >= 30 && restantVivre < 800) // bad debtRatio & restantVivre under 800euros
-				setRisk = "(Liste des risques ici)"; // increase rate_interest otherwise loss of bank
-			else if(debtRatio < 30 && restantVivre < 800) //good debtRatio but badRestantVivre
+		else if (age >65) { // CLIENT in "retraite" 
+			if(salary/(charge+credit)*100 >= 30 && salary-charge < 800) // bad debtRatio & restantVivre under 800euros
+				setRisk = "Risques d'endettement"; // increase rate_interest otherwise loss of bank
+			else if(salary/(charge+credit)*100 < 30 && salary-charge < 800) //good debtRatio but badRestantVivre
 				switch(etatSante){ // look at Health state
-				case 0:// Good health
-					setRisk= "(Liste risques)"; // Bank wont increase interest
+				case "bon":// Good health
+					setRisk= "Risques moindres d'endettement"; // Bank wont increase interest
 					break;
-				case 1: // Sick person
-					setRisk= "(Liste risques)"; // Bank will increase
+				case "bad": // Sick person
+					setRisk= "Risques d'endettement"; // Bank will increase
 					break;
 				}
-			else if(debtRatio >= 30 && restantVivre >= 800) // bad DebtRatio & good RestantVivre
-				setRisk= "(Liste risques)"; // increase interest
+			else if(salary/(charge+credit)*100 >= 30 && salary-charge >= 800) // bad DebtRatio & good RestantVivre
+				setRisk= "Risques d'endettement"; // increase interest
 			else
-				setRisk= "(Liste risques)"; //GOOD profile , decrease interest to maintain client
+				setRisk= "Risques d'endettement"; //GOOD profile , decrease interest to maintain client
 
 
 		} else{
-			setRisk = "Profil non définie";
+			setRisk = "Cas non traité";
 		}
 
 
