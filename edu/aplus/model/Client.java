@@ -171,18 +171,29 @@ public class Client extends Someone{
 	}
 
 	public String getSalary(){
+		
+		System.out.println("model client getSalary : "+this.salary);
+		
 		return this.salary;
 	}
 	
 	public String getCharge(){
+		
+		System.out.println("model client getCharge "+this.charge);
+		
 		return this.charge;
 	}
 	
 	public String getDebtRate(){
+		
+		System.out.println("model client getDebtRate "+this.debtRate);
 		return this.debtRate;
 	}
 	
 	public void setSalary(String salary) {
+		
+	 System.out.println("On fixe le salaire du client depuis ->"+salary);
+		
 		this.salary = salary;	
 	}
 	

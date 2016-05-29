@@ -20,6 +20,8 @@ public class SimulatorFixedRate {
 	//the employee can have all his information like.
 	public Client getClientByID(int idClient) throws ClassNotFoundException, SQLException {
 		
+		System.out.println("id du client in getClientByID : "+idClient);
+		
 		ConnectionPool conn = employe.getPool();
 		Connection co= null;
 		conn = new ConnectionPool();
@@ -46,11 +48,14 @@ public class SimulatorFixedRate {
 			this.cl.setCity(rs.getString(8));
 			this.cl.setAddress(rs.getString(9));
 			this.cl.setZipCode(rs.getString(10));
+			
 			this.cl.setSalary(rs.getString(11));
 			this.cl.setCharge(rs.getString(12));
 			this.cl.setDebtRate(rs.getString(13));
 				
 		}
+		
+		System.out.println("traiment done");
 		
 		conn.closeConnection(co);
 		return this.cl;
@@ -100,11 +105,11 @@ public class SimulatorFixedRate {
 		
 		sql = "INSERT INTO LOAN (id_loan, id_client, id_conseiller, id_loan_type, "
 				+ "id_history, asked_amount, asked_duration, asked_rate, asked_rateInsurance, asked_date, decision) "
-				+ "VALUES (10,"+idClient+","+idConseiller+","+idLoanType+","+idHistory+","+askedAmount+","+askedDuration+","
+				+ "VALUES ('',"+idClient+","+idConseiller+","+idLoanType+",null,"+askedAmount+","+askedDuration+","
 						+ ""+askedRate+","+askedRateInsurance+",SYSDATE,0)";
 		
 		
-		//System.out.println(sql);
+		System.out.println(sql);
 		
 		ps = co.prepareStatement(sql);
 		rs = ps.executeQuery();
@@ -114,6 +119,8 @@ public class SimulatorFixedRate {
 		co.commit();
 		conn.closeConnection(co);
 		
-		System.out.println("Fermé");		
+		
+		
+		System.out.println("Fermé, insertion avec succees");		
 	}
 }

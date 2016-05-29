@@ -111,6 +111,8 @@ public class GetClientInfoPanel  extends JFrame{
 		
 		recievedmsg = clientTcp.SendRecieve("getclientbyID");
 		
+		System.out.println(recievedmsg);
+		
 		recievedmsg = clientTcp.SendRecieve(""+Clientid);
 		
 		JsonParser_new jparser = new JsonParser_new();

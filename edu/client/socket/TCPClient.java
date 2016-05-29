@@ -20,7 +20,7 @@ public class TCPClient {
 
 	public TCPClient() throws UnknownHostException, IOException{
 		
-		int portNumber = 1234;
+		int portNumber = 1235;
 		socket1 = new Socket(InetAddress.getLocalHost(), portNumber);
 	}
 	

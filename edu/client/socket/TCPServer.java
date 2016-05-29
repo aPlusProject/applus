@@ -19,7 +19,7 @@ import edu.aplus.service.JsonParser_new;
 public class TCPServer {
 
 	private static ServerSocket servSocket;
-	private static int port = 1234;
+	private static int port = 1235;
 	private static String receivedMsg;
 	private static String returnMsg;
 	

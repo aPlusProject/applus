@@ -242,6 +242,8 @@ public String  getLoanResultfromServer(Loan loan) throws UnknownHostException, I
 //Fill the financial information of the client fetched from DB.
 public void remplir(Client client) {
 	
+	System.out.println("on rempli les infos du clients dans les components");
+	
 	this.client = client;
 	salary.setText(client.getSalary());
 	charge.setText(client.getCharge());
