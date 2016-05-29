@@ -1,5 +1,6 @@
 package edu.aplus.client.panel;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
@@ -73,14 +74,16 @@ public class ChartsBarIndicatorPanel extends JPanel {
 					remove(chartPanel);
 					chartPanel = new ChartPanel( barChart );
 					chartPanel.setMouseZoomable(true);
-					chartPanel.setMinimumDrawWidth(260);
-					chartPanel.setMaximumDrawWidth(600);
-					chartPanel.setDismissDelay(1000);
-					FlowLayout flowLayout = (FlowLayout) chartPanel.getLayout();
+					//chartPanel.setMinimumDrawWidth(2600);
+					//chartPanel.setMaximumDrawWidth(6000);
+					//chartPanel.setDismissDelay(1000);
+					/*FlowLayout flowLayout = (FlowLayout) chartPanel.getLayout();
 					flowLayout.setVgap(0);
-					flowLayout.setHgap(0);
-				    chartPanel.setPreferredSize( new Dimension(400, 250) );
-                    
+					flowLayout.setHgap(0);*/
+				    //chartPanel.setPreferredSize( new Dimension(4000, 2500) );
+					chartPanel.setLayout(new BorderLayout());
+					chartPanel.setPreferredSize(new Dimension(900, 600));
+					//chartPanel.setMaximumSize(new Dimension(500, 300));
 				    
 				    add(chartPanel);
 					
@@ -105,14 +108,17 @@ public class ChartsBarIndicatorPanel extends JPanel {
 		
 		
 		chartPanel.setMouseZoomable(true);
-		chartPanel.setMinimumDrawWidth(260);
-		chartPanel.setMaximumDrawWidth(600);
-		chartPanel.setDismissDelay(1000);
-		FlowLayout flowLayout = (FlowLayout) chartPanel.getLayout();
+		//chartPanel.setMinimumDrawWidth(260);
+		//chartPanel.setMaximumDrawWidth(600);
+		//chartPanel.setDismissDelay(1000);
+		/*FlowLayout flowLayout = (FlowLayout) chartPanel.getLayout();
 		flowLayout.setVgap(0);
 		flowLayout.setHgap(0);
-	    chartPanel.setPreferredSize( new Dimension(400, 250) );
-
+	    //chartPanel.setPreferredSize( new Dimension(400, 250) );*/
+		
+		chartPanel.setLayout(new BorderLayout());
+		chartPanel.setPreferredSize(new Dimension(900, 600));
+		//chartPanel.setMaximumSize(new Dimension(500, 300));
 	    
 	    
 		add(chartPanel);

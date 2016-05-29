@@ -11,6 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import org.jfree.ui.RefineryUtilities;
@@ -58,6 +59,8 @@ public class MainFrame extends JFrame {
 					
 					RefineryUtilities.centerFrameOnScreen( frame );
 					
+					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+					
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -72,9 +75,9 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//setBounds(50, 50, 1000, 1000);
-		getContentPane().setLayout(new GridBagLayout());
+		getContentPane().setLayout(new BorderLayout());
 		setSize(1200, 650);
-		setPreferredSize(new Dimension(1200, 650));
+		setPreferredSize(new Dimension(12000, 6500));
 		mainPanel = new MainPanel();
 		
 		/*GridBagConstraints gbc_mainPanel = new GridBagConstraints();
@@ -83,9 +86,9 @@ public class MainFrame extends JFrame {
 		getContentPane().add(mainPanel);
 		
 		final GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 0.1;
-		c.weighty = 0.1;
+		//c.fill = GridBagConstraints.HORIZONTAL;
+		//c.weightx = 0.1;
+		//c.weighty = 0.1;
 		
 		
 		mainPanel.setActionListener(new ActionListener() {
@@ -124,12 +127,14 @@ public class MainFrame extends JFrame {
 						//reaffect the needed panels
 						indicatorsPanel = new FilterIndicatorsPanel(arrayPanel.getJTableObject(), arrayPanel.getSorterObject());
 						c.gridx = 0;
-						getContentPane().add(arrayPanel, c);
-						pack();
-						c.gridx = 1;
-						getContentPane().add(indicatorsPanel, c);
-						pack();
+						getContentPane().add(arrayPanel, BorderLayout.CENTER);
+						//pack();
 						repaint();
+						c.gridx = 1;
+						getContentPane().add(indicatorsPanel, BorderLayout.PAGE_END);
+						//pack();
+						repaint();
+						setVisible(true);
 						
 					}
 					
@@ -137,14 +142,15 @@ public class MainFrame extends JFrame {
 				indicatorMenu.add(openIndicator);
 				
 				JMenu chartsMenu = new JMenu("Graphiques");
-				JMenuItem openCharts = new JMenuItem("Acceder");
+				JMenuItem openLineChart = new JMenuItem("Evolution des demandes cumulées");
+				JMenuItem openBarChart = new JMenuItem("Demandes par mois");
 				
 				// point on chartes Indicator view when we clique on the button
-				openCharts.addActionListener(new ActionListener() {
+				openLineChart.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						System.out.println("test charts");
+						System.out.println("test line chart");
 						
 						remove(mainPanel);
 						remove(arrayPanel);
@@ -153,21 +159,16 @@ public class MainFrame extends JFrame {
 						remove(chartsLineIndicPanel);
 						
 						
-						int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-						System.out.println(currentYear);
 						try {
-							chartsBarIndicPanel = new ChartsBarIndicatorPanel(currentYear);
-							chartsLineIndicPanel = new ChartsLineIndicatorPanel();
-							c.gridx = 0;
-							c.gridy = 0;
-							remove(mainPanel);
-							getContentPane().add(chartsBarIndicPanel);
 							
-							pack();
-							c.gridx = 1;
+							chartsLineIndicPanel = new ChartsLineIndicatorPanel();
+							
 							getContentPane().add(chartsLineIndicPanel);
-							pack();
+							
+							
 							repaint();
+							setVisible(true);
+							
 							
 							
 						} catch (ClassNotFoundException | SQLException e1) {
@@ -178,7 +179,40 @@ public class MainFrame extends JFrame {
 					}
 					
 				});
-				chartsMenu.add(openCharts);
+				
+				openBarChart.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.out.println("test bar chart");
+						
+						
+						remove(mainPanel);
+						remove(arrayPanel);
+						remove(indicatorsPanel);
+						remove(chartsBarIndicPanel);
+						remove(chartsLineIndicPanel);
+						
+						int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+						
+						try {
+							chartsBarIndicPanel = new ChartsBarIndicatorPanel(currentYear);
+							
+							getContentPane().add(chartsBarIndicPanel);
+							
+							repaint();
+							setVisible(true);
+						} catch (ClassNotFoundException | SQLException e1) {
+							e1.printStackTrace();
+						}
+						
+						
+					}
+					
+				});
+				
+				chartsMenu.add(openLineChart);
+				chartsMenu.add(openBarChart);
 				
 				JMenuBar newMenubar = new JMenuBar();
 				newMenubar.add(indicatorMenu);
@@ -208,10 +242,11 @@ public class MainFrame extends JFrame {
 				
 				
 				c.gridx = 0;
-				getContentPane().add(arrayPanel, c);
-				pack();
+				getContentPane().add(arrayPanel, BorderLayout.CENTER);
+				//pack();
+				repaint();
 				c.gridx = 1;
-				getContentPane().add(indicatorsPanel, c);
+				getContentPane().add(indicatorsPanel, BorderLayout.PAGE_END);
 				repaint();
 				
 		        setVisible(true);
@@ -221,6 +256,12 @@ public class MainFrame extends JFrame {
 			}
 			
 		});
+		/*GridBagLayout gbl_mainPanel = new GridBagLayout();
+		gbl_mainPanel.columnWidths = new int[]{0};
+		gbl_mainPanel.rowHeights = new int[]{0};
+		gbl_mainPanel.columnWeights = new double[]{Double.MIN_VALUE};
+		gbl_mainPanel.rowWeights = new double[]{Double.MIN_VALUE};
+		mainPanel.setLayout(gbl_mainPanel);*/
 	}
 
 }
