@@ -67,7 +67,7 @@ public class ProspectSimulationPanel  extends JFrame{
 		setContentPane(panel);
 		panel.setLayout(null);
 		
-		title1 = new JLabel("Informations financières du client : ");
+		title1 = new JLabel("Informations financières du prospect : ");
 		title1.setBounds(20, 20, 500, 30);
 		panel.add(title1);
 		title1.setFont(new Font("New Times Roman", Font.BOLD, 14));

@@ -40,7 +40,7 @@ public class GetClientInfoPanel  extends JFrame{
 		setContentPane(panel);
 		panel.setLayout(null);
 		
-		label = new JLabel("Inform the client number : ");
+		label = new JLabel("Renseignez le numéro du client : ");
 		label.setBounds(120, 23, 500, 14);
 		label.setFont(new Font("New Times Roman", Font.BOLD, 14));
 	    label.setForeground(Color.DARK_GRAY);   

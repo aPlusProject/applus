@@ -195,7 +195,7 @@ public class ResultPanel extends JFrame{
     	installationWithoutIns.setText(s); 	
     	String s1 = installmentFinal;
     	installationWithIns.setText(s1);
-    	double t = loan.getAskesAmount() + (loan.getAskedRate() + loan.getAskedRateInsurance())*loan.getAskedDuration();
+    	double t = loan.getAskesAmount() + (loan.getAskedRate() + loan.getAskedRateInsurance())/100*loan.getAskedDuration();
     	total.setText(String.valueOf(t));
 	}
 	
