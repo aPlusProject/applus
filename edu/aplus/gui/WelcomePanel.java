@@ -1,6 +1,8 @@
 package edu.aplus.gui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -11,11 +13,13 @@ import edu.aplus.business.SimulatorFixedRate;
 import edu.aplus.model.Client;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 public class WelcomePanel  extends JFrame{
 
 	private JPanel panel;
+	private JLabel title;
 	private JButton buttonProspect;
 	private JButton buttonClient;
 
@@ -28,6 +32,13 @@ public class WelcomePanel  extends JFrame{
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panel);
 		panel.setLayout(null);
+		
+		title = new JLabel("Sélectionner le type du client : ");
+		title.setBounds(120, 30, 500, 25);
+		title.setFont(new Font("New Times Roman", Font.BOLD, 14));
+	    title.setForeground(Color.DARK_GRAY);   
+	    //title.setBorder(BorderFactory.createEtchedBorder(Color.BLUE, Color.GRAY));
+	    panel.add(title);
 		
 		buttonClient = new JButton("Client");
 		buttonClient.setBounds(168, 80, 89, 23);

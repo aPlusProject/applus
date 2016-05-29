@@ -1,6 +1,8 @@
 package edu.aplus.gui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -34,21 +36,23 @@ public class GetClientInfoPanel  extends JFrame{
 		setBounds(100, 100, 450, 300);
 		
 		panel = new JPanel();
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panel.setBorder(new EmptyBorder(1, 1, 1, 1));
 		setContentPane(panel);
 		panel.setLayout(null);
 		
-		label = new JLabel("Enter client ID : ");
-		label.setBounds(168, 37, 101, 14);
+		label = new JLabel("Inform the client number : ");
+		label.setBounds(120, 23, 500, 14);
+		label.setFont(new Font("New Times Roman", Font.BOLD, 14));
+	    label.setForeground(Color.DARK_GRAY);   
 		panel.add(label);
 		
 		text = new JTextField();
-		text.setBounds(168, 63, 92, 20);
+		text.setBounds(168, 73, 92, 20);
 		panel.add(text);
 		text.setColumns(10);
 		
-		buttonClient = new JButton("Enter");
-		buttonClient.setBounds(168, 110, 89, 23);
+		buttonClient = new JButton("Entrer");
+		buttonClient.setBounds(168, 120, 89, 23);
 		panel.add(buttonClient);
 		
 		final JLabel errorMessage = new JLabel(" ");
@@ -87,9 +91,9 @@ public class GetClientInfoPanel  extends JFrame{
 				
 				
 				if(client == null)  {
-					JFrame frame = new JFrame("Client does not exist");
+					JFrame frame = new JFrame("Renseignez le numéro du client");
 					JOptionPane.showMessageDialog(frame,
-					"Client with this number does not exist",
+					"Le client avec ce numéro n'exste pas",
 					"Warning message",
 					JOptionPane.WARNING_MESSAGE);
 					System.exit(0);
@@ -110,8 +114,6 @@ public class GetClientInfoPanel  extends JFrame{
 		TCPClient clientTcp = new TCPClient();
 		
 		recievedmsg = clientTcp.SendRecieve("getclientbyID");
-		
-		System.out.println(recievedmsg);
 		
 		recievedmsg = clientTcp.SendRecieve(""+Clientid);
 		

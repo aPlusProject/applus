@@ -1,5 +1,7 @@
 package edu.aplus.gui;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -18,6 +20,7 @@ import edu.client.socket.TCPClient;
 public class ResultPanel extends JFrame{
 	
 	private JPanel panel;
+	private JLabel title;
 	private JLabel creditTypeL;
 	private JTextField creditType;
 	private JLabel amountL;
@@ -48,76 +51,82 @@ public class ResultPanel extends JFrame{
 		setContentPane(panel);
 		panel.setLayout(null);
 		
+		title = new JLabel("Résultat de la simulation : ");
+		title.setBounds(130, 0, 450, 30);
+		title.setFont(new Font("New Times Roman", Font.BOLD, 14));
+	    title.setForeground(Color.DARK_GRAY);   
+		panel.add(title);
+		
 		creditTypeL = new JLabel("Type du prêt demandé : ");
-		creditTypeL.setBounds(50, 20, 200, 30);
+		creditTypeL.setBounds(50, 40, 200, 20);
 		panel.add(creditTypeL);
 		
 		creditType = new JTextField();
-		creditType.setBounds(250, 20, 200, 30);
+		creditType.setBounds(250, 40, 200, 20);
 		panel.add(creditType);
 		
 		amountL = new JLabel("Montant emprunté : ");
-		amountL.setBounds(50, 50, 200, 30);
+		amountL.setBounds(50, 60, 200, 20);
 		panel.add(amountL);
 		
 		amount = new JTextField();
-		amount.setBounds(250, 50, 200, 30);
+		amount.setBounds(250, 60, 200, 20);
 		panel.add(amount);
 		
 		durationL = new JLabel("Durée (nb mois) : ");
-		durationL.setBounds(50, 80, 200, 30);
+		durationL.setBounds(50, 80, 200, 20);
 		panel.add(durationL);
 		
 		duration = new JTextField();
-		duration.setBounds(250, 80, 200, 30);
+		duration.setBounds(250, 80, 200, 20);
 		panel.add(duration);
 		
 		rateL = new JLabel("Taux d'intérêt fixe : ");
-		rateL.setBounds(50, 110, 200, 30);
+		rateL.setBounds(50, 100, 200, 20);
 		panel.add(rateL);
 		
 		rate = new JTextField();
-		rate.setBounds(250, 110, 200, 30);
+		rate.setBounds(250, 100, 200, 20);
 		panel.add(rate);
 		
 		installationWithoutInsL = new JLabel("Mensualité hors assurance : ");
-		installationWithoutInsL.setBounds(70, 150, 200, 30);
+		installationWithoutInsL.setBounds(70, 140, 200, 30);
 		panel.add(installationWithoutInsL);
 		
 		installationWithoutIns = new JTextField();
-		installationWithoutIns.setBounds(270, 150, 200, 30);
+		installationWithoutIns.setBounds(270, 140, 180, 30);
 		panel.add(installationWithoutIns);
 		
 		rateInsuranceL = new JLabel("Taux d'assurance : ");
-		rateInsuranceL.setBounds(50, 190, 200, 30);
+		rateInsuranceL.setBounds(50, 180, 200, 20);
 		panel.add(rateInsuranceL);
 		
 		rateInsurance = new JTextField();
-		rateInsurance.setBounds(250, 190, 200, 30);
+		rateInsurance.setBounds(250, 180, 200, 20);
 		panel.add(rateInsurance);
 		
 		installationWithInsL = new JLabel("Mensualité avec assurance : ");
-		installationWithInsL.setBounds(70, 230, 200, 30);
+		installationWithInsL.setBounds(70, 210, 200, 30);
 		panel.add(installationWithInsL);
 		
 		installationWithIns = new JTextField();
-		installationWithIns.setBounds(270, 230, 200, 30);
+		installationWithIns.setBounds(270, 210, 180, 30);
 		panel.add(installationWithIns);
 		
 		totalL = new JLabel("Coût total du crédit : ");
-		totalL.setBounds(70, 270, 200, 30);
+		totalL.setBounds(70, 240, 200, 30);
 		panel.add(totalL);
 		
 		total = new JTextField();
-		total.setBounds(270, 270, 200, 30);
+		total.setBounds(270, 240, 180, 30);
 		panel.add(total);
 		
 		chartButton = new JButton("Show chart");
-		chartButton.setBounds(330, 320, 100, 40);
+		chartButton.setBounds(330, 300, 100, 20);
 		panel.add(chartButton);
 		
-		JButton saveButton = new JButton("Save loan");
-		saveButton.setBounds(230, 320, 100, 40);
+		JButton saveButton = new JButton("Enregistrer");
+		saveButton.setBounds(100, 300, 100, 20);
 		panel.add(saveButton);
 		
 		
@@ -130,6 +139,12 @@ public class ResultPanel extends JFrame{
 				try {
 					
 					System.out.println(saveLoan(loanresult));
+					JFrame frame = new JFrame("Demande enregistré");
+					JOptionPane.showMessageDialog(frame,
+					"Le résultat de la simulation est enregistré",
+					"Information message",
+					JOptionPane.INFORMATION_MESSAGE);
+					System.exit(0);
 					
 				} catch (ClassNotFoundException | IOException | InterruptedException e1) {
 					
