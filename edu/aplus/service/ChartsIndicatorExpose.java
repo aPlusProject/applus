@@ -47,6 +47,7 @@ public class ChartsIndicatorExpose {
 	        	listLoanByYear.add(rs.getInt(1));
 	        }
 	        
+	        co.close();
 	        System.out.println("mois no"+listLoanByYear.size()+" : "+listLoanByYear.get(i-1)+" demandes");
 			
 		}
