@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.sql.SQLException;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;

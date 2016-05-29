@@ -3,6 +3,7 @@ package edu.aplus.client.panel;
 import java.sql.SQLException;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -49,6 +50,7 @@ public class ChartsLineIndicatorPanel extends JPanel {
 		
 		chartPanel.setLayout(new BorderLayout());
 		chartPanel.setPreferredSize(new Dimension(900, 600));
+		
 		add(chartPanel);
 
 	}

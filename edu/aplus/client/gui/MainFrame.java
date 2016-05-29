@@ -46,6 +46,9 @@ public class MainFrame extends JFrame {
 	private ChartsBarIndicatorPanel chartsBarIndicPanel;
 	private ChartsLineIndicatorPanel chartsLineIndicPanel;
 	
+	private JScrollPane chartBarPaneScroll;
+	private JScrollPane chartLinePaneScroll;
+	
 	private static JMenuBar menubar;
 
 	/**
@@ -114,8 +117,11 @@ public class MainFrame extends JFrame {
 						remove(mainPanel);
 						remove(arrayPanel);
 						remove(indicatorsPanel);
-						remove(chartsBarIndicPanel);
-						remove(chartsLineIndicPanel);
+						//remove(chartsBarIndicPanel);
+						//remove(chartsLineIndicPanel);
+						
+						remove(chartBarPaneScroll);
+						remove(chartLinePaneScroll);
 						
 						
 						try {
@@ -155,15 +161,20 @@ public class MainFrame extends JFrame {
 						remove(mainPanel);
 						remove(arrayPanel);
 						remove(indicatorsPanel);
-						remove(chartsBarIndicPanel);
-						remove(chartsLineIndicPanel);
+						//remove(chartsBarIndicPanel);
+						//remove(chartsLineIndicPanel);
+						
+						remove(chartBarPaneScroll);
+						remove(chartLinePaneScroll);
 						
 						
 						try {
 							
 							chartsLineIndicPanel = new ChartsLineIndicatorPanel();
 							
-							getContentPane().add(chartsLineIndicPanel);
+							chartLinePaneScroll = new JScrollPane(chartsLineIndicPanel);
+							
+							getContentPane().add(chartLinePaneScroll);
 							
 							
 							repaint();
@@ -190,15 +201,20 @@ public class MainFrame extends JFrame {
 						remove(mainPanel);
 						remove(arrayPanel);
 						remove(indicatorsPanel);
-						remove(chartsBarIndicPanel);
-						remove(chartsLineIndicPanel);
+						//remove(chartsBarIndicPanel);
+						//remove(chartsLineIndicPanel);
+						
+						remove(chartBarPaneScroll);
+						remove(chartLinePaneScroll);
 						
 						int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 						
 						try {
 							chartsBarIndicPanel = new ChartsBarIndicatorPanel(currentYear);
 							
-							getContentPane().add(chartsBarIndicPanel);
+							chartBarPaneScroll = new JScrollPane(chartsBarIndicPanel);
+							
+							getContentPane().add(chartBarPaneScroll);
 							
 							repaint();
 							setVisible(true);
@@ -231,8 +247,15 @@ public class MainFrame extends JFrame {
 					chartsBarIndicPanel = new ChartsBarIndicatorPanel(2016);
 					chartsLineIndicPanel = new ChartsLineIndicatorPanel();
 					
+					chartBarPaneScroll = new JScrollPane(chartsBarIndicPanel);
+					chartLinePaneScroll = new JScrollPane(chartsLineIndicPanel);
+					
+					chartBarPaneScroll.setVisible(false);
 					chartsBarIndicPanel.setVisible(false);
+					
+					chartLinePaneScroll.setVisible(false);
 					chartsLineIndicPanel.setVisible(false);
+					
 					
 				} catch (ClassNotFoundException | SQLException e1) {
 					e1.printStackTrace();
