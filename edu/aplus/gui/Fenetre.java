@@ -1,4 +1,6 @@
-	import java.awt.BorderLayout;
+package edu.aplus.gui;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -13,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.sql.DataSource;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,6 +25,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import edu.aplus.business.Calculation;
+import edu.aplus.business.getInfo;
+import edu.aplus.db.DBConnector;
 	
 public class Fenetre extends JFrame {
 	  private static final String Option = null;
@@ -35,7 +42,7 @@ public class Fenetre extends JFrame {
 	  DefaultTableModel model = new DefaultTableModel(); 
 
 
-	  public Fenetre(){
+	  public Fenetre() throws SQLException, ClassNotFoundException{
 	    this.setTitle("Animation");
 	    this.setSize(600, 600);
 
@@ -86,8 +93,10 @@ public class Fenetre extends JFrame {
 	    combo.setName("1");
 	    
 	    //REQUETE FORM
-	    Connection2 a = new Connection2();
-	    Connection vCon = a.connection();
+//	    Connection2 a = new Connection2();
+	    DataSource a = DBConnector.createDataSource();
+	    
+	    Connection vCon = a.getConnection();
 	      
 		try {
 			Statement vSt = vCon.createStatement();
@@ -135,9 +144,13 @@ public class Fenetre extends JFrame {
  
 	  
 	  
-	  public static int indebt(){
-		  Connection2 a = new Connection2();
-		  Connection vCon = a.connection();
+	  public static int indebt() throws ClassNotFoundException, SQLException{
+//		  Connection2 a = new Connection2();
+//		  Connection vCon = a.connection();
+		  
+		  DataSource a = DBConnector.createDataSource();
+		    
+		    Connection vCon = a.getConnection();
 	      
 			try {
 				Statement vSt = vCon.createStatement();
@@ -155,7 +168,7 @@ public class Fenetre extends JFrame {
 		  
 		  return 0;
 	  }
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		
 		
 		
