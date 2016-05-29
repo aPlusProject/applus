@@ -70,7 +70,7 @@ public class SimulatorFixedRate {
 			double rateMonth = (rateFloat/12);
 			double f = (1 - Math.pow((1+rateMonth), -duration*12));
 			double installment = (amount*rateMonth) / f;
-			return installment;
+			return Math.round(installment);
 	}	
 	
 	//Calculate installment having interest rate and insurance rate
@@ -78,11 +78,11 @@ public class SimulatorFixedRate {
 		
 		//calculate installment
 		double rateFloat = (rate/100);
-		double rateInsuranceFloat = rateInsurance/100;
+		double rateInsuranceFloat = (rateInsurance/100);
 		double rateMonth = ((rateFloat + rateInsuranceFloat)/12);
 		double f = (1 - Math.pow((1+rateMonth), -duration*12));
 		double installment = (amount*rateMonth) / f;
-		return installment;
+		return Math.round(installment);
 	}
 	
 	//According to the information filled for the simulation, employee can save this simulation as a loan on the DB.

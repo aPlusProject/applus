@@ -1,6 +1,8 @@
 package edu.aplus.gui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -53,27 +55,31 @@ public class SimulatoinPanel  extends JFrame{
 	private JTextField rateInsurance;
 	private JLabel rateInsuranceL;
 	private JButton bouton;
-	private String[] possibleValues = {"1.Crédit Immobilier","2.Crédit Personnel","3.Crédit Professionnel"};
+	private String[] possibleValues = {"Crédit Immobilier","Crédit Personnel","Crédit Professionnel"};
 	Client client = null;
 	public SimulatoinPanel() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(200, 220, 500, 400);
+		setBounds(200, 220, 700, 400);
 		
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(1, 1, 1, 1));
 		setContentPane(panel);
 		panel.setLayout(null);
 		
-		title1 = new JLabel("Données financières du client : ");
-		title1.setBounds(20, 20, 200, 30);
+		title1 = new JLabel("Informations financières du client : ");
+		title1.setBounds(20, 20, 500, 30);
 		panel.add(title1);
+		title1.setFont(new Font("New Times Roman", Font.BOLD, 14));
+	    title1.setForeground(Color.DARK_GRAY);   
 		
-		title2 = new JLabel("Renseignez les données du prêt : ");
-		title2.setBounds(230, 20, 200, 30);
+		title2 = new JLabel("Renseignez les données concernant le prêt : ");
+		title2.setBounds(330, 20, 500, 30);
 		panel.add(title2);
+		title2.setFont(new Font("New Times Roman", Font.BOLD, 14));
+	    title2.setForeground(Color.DARK_GRAY);   
 		
-		salaryL = new JLabel("Revenu total : ");
+		salaryL = new JLabel("Revenu total  ");
 		salaryL.setBounds(20, 80, 150, 15);
 		panel.add(salaryL);
 		
@@ -82,7 +88,7 @@ public class SimulatoinPanel  extends JFrame{
 		panel.add(salary);
 		salary.setColumns(20);
 		
-		chargeL = new JLabel("Charge total : ");
+		chargeL = new JLabel("Charge total  ");
 		chargeL.setBounds(20, 120, 150, 15);
 		panel.add(chargeL);
 		
@@ -91,7 +97,7 @@ public class SimulatoinPanel  extends JFrame{
 		panel.add(charge);
 		charge.setColumns(2);
 		
-		debtRateL = new JLabel("Taux d'endettement : ");
+		debtRateL = new JLabel("Taux d'endettement  ");
 		debtRateL.setBounds(20, 160, 150, 15);
 		panel.add(debtRateL);
 		
@@ -101,57 +107,57 @@ public class SimulatoinPanel  extends JFrame{
 		debtRate.setColumns(2);
 		
 
-		creditTypeL = new JLabel("Type du prêt : ");
-		creditTypeL.setBounds(230, 80, 200, 15);
+		creditTypeL = new JLabel("Type du prêt  ");
+		creditTypeL.setBounds(330, 80, 200, 15);
 		panel.add(creditTypeL);
 		 	
 		creditType = new JComboBox(possibleValues);
-		creditType.setBounds(370, 80, 100, 20);
+		creditType.setBounds(470, 80, 100, 20);
 		panel.add(creditType);
 		
-		amountL = new JLabel("Montant du prêt : ");
-		amountL.setBounds(230, 120, 200, 15);
+		amountL = new JLabel("Montant du prêt  ");
+		amountL.setBounds(330, 120, 200, 15);
 		panel.add(amountL);
 		
 		setAmount(new JTextField());
-		getAmount().setBounds(370, 120, 100, 20);
+		getAmount().setBounds(470, 120, 100, 20);
 		panel.add(getAmount());
 		getAmount().setColumns(2);
 		
-		durationL = new JLabel("Durée du prêt : ");
-		durationL.setBounds(230, 160, 200, 15);
+		durationL = new JLabel("Durée du prêt  ");
+		durationL.setBounds(330, 160, 200, 15);
 		panel.add(durationL);
 		
 		duration = new JTextField();
-		duration.setBounds(370, 160, 100, 20);
+		duration.setBounds(470, 160, 100, 20);
 		panel.add(duration);
 		duration.setColumns(2);
 		
-		rateL = new JLabel("Taux d'intérêt : ");
-		rateL.setBounds(230, 200, 250, 15);
+		rateL = new JLabel("Taux d'intérêt  ");
+		rateL.setBounds(330, 200, 250, 15);
 		panel.add(rateL);
 		
 		rate = new JTextField();
-		rate.setBounds(370, 200, 100, 20);
+		rate.setBounds(470, 200, 100, 20);
 		panel.add(rate);
 		rate.setColumns(2);
 		
-		rateInsuranceL = new JLabel("Taux d'assurance : ");
-		rateInsuranceL.setBounds(230, 240, 250, 15);
+		rateInsuranceL = new JLabel("Taux d'assurance  ");
+		rateInsuranceL.setBounds(330, 240, 250, 15);
 		panel.add(rateInsuranceL);
 		
 		rateInsurance = new JTextField();
-		rateInsurance.setBounds(370, 240, 100, 20);
+		rateInsurance.setBounds(470, 240, 100, 20);
 		panel.add(rateInsurance);
 		rateInsurance.setColumns(2);
 		
-		bouton = new JButton("Enter");
-		bouton.setBounds(190, 300, 100, 20);
+		bouton = new JButton("Simuler");
+		bouton.setBounds(290, 300, 100, 20);
 		panel.add(bouton);
 		
-		final JLabel d = new JLabel("Resultat : ");
-		d.setBounds(190, 330, 250, 15);
-		panel.add(d);
+		//final JLabel d = new JLabel("Resultat : ");
+		//d.setBounds(190, 330, 250, 15);
+		//panel.add(d);
 		
 		
 		
@@ -241,8 +247,6 @@ public String  getLoanResultfromServer(Loan loan) throws UnknownHostException, I
 	
 //Fill the financial information of the client fetched from DB.
 public void remplir(Client client) {
-	
-	System.out.println("on rempli les infos du clients dans les components");
 	
 	this.client = client;
 	salary.setText(client.getSalary());
