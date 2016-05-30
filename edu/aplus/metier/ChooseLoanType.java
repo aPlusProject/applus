@@ -198,13 +198,21 @@ public class ChooseLoanType  extends JFrame{
 							frame2.getContentPane().setLayout(null);
 
 							frame2.setTitle("Modifier durée pret");
-							frame2.setBounds(100, 100, 300, 300);
-							frame2.getContentPane().setBounds(100, 100, 200, 200);
-							final JLabel labelSetPret = new JLabel ("Entrez la durée du pret");
+							frame2.setBounds(100, 100, 500, 500);
+							frame2.getContentPane().setBounds(100, 100, 500, 500);
+							final JLabel labelSetPret = new JLabel ("Entrez la durée du pret(en années)");
 							labelSetPret.setBounds(10,10,200,30);
 							final JTextField entrerDuree = new JTextField();
 							entrerDuree.setBounds(10,50,120,30);
-
+							final JLabel explain = new JLabel("Barème des durées de prêt (en années) ");
+							final JLabel explain2 = new JLabel("Taux crédit immobilier: 7, 10, 15, 20, 25, 30 ");
+							final JLabel explain3 = new JLabel("Taux crédit de conso et professionnel: 1, 2, 3, 4, 5, 6 ");
+							explain.setBounds(10,200,390,30);
+							explain2.setBounds(10,230,390,30);
+							explain3.setBounds(10,260,390,30);
+							frame2.add(explain);
+							frame2.add(explain2);
+							frame2.add(explain3);
 							final JButton validerDuree = new JButton("Valider"); // là on peut modifier la durée et ajouter le taux correspondant
 							validerDuree.setBounds(10,90,120,30);
 							validerDuree.addActionListener(new ActionListener() {

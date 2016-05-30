@@ -35,15 +35,21 @@ public class interestRisk {
 	private int age ;
 
 
-	public interestRisk(int salary, String etatSante, String status, int credit, int age, int charge) {
+	//public interestRisk(int salary, String etatSante, String status, int credit, int age, int charge) {
 		// setters
+		
+
+//	}
+
+
+	public interestRisk(int salary, String etatSante, String status, int credit, int age, int charge) {
 		this.salary = frameProfile.getSalary();
 		this.etatSante = frameProfile.getHealth();
 		this.charge=  frameProfile.getCharge();
 		this.credit = frameProfile.getCredit();
 		this.age = frameProfile.getAge();
 		this.status = frameProfile.getStatus();
-
+		// TODO Auto-generated constructor stub
 	}
 
 

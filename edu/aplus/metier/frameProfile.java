@@ -30,27 +30,10 @@ public class frameProfile  extends JFrame{
 	private interestRisk risk;
 
 
-	public static int getCharge(){return frameProfile.charge;}
-	public static void setCharge(int charge){frameProfile.charge = charge;}
-
-	public static int getSalary(){return frameProfile.salary;}
-	public static void setSalary(int salary){frameProfile.salary = salary;}
-
-	public static int getCredit(){return frameProfile.credit;}
-	public static void setCredit(int credit){frameProfile.credit = credit;}
-
-	public  static int getAge(){return frameProfile.age;}
-	public static void setAge(int age){frameProfile.age = age;}
-
-	public static String getStatus(){return frameProfile.status;}
-	public static void setStatus(String status){frameProfile.status = status;}
-
-	public static String getHealth(){return frameProfile.etatSante;}
-	public  void setHealth(String etatSante){frameProfile.etatSante = etatSante;}
-
+	
 
 	public frameProfile (){
-		//	this.risk = new interestRisk(salary, etatSante, status, charge, credit, age);
+			this.risk = new interestRisk(salary, etatSante, status, credit, age, charge);
 
 		setBounds(100, 100, 600, 400);
 		setTitle ("Profil du client");
@@ -96,18 +79,26 @@ public class frameProfile  extends JFrame{
 		JButton seeRisk = new JButton("Risques");
 		seeRisk.setBounds(60,190,100,20);
 		seeRisk.addActionListener(new ActionListener() {
+			
 
 			public void actionPerformed(ActionEvent actionEvent) {
-				risk = new interestRisk(salary, etatSante, status, charge, credit, age);
-				final String myRisk = risk.Risk();
-				salary = Integer.parseInt(getSalary.getText().trim());
+				String salaryS,ageS,creditS,chargeS;
+				salaryS = getSalary.getText();
+				ageS = getAge.getText();
 				etatSante = getHealth.getText();
 				status = getStatus.getText();
-				charge = Integer.parseInt(getCharge.getText().trim());
-				credit = Integer.parseInt(getCredit.getText().trim());
-				age = Integer.parseInt(getAge.getText().trim());
+				chargeS = getCharge.getText();
+				creditS = getCredit.getText();
+				salary = Integer.parseInt(salaryS);
+				age = Integer.parseInt(ageS) ;
+				credit = Integer.parseInt(creditS) ;
+				charge =Integer.parseInt(chargeS) ;
+						
+		
+				risk = new interestRisk (salary,etatSante, status, credit, age, charge);
+				final String myRisk = risk.Risk();
+				
 				listRisk.setText(myRisk);
-
 
 			} });
 
@@ -133,6 +124,25 @@ public class frameProfile  extends JFrame{
 		setVisible(true);
 
 	}
+	
+	public static int getCharge(){return frameProfile.charge;}
+	public static void setCharge(int charge){frameProfile.charge = charge;}
+
+	public static int getSalary(){return frameProfile.salary;}
+	public static void setSalary(int salary){frameProfile.salary = salary;}
+
+	public static int getCredit(){return frameProfile.credit;}
+	public static void setCredit(int credit){frameProfile.credit = credit;}
+
+	public  static int getAge(){return frameProfile.age;}
+	public static void setAge(int age){frameProfile.age = age;}
+
+	public static String getStatus(){return frameProfile.status;}
+	public static void setStatus(String status){frameProfile.status = status;}
+
+	public static String getHealth(){return frameProfile.etatSante;}
+	public  void setHealth(String etatSante){frameProfile.etatSante = etatSante;}
+
 
 
 }
