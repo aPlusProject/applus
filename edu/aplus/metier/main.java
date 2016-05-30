@@ -22,6 +22,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import edu.aplus.metier.ChooseLoanType;
 import edu.aplus.model.Rate;
+import edu.aplus.gui.ChooseLoanTypePanel;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
@@ -37,6 +38,6 @@ public class main {
 	
 	public static void main( String[] args) throws Exception  {
 
-		ChooseLoanType clt = new ChooseLoanType();
+		ChooseLoanTypePanel cltp = new ChooseLoanTypePanel();
 
 	}	}
