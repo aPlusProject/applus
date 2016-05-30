@@ -1,4 +1,6 @@
-	import java.awt.BorderLayout;
+package edu.aplus.gui;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -13,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.sql.DataSource;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,6 +25,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import edu.aplus.business.Calculation;
+import edu.aplus.business.getInfo;
+import edu.aplus.db.DBConnector;
 	
 public class Fenetre extends JFrame {
 	  private static final String Option = null;
@@ -33,9 +40,17 @@ public class Fenetre extends JFrame {
 	  private JLabel label2 = new JLabel("Simulation 2");
 	  private JButton Button = new JButton("Comparer");
 	  DefaultTableModel model = new DefaultTableModel(); 
+	  
+	  
+	  private float total1;
+      private float total2;
+      private float total3;
+      private float mois1;
+      private float mois2;
+      private float mois3;
 
 
-	  public Fenetre(){
+	  public Fenetre() throws SQLException, ClassNotFoundException{
 	    this.setTitle("Animation");
 	    this.setSize(600, 600);
 
@@ -86,8 +101,10 @@ public class Fenetre extends JFrame {
 	    combo.setName("1");
 	    
 	    //REQUETE FORM
-	    Connection2 a = new Connection2();
-	    Connection vCon = a.connection();
+//	    Connection2 a = new Connection2();
+	    DataSource a = DBConnector.createDataSource();
+	    
+	    Connection vCon = a.getConnection();
 	      
 		try {
 			Statement vSt = vCon.createStatement();
@@ -98,6 +115,7 @@ public class Fenetre extends JFrame {
 				combo2.addItem(vNom);
 				//System.out.println("Nom="+vNom);
 				}
+			System.out.println("traitement done for combo box");
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -135,18 +153,26 @@ public class Fenetre extends JFrame {
  
 	  
 	  
-	  public static int indebt(){
-		  Connection2 a = new Connection2();
-		  Connection vCon = a.connection();
+	  public static int indebt() throws ClassNotFoundException, SQLException{
+//		  Connection2 a = new Connection2();
+//		  Connection vCon = a.connection();
+		  
+		  DataSource a = DBConnector.createDataSource();
+		    
+		    Connection vCon = a.getConnection();
 	      
 			try {
 				Statement vSt = vCon.createStatement();
 				ResultSet vRs = vSt.executeQuery("SELECT * FROM CLIENT");
 				while(vRs.next()){
 					String vNom = vRs.getString(1);
+					System.out.println(vNom);
 					String vPrenom = vRs.getString(2);
+					System.out.println(vPrenom);
 					System.out.println("Nom="+vNom+"Prenom="+vPrenom);
+					
 					}
+				
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -155,7 +181,7 @@ public class Fenetre extends JFrame {
 		  
 		  return 0;
 	  }
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		
 		
 		
@@ -195,16 +221,24 @@ public class Fenetre extends JFrame {
 		      getInfo info = new getInfo();
 		      
 		      Calculation calcul = new Calculation();
-		      float total1 = calcul.totalinteret(id_loan1);
-		      float total2 = calcul.totalinteret(id_loan2);
-		      float total3 = (float) total1-total2;
-		      float mois1 = calcul.totalinteretParMois(id_loan1);
-		      float mois2 = calcul.totalinteretParMois(id_loan2);
-		      float mois3 = (float) mois1-mois2;
+		      
+			try {
+				total1 = calcul.totalinteret(id_loan1);
+				total2 = calcul.totalinteret(id_loan2);
+				total3 = (float) total1-total2;
+				mois1 = calcul.totalinteretParMois(id_loan1);
+				mois2 = calcul.totalinteretParMois(id_loan2);
+				mois3 = (float) mois1-mois2;
+				 System.out.println(total1);
+			      System.out.println(total2);
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		      
 		      
-		      System.out.println(total1);
-		      System.out.println(total2);
+		      
+		     
 		     // Connection2 a = new Connection2();
 		    //  Connection vCon = a.connection();
 		    /*  try {
@@ -255,12 +289,18 @@ public class Fenetre extends JFrame {
 		      
 		   
 		      
-		      model.addRow(new Object[]{"Montant demandé", info.asked_amount(id_loan1)+" €", info.asked_amount(id_loan2)+" €", info.asked_amount(id_loan1)-info.asked_amount(id_loan2)+" €"});
-		      model.addRow(new Object[]{"Nombre de mois", info.asked_duration(id_loan1), info.asked_duration(id_loan2), info.asked_duration(id_loan1)-info.asked_duration(id_loan2)});
-		      model.addRow(new Object[]{"Décision", info.decision(id_loan1), info.decision(id_loan2), 0});
-		      model.addRow(new Object[]{"Total des interets/mois", mois1+" €", mois2+" €", mois3+" €"});
-		      model.addRow(new Object[]{"Total des interets", total1+" €", total2+" €", total3+" €"});
-		      model.addRow(new Object[]{"Taux d'endettement", calcul.txdendettement(id_loan1), calcul.txdendettement(id_loan2), 0});
+		      try {
+				model.addRow(new Object[]{"Montant demandé", info.asked_amount(id_loan1)+" €", info.asked_amount(id_loan2)+" €", info.asked_amount(id_loan1)-info.asked_amount(id_loan2)+" €"});
+				model.addRow(new Object[]{"Nombre de mois", info.asked_duration(id_loan1), info.asked_duration(id_loan2), info.asked_duration(id_loan1)-info.asked_duration(id_loan2)});
+			      model.addRow(new Object[]{"Décision", info.decision(id_loan1), info.decision(id_loan2), 0});
+			      model.addRow(new Object[]{"Total des interets/mois", mois1+" €", mois2+" €", mois3+" €"});
+			      model.addRow(new Object[]{"Total des interets", total1+" €", total2+" €", total3+" €"});
+			      model.addRow(new Object[]{"Taux d'endettement", calcul.txdendettement(id_loan1), calcul.txdendettement(id_loan2), 0});
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		      
 		     // model.addRow(new Object[]{"Niveau d'endettement", "Column 2", "Column 3", "Column 3"});
 		     // model.addRow(new Object[]{"Poids dans la mensualité", "Column 2", "Column 3", "Column 3"});
 		      i=0;
