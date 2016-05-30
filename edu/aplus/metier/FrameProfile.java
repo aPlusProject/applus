@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import edu.aplus.metier.interestRisk;
+import edu.aplus.metier.InterestRisk;
 import edu.aplus.metier.main;
 import edu.aplus.metier.ChooseLoanType;
 
@@ -18,7 +18,7 @@ import edu.aplus.metier.ChooseLoanType;
  * For that we need to have 6 parameters ( explained in javadoc interestRisk.java)
  */
 
-public class frameProfile  extends JFrame{
+public class FrameProfile  extends JFrame{
 
 
 	static int salary;
@@ -27,13 +27,13 @@ public class frameProfile  extends JFrame{
 	static int charge;
 	static int credit ;
 	static int age ;
-	private interestRisk risk;
+	private InterestRisk risk;
 
 
 	
 
-	public frameProfile (){
-			this.risk = new interestRisk(salary, etatSante, status, credit, age, charge);
+	public FrameProfile (){
+			this.risk = new InterestRisk(salary, etatSante, status, credit, age, charge);
 
 		setBounds(100, 100, 600, 400);
 		setTitle ("Profil du client");
@@ -95,7 +95,7 @@ public class frameProfile  extends JFrame{
 				charge =Integer.parseInt(chargeS) ;
 						
 		
-				risk = new interestRisk (salary,etatSante, status, credit, age, charge);
+				risk = new InterestRisk (salary,etatSante, status, credit, age, charge);
 				final String myRisk = risk.Risk();
 				
 				listRisk.setText(myRisk);
@@ -125,23 +125,23 @@ public class frameProfile  extends JFrame{
 
 	}
 	
-	public static int getCharge(){return frameProfile.charge;}
-	public static void setCharge(int charge){frameProfile.charge = charge;}
+	public static int getCharge(){return FrameProfile.charge;}
+	public static void setCharge(int charge){FrameProfile.charge = charge;}
 
-	public static int getSalary(){return frameProfile.salary;}
-	public static void setSalary(int salary){frameProfile.salary = salary;}
+	public static int getSalary(){return FrameProfile.salary;}
+	public static void setSalary(int salary){FrameProfile.salary = salary;}
 
-	public static int getCredit(){return frameProfile.credit;}
-	public static void setCredit(int credit){frameProfile.credit = credit;}
+	public static int getCredit(){return FrameProfile.credit;}
+	public static void setCredit(int credit){FrameProfile.credit = credit;}
 
-	public  static int getAge(){return frameProfile.age;}
-	public static void setAge(int age){frameProfile.age = age;}
+	public  static int getAge(){return FrameProfile.age;}
+	public static void setAge(int age){FrameProfile.age = age;}
 
-	public static String getStatus(){return frameProfile.status;}
-	public static void setStatus(String status){frameProfile.status = status;}
+	public static String getStatus(){return FrameProfile.status;}
+	public static void setStatus(String status){FrameProfile.status = status;}
 
-	public static String getHealth(){return frameProfile.etatSante;}
-	public  void setHealth(String etatSante){frameProfile.etatSante = etatSante;}
+	public static String getHealth(){return FrameProfile.etatSante;}
+	public  void setHealth(String etatSante){FrameProfile.etatSante = etatSante;}
 
 
 

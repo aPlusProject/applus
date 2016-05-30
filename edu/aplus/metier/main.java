@@ -37,7 +37,6 @@ public class main {
 	
 	public static void main( String[] args) throws Exception  {
 
-		new ChooseLoanType();
-		
+		ChooseLoanType clt = new ChooseLoanType();
 
 	}	}
