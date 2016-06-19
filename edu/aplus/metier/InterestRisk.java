@@ -10,7 +10,7 @@ package edu.aplus.metier;
 import edu.aplus.model.Client;
 import edu.aplus.model.Rate;
 import edu.aplus.metier.ChooseLoanType;
-import edu.aplus.metier.FrameProfile;
+import edu.aplus.metier.SetProfileClient2;
 
 /* This class named interestRisk allows to define the risks depending on the profile of the client
  * This assessment of the risks taken by the bank is made by six parameters:
@@ -26,7 +26,7 @@ public class InterestRisk {
 
 	private String typeLoan;
 	private Rate rate;
-	FrameProfile fp;
+	SetProfileClient2 fp;
 	private int salary;
 	private String etatSante ;
 	private String status ;
@@ -43,12 +43,12 @@ public class InterestRisk {
 
 
 	public InterestRisk(int salary, String etatSante, String status, int credit, int age, int charge) {
-		this.salary = FrameProfile.getSalary();
-		this.etatSante = FrameProfile.getHealth();
-		this.charge=  FrameProfile.getCharge();
-		this.credit = FrameProfile.getCredit();
-		this.age = FrameProfile.getAge();
-		this.status = FrameProfile.getStatus();
+		this.salary = SetProfileClient2.getSalary();
+		this.etatSante = SetProfileClient2.getHealth();
+		this.charge=  SetProfileClient2.getCharge();
+		this.credit = SetProfileClient2.getCredit();
+		this.age = SetProfileClient2.getAge();
+		this.status = SetProfileClient2.getStatus();
 		// TODO Auto-generated constructor stub
 	}
 

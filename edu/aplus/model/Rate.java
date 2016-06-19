@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.sql.DataSource;
+import javax.swing.JComboBox;
 
 import edu.aplus.db.DBConnector;
 import edu.aplus.db.ConnectionPool;
@@ -17,8 +18,11 @@ import edu.aplus.db.ConnectionPool;
 public class Rate {
 	
 	private int id;
-	private int value;
+	private double value;
 	private String name;
+	private String loanName;
+	private int duration;
+	private double rateValue, rateAgency;
 	private ConnectionPool pool;
 	
 	
@@ -27,17 +31,15 @@ public class Rate {
 		return id;
 	}
 	
-	/*
-	 * get the value (in euro*100)
-	 */
-	public int getValue() {
+	
+	public double getValue() {
 		return value;
 	}
 	
 	/*
 	 * return the value of the n rate
 	 */
-	public int getValue(String n) {
+	public double getValue(String n) {
 		return 0;
 	}
 	
@@ -49,29 +51,63 @@ public class Rate {
 		return this.name;
 	}
 	
-	public void setValue(int value) {
+	public void setValue(double value) {
 		this.value = value;
 	}
 	
-	public static int getRateValue(Connection co ,String n) throws SQLException {
+	public static double getRateValue(Connection co ,String n) throws SQLException {
 		
 		ResultSet rs = null;
-		int rateValue = 0;
+		double rateValue = 0;
 		String req = "SELECT rate_value FROM RATE WHERE rate_first_name = '"+n+"'";
 		Statement stmt = co.createStatement();
 		System.out.println("createstmt");
 		rs = stmt.executeQuery(req);
 		if(rs.next()) {
 			System.out.println("read");
-			rs.getInt("rate_value");
-			rateValue = rs.getInt(1);
+			rs.getDouble("rate_value");
+			rateValue = rs.getDouble(1);
 		}
 		return rateValue;
 	}
 		
 	
-	public String getRate(){
-		return this.getRate();
+	public int getDuration(){
+		return this.duration;
+	}
+	public double getRateValue(){
+		return this.getRateValue();
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setLoanName(String loanName) {
+		this.loanName = loanName;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
+	public void setRateValue(double rateValue) {
+		this.rateValue = rateValue;
+	}
+
+	public void setRateAgency(double rateAgency) {
+		this.rateAgency = rateAgency;
+	}
+
+	public void setPool(ConnectionPool pool) {
+		this.pool = pool;
+	}
+
+	public String getLoanName() {
+		return this.loanName;
+	}
+
+	public double getRateAgency(){
+		return this.rateAgency;
 	}
 	
 	public void setId(int id){
@@ -85,5 +121,14 @@ public class Rate {
 		return this.pool;
 	}
 
+	@Override
+	public String toString() {
+		return "Rate [id=" + id + ", value=" + value + ", name=" + name + ", loanName=" + loanName + ", duration="
+				+ duration + ", rateValue=" + rateValue + ", rateAgency=" + rateAgency + ", pool=" + pool + "]";
+	}
+
+	
+	
+	
 }
 

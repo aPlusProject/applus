@@ -18,6 +18,7 @@ public class SimulatorFixedRate {
 
 	//If the simulator is a client of the bank, by his client number, 
 	//the employee can have all his information like.
+	
 	public Client getClientByID(int idClient) throws ClassNotFoundException, SQLException {
 		
 		System.out.println("id du client in getClientByID : "+idClient);
@@ -97,7 +98,7 @@ public class SimulatorFixedRate {
 		conn.makeStack();
 		co = conn.getConnection();
 		
-		System.out.println("Connecté");
+		System.out.println("Connectï¿½");
 		
 		PreparedStatement ps;
 		ResultSet rs;
@@ -114,13 +115,13 @@ public class SimulatorFixedRate {
 		ps = co.prepareStatement(sql);
 		rs = ps.executeQuery();
 		
-		System.out.println("Envoyé");
+		System.out.println("Envoyï¿½");
 		
 		co.commit();
 		conn.closeConnection(co);
 		
 		
 		
-		System.out.println("Fermé, insertion avec succees");		
+		System.out.println("Fermï¿½, insertion avec succees");		
 	}
 }

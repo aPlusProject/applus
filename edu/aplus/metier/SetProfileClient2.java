@@ -18,7 +18,7 @@ import edu.aplus.metier.ChooseLoanType;
  * For that we need to have 6 parameters ( explained in javadoc interestRisk.java)
  */
 
-public class FrameProfile  extends JFrame{
+public class SetProfileClient2  extends JFrame{
 
 
 	static int salary;
@@ -32,7 +32,7 @@ public class FrameProfile  extends JFrame{
 
 	
 
-	public FrameProfile (){
+	public SetProfileClient2 (){
 			this.risk = new InterestRisk(salary, etatSante, status, credit, age, charge);
 
 		setBounds(100, 100, 600, 400);
@@ -125,23 +125,23 @@ public class FrameProfile  extends JFrame{
 
 	}
 	
-	public static int getCharge(){return FrameProfile.charge;}
-	public static void setCharge(int charge){FrameProfile.charge = charge;}
+	public static int getCharge(){return SetProfileClient2.charge;}
+	public static void setCharge(int charge){SetProfileClient2.charge = charge;}
 
-	public static int getSalary(){return FrameProfile.salary;}
-	public static void setSalary(int salary){FrameProfile.salary = salary;}
+	public static int getSalary(){return SetProfileClient2.salary;}
+	public static void setSalary(int salary){SetProfileClient2.salary = salary;}
 
-	public static int getCredit(){return FrameProfile.credit;}
-	public static void setCredit(int credit){FrameProfile.credit = credit;}
+	public static int getCredit(){return SetProfileClient2.credit;}
+	public static void setCredit(int credit){SetProfileClient2.credit = credit;}
 
-	public  static int getAge(){return FrameProfile.age;}
-	public static void setAge(int age){FrameProfile.age = age;}
+	public  static int getAge(){return SetProfileClient2.age;}
+	public static void setAge(int age){SetProfileClient2.age = age;}
 
-	public static String getStatus(){return FrameProfile.status;}
-	public static void setStatus(String status){FrameProfile.status = status;}
+	public static String getStatus(){return SetProfileClient2.status;}
+	public static void setStatus(String status){SetProfileClient2.status = status;}
 
-	public static String getHealth(){return FrameProfile.etatSante;}
-	public  void setHealth(String etatSante){FrameProfile.etatSante = etatSante;}
+	public static String getHealth(){return SetProfileClient2.etatSante;}
+	public  void setHealth(String etatSante){SetProfileClient2.etatSante = etatSante;}
 
 
 

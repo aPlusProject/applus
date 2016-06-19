@@ -55,7 +55,7 @@ public class SimulatoinPanel  extends JFrame{
 	private JTextField rateInsurance;
 	private JLabel rateInsuranceL;
 	private JButton bouton;
-	private String[] possibleValues = {"Crédit Immobilier","Crédit Personnel","Crédit Professionnel"};
+	private String[] possibleValues = {"Crï¿½dit Immobilier","Crï¿½dit Personnel","Crï¿½dit Professionnel"};
 	Client client = null;
 	public SimulatoinPanel() {
 		
@@ -67,13 +67,13 @@ public class SimulatoinPanel  extends JFrame{
 		setContentPane(panel);
 		panel.setLayout(null);
 		
-		title1 = new JLabel("Informations financières du client : ");
+		title1 = new JLabel("Informations financiï¿½res du client : ");
 		title1.setBounds(20, 20, 500, 30);
 		panel.add(title1);
 		title1.setFont(new Font("New Times Roman", Font.BOLD, 14));
 	    title1.setForeground(Color.DARK_GRAY);   
 		
-		title2 = new JLabel("Renseignez les données concernant le prêt : ");
+		title2 = new JLabel("Renseignez les donnï¿½es concernant le prï¿½t : ");
 		title2.setBounds(330, 20, 500, 30);
 		panel.add(title2);
 		title2.setFont(new Font("New Times Roman", Font.BOLD, 14));
@@ -107,7 +107,7 @@ public class SimulatoinPanel  extends JFrame{
 		debtRate.setColumns(2);
 		
 
-		creditTypeL = new JLabel("Type du prêt  ");
+		creditTypeL = new JLabel("Type du prï¿½t  ");
 		creditTypeL.setBounds(330, 80, 200, 15);
 		panel.add(creditTypeL);
 		 	
@@ -115,7 +115,7 @@ public class SimulatoinPanel  extends JFrame{
 		creditType.setBounds(470, 80, 100, 20);
 		panel.add(creditType);
 		
-		amountL = new JLabel("Montant du prêt  ");
+		amountL = new JLabel("Montant du prï¿½t  ");
 		amountL.setBounds(330, 120, 200, 15);
 		panel.add(amountL);
 		
@@ -124,7 +124,7 @@ public class SimulatoinPanel  extends JFrame{
 		panel.add(getAmount());
 		getAmount().setColumns(2);
 		
-		durationL = new JLabel("Durée du prêt  ");
+		durationL = new JLabel("Durï¿½e du prï¿½t  ");
 		durationL.setBounds(330, 160, 200, 15);
 		panel.add(durationL);
 		
@@ -133,7 +133,7 @@ public class SimulatoinPanel  extends JFrame{
 		panel.add(duration);
 		duration.setColumns(2);
 		
-		rateL = new JLabel("Taux d'intérêt  ");
+		rateL = new JLabel("Taux d'intï¿½rï¿½t  ");
 		rateL.setBounds(330, 200, 250, 15);
 		panel.add(rateL);
 		

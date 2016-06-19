@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import edu.aplus.model.Client;
 import edu.aplus.model.Employee;
 import edu.aplus.model.Loan;
+import edu.aplus.model.Rate;
 
 
 public class JsonParser_new {
@@ -36,9 +37,24 @@ public class JsonParser_new {
 		return json;
 	}
 	
+	
 	public static String ObjectToJSon(Client client){
 		Gson gson = new GsonBuilder().create();
 		String json = gson.toJson(client);
+		
+		return json;
+	}
+	
+	public static Rate JSonToObjectRate(String json) {
+		Gson gson = new GsonBuilder().create();
+		Rate rate = gson.fromJson(json, Rate.class);
+
+		return rate;
+	}
+	
+	public static String ObjectToJSonRate(Rate rate){
+		Gson gson = new GsonBuilder().create();
+		String json = gson.toJson(rate);
 		
 		return json;
 	}

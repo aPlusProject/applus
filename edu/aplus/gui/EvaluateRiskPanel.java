@@ -24,7 +24,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import edu.aplus.model.Loan;
 import edu.aplus.metier.ChooseLoanType;
-import edu.aplus.metier.FrameProfile;
+import edu.aplus.metier.SetProfileClient2;
 /* Panel to compare the two rates
  * rate of parent company & rate of agency * 
  */
@@ -35,7 +35,7 @@ public class EvaluateRiskPanel extends JFrame {
 
 	ChooseLoanType clt;
 	ChooseLoanTypePanel cltp;
-	FrameProfile pf;
+	SetProfileClient2 pf;
 	static JTextField agRate;
 	static JTextField  hqRate;
 	
@@ -68,7 +68,7 @@ public class EvaluateRiskPanel extends JFrame {
 		editProfile.setBounds(120,150,100,20);
 		editProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-				new FrameProfile();
+				new SetProfileClient2();
 				
 			} });
 		frame3.getContentPane().add(labelSetPret);
