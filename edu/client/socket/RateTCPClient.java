@@ -52,7 +52,7 @@ public class RateTCPClient {
 		out = new PrintWriter(socketClient.getOutputStream(), true);
 		out.println(message);
 		out.println(objectToJSonRate);
-		System.out.println("CLIENT:Send: " + message);
+		System.out.println("CLIENT:Send: " +message);
 	
 		receivedMessage = in.readLine();
 		

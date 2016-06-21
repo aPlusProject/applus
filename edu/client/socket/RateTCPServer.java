@@ -34,7 +34,7 @@ public class RateTCPServer {
 	private static int port = 1237;
 	private static String receivedMessage;
 	private static String returnMessage;
-
+	
 
 	public static void main(String args[]) throws Exception {
 
@@ -68,44 +68,53 @@ class StuffThread1 extends Thread {
 	}
 
 	public void run() {
+		Rate rate = new Rate();
+		ConnectionPool conn = rate.getPool();
+		Connection co;
+		double value = 0;
+		
+
 		try {
 
 			PrintWriter out = new PrintWriter(fromClientSocket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(fromClientSocket.getInputStream()));
 			String ClientMessageRule = in.readLine();
+			int duration ;
+			String loanName;
 
 			System.out.println("SERVER received:" + ClientMessageRule);
+			
+			System.out.println("je dois mouliner les données");
+			out.println("la7rira");
+			String ClientMessage = in.readLine();
+
+			System.out.println("SERVER recieved:" + ClientMessage);
+			rate = jparser.JSonToObjectRate(ClientMessage);
+			 duration= rate.getDuration();
+			 loanName = rate.getLoanName();
+			System.out.println(duration+" : " + loanName);
+			System.out.println(rate);
+			conn = new ConnectionPool();
+
+			conn.makeStack();
+			co = conn.getConnection();
+			PreparedStatement ps;
+			ResultSet rs;
+			String sql = null;	
 
 			//out.println("received");
 
 			if (ClientMessageRule.equals("calculateRate")){
-				System.out.println("je dois mouliner les données");
-				out.println("la7rira");
-				String ClientMessage = in.readLine();
-
-				System.out.println("SERVER recieved:" + ClientMessage);
-				Rate rate = jparser.JSonToObjectRate(ClientMessage);
-				int duration= rate.getDuration();
-				String loanName = rate.getLoanName();
-				System.out.println(duration+" : " + loanName);
-				System.out.println(rate);
+				
 
 				// requete SQL
 				/////////////////////////////////////////////////////////////////
-				ConnectionPool conn = rate.getPool();
-				Connection co= null;
-				conn = new ConnectionPool();
-				conn.makeStack();
-				co = conn.getConnection();
-				PreparedStatement ps;
-				ResultSet rs;
-				String sql = null;		
+					
 
 				sql = "SELECT RATE_VALUE FROM RATE WHERE RATE_DURATION = "+duration+" AND RATE_TYPE = '"+loanName+"' ";
 				System.out.println(sql);
 
 				rs = co.createStatement().executeQuery(sql);
-				double value = 0;
 				while(rs.next()) {
 					value = rs.getDouble("RATE_VALUE");
 				} 
@@ -120,43 +129,31 @@ class StuffThread1 extends Thread {
 			}
 
 				else if (ClientMessageRule.equals("updateRate")){
-				System.out.println("je dois modifier le rate");
-				out.println("newla7hrira");
-				String ClientMessage = in.readLine();
-
-				System.out.println("SERVER recieved:" + ClientMessage);
-				Rate rate = jparser.JSonToObjectRate(ClientMessage);
-				int duration= rate.getDuration();
-				String loanName = rate.getLoanName();
-				double newRate = rate.getRateAgency();
-				System.out.println(duration+" : " + loanName);
-				System.out.println(rate);
 
 				// requete SQL
 				/////////////////////////////////////////////////////////////////
-				ConnectionPool conn = rate.getPool();
-				Connection co= null;
-				conn = new ConnectionPool();
-				conn.makeStack();
-				co = conn.getConnection();
-				PreparedStatement ps;
-				ResultSet rs;
-				String sql = null;		
+				
+				
+					
+				// value = rate.getRateValue();
 
-				sql = "UPDATE RATE SET RATE_AGENCY = "+rate.getRateAgency()+" WHERE RATE_DURATION = "+duration+" AND RATE_TYPE = '"+loanName+"' ";
+				sql = "UPDATE RATE SET RATE_AGENCY = ? WHERE RATE_DURATION = "+duration+" AND RATE_TYPE = '"+loanName+"' ";
 				System.out.println(sql);
 				ps = co.prepareStatement(sql);
-				double value = 0;
-				value  = rate.getRateAgency();
-			//	rs.updateDouble(1,newRate);
+				
+				ps.setDouble(1,value); 
+				
+				//double value = 0;
+				//value  = rate.getRateAgency(co);
+				//double value;
+				//rs = ps.executeQuery();
+
+				//rs.updateDouble(1,value);
 
 				//ps.setString(1, champ.getText());
-				//ps.executeUpdate();
-				rs = ps.executeQuery();
+				ps.executeUpdate();
 
-			//	while(rs.next()) {
-			//		value = rs.getDouble("RATE_VALUE");
-			//	} 
+				
 				conn.closeConnection(co);
 				/////////////////////////////////////////////////////////////
 

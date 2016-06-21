@@ -39,6 +39,8 @@ public class EvaluateRisk2 {
 					+ "Taux d'endettement: "+debtRatio+" %\n"
 					+"Restant à vivre: "+restantAVivre+"\n"
 					+"Excellent client, nous vous proposons\n comme taux: "+rate+" pour avoir un bénéfice";
+			//rateClass.setRateValue(rate);
+
 			rate = rate - 0.1 ;
 		}
 		
@@ -47,7 +49,10 @@ public class EvaluateRisk2 {
 					+ "Taux d'endettement: "+debtRatio+" %\n"
 					+"Restant à vivre: "+restantAVivre+"\n"
 					+"Excellent client, nous vous proposons\n comme taux: "+rate+" pour avoir un bénéfice";
+			//rateClass.setRateValue(rate);
+
 			rate = rate - 0.05 ;
+
 
 		}
 		
@@ -56,7 +61,10 @@ public class EvaluateRisk2 {
 					+ "Taux d'endettement: "+debtRatio+" %\n"
 					+"Restant à vivre: "+restantAVivre+"\n"
 					+"Excellent client, nous vous proposons\n comme taux: "+rate+" pour avoir un bénéfice";
+			//rateClass.setRateValue(rate);
+
 			rate = rate - 0 ;
+
 
 		}
 

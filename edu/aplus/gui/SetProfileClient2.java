@@ -88,59 +88,57 @@ public class SetProfileClient2  extends JFrame{
 	private JTextArea risques;
 	String receivedMsg;
 	double newRateReceived;
-	
-	Rate rate ;
+
 	SearchRatePanel2 srp = new SearchRatePanel2(loanType,duration); 
 	Client client = null;
 	double rateReceived;
-	public SetProfileClient2(final double rateReceived) throws UnknownHostException, ClassNotFoundException, IOException, InterruptedException {
-		
+	public SetProfileClient2(final double rateReceived, final Rate rate) throws UnknownHostException, ClassNotFoundException, IOException, InterruptedException {
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 220, 600, 600);
-		final String loanType =srp.getSelectedLoanType();
-		final int durationLoan = srp.getSelectedDuration();
-		
+
+
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(1, 1, 1, 1));
 		setContentPane(panel);
 		panel.setLayout(null);
-		
+
 		rateL = new JLabel("Donnez les informations personnelles du client");
 		rateL.setBounds(45, 40, 300,15);
 		panel.add(rateL);
-		
+
 		salaryL = new JLabel("Revenu total:  ");
 		salaryL.setBounds(20, 80, 150, 15);
 		panel.add(salaryL);
-		
+
 		salary = new JTextField();
 		salary.setBounds(150, 80, 60, 20);
 		panel.add(salary);
-		
+
 		precisionSalary = new JLabel("euros/mois");
 		precisionSalary.setBounds(320, 80, 150, 15);
 		panel.add(precisionSalary);
-		
+
 		chargeL = new JLabel("Charge total:  ");
 		chargeL.setBounds(20, 110, 150, 15);
 		panel.add(chargeL);
-		
+
 		precisionCharge = new JLabel("euros/mois");
 		precisionCharge.setBounds(320, 110, 150, 15);
 		panel.add(precisionCharge);
-		
+
 		charge = new JTextField();
 		charge.setBounds(150, 110, 60, 20);
 		panel.add(charge);
-		
+
 		ageL = new JLabel("Age: ");
 		ageL.setBounds(20, 140, 140, 15);
 		panel.add(ageL);
-		
+
 		age = new JTextField();
 		age.setBounds(150, 140, 150, 20);
 		panel.add(age);
-		
+
 		precisionAge = new JLabel("ans");
 		precisionAge.setBounds(320, 140, 150, 15);
 		panel.add(precisionAge);
@@ -148,19 +146,19 @@ public class SetProfileClient2  extends JFrame{
 		creditL = new JLabel("Credit: ");
 		creditL.setBounds(20, 170, 200, 15);
 		panel.add(creditL);
-		
+
 		credit = new JTextField();
 		credit.setBounds(150, 170, 60, 20);
 		panel.add(credit);
-		
+
 		precisionCredit = new JLabel("euros/mois");
 		precisionCredit.setBounds(320, 170, 150, 15);
 		panel.add(precisionCredit);
-		
+
 		etatSanteL = new JLabel("Etat de santé: ");
 		etatSanteL.setBounds(20, 200, 200, 15);
 		panel.add(etatSanteL);
-		
+
 		good = new JRadioButton("Bon");
 		bad = new JRadioButton("Mauvais");
 		health = new ButtonGroup();
@@ -171,116 +169,123 @@ public class SetProfileClient2  extends JFrame{
 		bad.setBounds(220, 200, 100, 20);
 		panel.add(good);
 		panel.add(bad);
-		
+
 		//etatSante = new JTextField();
 		//etatSante.setBounds(150, 200, 150, 20);
-		
-		
+
+
 		statusL = new JLabel("Type contrat: ");
 		statusL.setBounds(20, 230, 200, 15);
 		panel.add(statusL);
-		
+
 		status = new JTextField();
 		status.setBounds(150, 230, 100, 20);
 		panel.add(status);
-		
+
 		precisionStatus = new JLabel("(CDI, CDD, Autoentrepreneur)");
 		precisionStatus.setBounds(320, 230, 250, 15);
 		panel.add(precisionStatus);
-		
+
 		risques = new JTextArea();
 		risques.setBounds(70,290,350,150);
 		panel.add(risques);
-		
+
 		enregistrer = new JButton("Enregistrer");
 		enregistrer.setBounds(120,470,200,20);
 		panel.add(enregistrer);
-		
-		
+
+
 		evaluer = new JButton("Evaluer");
 		evaluer.setBounds(80, 260, 150, 20);
 		panel.add(evaluer);
-		
+
 		reset = new JButton("Réinitialiser");
 		reset.setBounds(240,260,200,20);
 		panel.add(reset);
 		reset.addActionListener(new ActionListener(){
-		    public void actionPerformed(ActionEvent e){
-		        risques.setText("");
-		        charge.setText("");
-		        credit.setText("");
-		        salary.setText("");
-		        age.setText("");
-		        status.setText("");
-		       
-		    }
+			public void actionPerformed(ActionEvent e){
+				risques.setText("");
+				charge.setText("");
+				credit.setText("");
+				salary.setText("");
+				age.setText("");
+				status.setText("");
+
+			}
 		});
-		
-		
+
+
 		evaluer.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e){
+
 				if(salary.getText().equals("") || charge.getText().equals("") || credit.getText().equals("") || status.getText().equals("")|| 
 						age.getText().equals("") || (!good.isSelected() && !bad.isSelected()))
 				{
-			    JOptionPane.showMessageDialog(panel, "Veuillez remplir les cases vides", "Erreur", JOptionPane.ERROR_MESSAGE);
-			    } 
-				else{
-				String salaryS,ageS,creditS,chargeS;
-				salaryS = salary.getText();
-				ageS = age.getText();
-			//	etatSanteT = etatSante.getText();
-				statusT = status.getText();
-				chargeS = charge.getText();
-				creditS = credit.getText();
-				salaryT = Integer.parseInt(salaryS);
-				ageT = Integer.parseInt(ageS) ;
-				creditT = Integer.parseInt(creditS) ;
-				chargeT =Integer.parseInt(chargeS) ;
-				EvaluateRisk2 evRisk2 = new EvaluateRisk2(salaryT,statusT,creditT,ageT,chargeT);
-				final String myRisk = evRisk2.Risk(rateReceived);
-				System.out.println(myRisk);
-				risques.setText(myRisk);
-				//new EvaluateRiskPanel2();
-				
+					JOptionPane.showMessageDialog(panel, "Veuillez remplir les cases vides", "Champs vides", JOptionPane.ERROR_MESSAGE);
+				} 
+				else if(!(status.getText().equals("CDD")) && !(status.getText().equals("CDI"))&& !(status.getText().equals("Autoentrepreneur")) )
+				{
+					JOptionPane.showMessageDialog(panel, "Veuillez respecter le format indiqué", "Type de contrat", JOptionPane.ERROR_MESSAGE);
+				} 
+				else if(!isInteger(salary.getText()) || !isInteger(charge.getText()) || !isInteger(credit.getText()) || !isInteger(age.getText()) )
+				{
+					JOptionPane.showMessageDialog(panel, "Veuillez entrer que des entiers", "Format non accepté", JOptionPane.ERROR_MESSAGE);
+				} 
+				else {
+					String salaryS,ageS,creditS,chargeS;
+					salaryS = salary.getText();
+					ageS = age.getText();
+					//	etatSanteT = etatSante.getText();
+					statusT = status.getText();
+
+					chargeS = charge.getText();
+					creditS = credit.getText();
+					salaryT = Integer.parseInt(salaryS);
+					ageT = Integer.parseInt(ageS) ;
+					creditT = Integer.parseInt(creditS) ;
+					chargeT =Integer.parseInt(chargeS) ;
+					EvaluateRisk2 evRisk2 = new EvaluateRisk2(salaryT,statusT,creditT,ageT,chargeT);
+					final String myRisk = evRisk2.Risk(rateReceived);
+					System.out.println(myRisk);
+					risques.setText(myRisk);
+					//new EvaluateRiskPanel2();
+
 				}}});
-		
+
 		enregistrer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 
+				final String loanType =SearchRatePanel2.getSelectedLoanType();
+				final int durationLoan = SearchRatePanel2.getSelectedDuration();
 
-				Rate rate = new Rate();
+				System.out.println(SearchRatePanel2.getSelectedLoanType());
+
+				System.out.println(loanType);
 				rate.setLoanName(loanType);
+				try {
+					rate.setDuration(durationLoan);
+					receivedMsg  = updateRateFromServer(rate);
+					Map<String,Object> map = new HashMap<String,Object>();
+					Gson gson = new Gson();
 
-				   System.out.println(loanType);
+					map = (Map<String,Object>) gson.fromJson(receivedMsg, map.getClass());
 
-
-					try {
-
-						rate.setDuration(durationLoan);
-
-						 receivedMsg  = updateRateFromServer(rate);
-
-						Map<String,Object> map = new HashMap<String,Object>();
-						Gson gson = new Gson();
-
-						map = (Map<String,Object>) gson.fromJson(receivedMsg, map.getClass());
-
-						newRateReceived =  (double) map.get("rate");
-						System.out.println("Le nouveau rate est : "+ newRateReceived);		
-						
+					newRateReceived =  (double) map.get("rate");
+					System.out.println("Le nouveau rate est : "+ newRateReceived);		
 
 
-					} catch (ClassNotFoundException | IOException | InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
 
+				} catch (ClassNotFoundException | IOException | InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 
-			}); 
-		
-			
+			}
+
+		}); 
+
+
 	}
 	static String  updateRateFromServer(Rate rate) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
 
@@ -291,7 +296,7 @@ public class SetProfileClient2  extends JFrame{
 
 		String receivedMsg = clientTcp.SendRecieve("updateRate");
 
-		receivedMsg = clientTcp.SendRecieve(jparser.ObjectToJSonRate(rate));
+		receivedMsg = clientTcp.SendRecieve(JsonParser_new.ObjectToJSonRate(rate));
 
 		return receivedMsg;		
 	}	
@@ -312,13 +317,21 @@ public class SetProfileClient2  extends JFrame{
 
 	public static String getHealth(){return SetProfileClient2.etatSanteT;}
 	public  void setHealth(String etatSanteT){SetProfileClient2.etatSanteT = etatSanteT;}
-	
+
 	public static boolean goodHealthSelected(){
 		return good.isSelected();
 	}
-	
+
 	public static boolean badHealthSelected(){
 		return bad.isSelected();
 	}
-
+	public static boolean isInteger(String s) {
+		try { 
+			Integer.parseInt(s); 
+		} catch(NumberFormatException e) { 
+			return false; 
+		}
+		// if exception isn't thrown, then it is an integer
+		return true;
 	}
+}

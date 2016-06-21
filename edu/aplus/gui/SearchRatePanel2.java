@@ -21,6 +21,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import edu.aplus.business.SimulatorFixedRate;
 import edu.aplus.model.Client;
 import edu.aplus.model.Loan;
 import edu.aplus.model.Rate;
@@ -107,12 +108,15 @@ public class SearchRatePanel2   extends JFrame{
 		bouton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e){
+				System.out.println((String)loanType.getSelectedItem());
 
 				Rate rate = new Rate();
 				rate.setLoanName(loanType.getSelectedItem().toString());
 				try {
 					rate.setDuration(Integer.parseInt(duration.getSelectedItem().toString()));
+
 					 receivedMsg  = getRatefromServer(rate);
+
 					Map<String,Object> map = new HashMap<String,Object>();
 					Gson gson = new Gson();
 
@@ -120,8 +124,8 @@ public class SearchRatePanel2   extends JFrame{
 
 					rateReceived =  (double) map.get("rate");
 					System.out.println("Le rate est : "+ rateReceived);	
-					rate.setValue(rateReceived);
-					SetProfileClient2 frame2 = new SetProfileClient2(rateReceived);
+					//rate.setValue(value);
+					SetProfileClient2 frame2 = new SetProfileClient2(rateReceived,rate);
 					frame2.setVisible(true);
 
 
@@ -134,12 +138,14 @@ public class SearchRatePanel2   extends JFrame{
 
 		}); 
 	}
+	
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					SearchRatePanel2 frame = new SearchRatePanel2(loanType,duration);
+
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -150,11 +156,13 @@ public class SearchRatePanel2   extends JFrame{
 
 	static String  getRatefromServer(Rate rate) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
 
-		Gson gson = new Gson();
-		JsonParser_new jparser = new JsonParser_new();
+	//	JsonParser_new jparser = new JsonParser_new();
+
 		RateTCPClient clientTcp = new RateTCPClient();
+
 		String receivedMsg = clientTcp.SendRecieve("calculateRate");
-		receivedMsg = clientTcp.SendRecieve(jparser.ObjectToJSonRate(rate));
+
+		receivedMsg = clientTcp.SendRecieve(JsonParser_new.ObjectToJSonRate(rate));
 
 		return receivedMsg;		
 	}	
@@ -167,12 +175,14 @@ public class SearchRatePanel2   extends JFrame{
 		return this.rateReceived;
 	}
 
-	public String getSelectedLoanType() {
+	
+	public static String getSelectedLoanType() {
 		return (String)loanType.getSelectedItem();
 	}
-	public int getSelectedDuration() {
+	public static int getSelectedDuration() {
 		return Integer.parseInt(duration.getSelectedItem().toString());
 	}
+	
 
 
 }

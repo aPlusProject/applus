@@ -76,7 +76,7 @@ public class Rate {
 		return this.duration;
 	}
 	public double getRateValue(){
-		return this.getRateValue();
+		return this.rateValue;
 	}
 	public void setName(String name) {
 		this.name = name;
@@ -94,9 +94,7 @@ public class Rate {
 		this.rateValue = rateValue;
 	}
 
-	public void setRateAgency(double rateAgency) {
-		this.rateAgency = rateAgency;
-	}
+	
 
 	public void setPool(ConnectionPool pool) {
 		this.pool = pool;
@@ -106,8 +104,22 @@ public class Rate {
 		return this.loanName;
 	}
 
-	public double getRateAgency(){
-		return this.rateAgency;
+	public double getRateAgency(Connection co) throws SQLException{
+		ResultSet rs = null;
+		double rateAgency = 0;
+		String req = "SELECT RATE_AGENCY FROM RATE WHERE RATE_DURATION = "+getDuration()+" AND RATE_TYPE = '"+getLoanName()+"' ";
+		Statement stmt = co.createStatement();
+		System.out.println("createstmt");
+		rs = stmt.executeQuery(req);
+		if(rs.next()) {
+			System.out.println("read");
+			rs.getDouble("rate_agency");
+			rateAgency = rs.getDouble(1);
+		}
+		return rateAgency;
+	}
+	public void setRateAgency(double rateAgency) {
+		this.rateAgency = rateAgency;
 	}
 	
 	public void setId(int id){
@@ -127,6 +139,10 @@ public class Rate {
 				+ duration + ", rateValue=" + rateValue + ", rateAgency=" + rateAgency + ", pool=" + pool + "]";
 	}
 
+	public static Rate rate()
+	{
+	    return (new Rate());
+	}
 	
 	
 	
