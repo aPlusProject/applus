@@ -1,5 +1,4 @@
 package edu.aplus.gui;
-
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -10,17 +9,14 @@ import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import edu.aplus.business.SimulatorFixedRate;
 import edu.aplus.model.Client;
 import edu.aplus.model.Loan;
@@ -28,7 +24,6 @@ import edu.aplus.model.Rate;
 import edu.aplus.service.JsonParser_new;
 import edu.client.socket.RateTCPClient;
 import edu.client.socket.TCPClient;
-
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -58,22 +53,19 @@ public class SearchRatePanel2   extends JFrame{
 	private JTextField rateT;
 	private JLabel rateL;
 	String receivedMsg;
-	double rateReceived;
-	
+	float rateReceived;
 
-
+/* The welcome panel for the director, he will be able to choose a loan type
+ * then he will choose the duration in other to determinate the rate
+ * that corresponds to the both parameters	
+ */
 
 	private String[] listType = {"Pret immobilier","Pret de consommation","Pret professionnel"};
 	private String[] listDuration = {"1","2","3","4","5","6","7","10","15","20","25","30"};
 
-	Client client = null;
 	public SearchRatePanel2(final JComboBox loan, final JComboBox durationLoan) {
-		
 		this.loanType = loan;
 		this.duration = durationLoan;
-		
-		
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 220, 400, 400);
 
@@ -109,26 +101,21 @@ public class SearchRatePanel2   extends JFrame{
 
 			public void actionPerformed(ActionEvent e){
 				System.out.println((String)loanType.getSelectedItem());
-
 				Rate rate = new Rate();
+
 				rate.setLoanName(loanType.getSelectedItem().toString());
 				try {
 					rate.setDuration(Integer.parseInt(duration.getSelectedItem().toString()));
-
-					 receivedMsg  = getRatefromServer(rate);
-
+					receivedMsg  = getRatefromServer(rate);
 					Map<String,Object> map = new HashMap<String,Object>();
 					Gson gson = new Gson();
-
 					map = (Map<String,Object>) gson.fromJson(receivedMsg, map.getClass());
-
-					rateReceived =  (double) map.get("rate");
-					System.out.println("Le rate est : "+ rateReceived);	
-					//rate.setValue(value);
+					double mapgeteRate =	(double) map.get("rate");
+					rateReceived = (float) mapgeteRate;
+					System.out.println("Le rate est : "+rateReceived);	
+					rate.setRateValue(rateReceived);
 					SetProfileClient2 frame2 = new SetProfileClient2(rateReceived,rate);
 					frame2.setVisible(true);
-
-
 				} catch (ClassNotFoundException | IOException | InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -138,14 +125,14 @@ public class SearchRatePanel2   extends JFrame{
 
 		}); 
 	}
-	
+
+	/* The main */
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					SearchRatePanel2 frame = new SearchRatePanel2(loanType,duration);
-
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -154,35 +141,30 @@ public class SearchRatePanel2   extends JFrame{
 		});
 	}
 
+	/* Method to check the client server and parse the result */
 	static String  getRatefromServer(Rate rate) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
-
-	//	JsonParser_new jparser = new JsonParser_new();
-
 		RateTCPClient clientTcp = new RateTCPClient();
-
-		String receivedMsg = clientTcp.SendRecieve("calculateRate");
-
-		receivedMsg = clientTcp.SendRecieve(JsonParser_new.ObjectToJSonRate(rate));
-
+		String receivedMsg = clientTcp.sendReceive("calculateRate");
+		receivedMsg = clientTcp.sendReceive(JsonParser_new.ObjectToJSonRate(rate));
 		return receivedMsg;		
 	}	
 
-	
-	public void setRateReceived(double rateReceived) {
+	/* Getters and setters for the received rate */
+	public void setRateReceived(float rateReceived) {
 		this.rateReceived = rateReceived;
 	}
-	public double getRateReceived() {
+	public float getRateReceived() {
 		return this.rateReceived;
 	}
 
-	
-	public static String getSelectedLoanType() {
-		return (String)loanType.getSelectedItem();
+	/*to get the current loanType and duration comboBox */
+	public static JComboBox getSelectedLoanType() {
+		return SearchRatePanel2.loanType;
 	}
-	public static int getSelectedDuration() {
-		return Integer.parseInt(duration.getSelectedItem().toString());
+	public static JComboBox getSelectedDuration() {
+		return SearchRatePanel2.duration;
 	}
-	
+
 
 
 }

@@ -48,14 +48,12 @@ public class JsonParser_new {
 	public static Rate JSonToObjectRate(String json) {
 		Gson gson = new GsonBuilder().create();
 		Rate rate = gson.fromJson(json, Rate.class);
-
 		return rate;
 	}
 	
 	public static String ObjectToJSonRate(Rate rate){
 		Gson gson = new GsonBuilder().create();
 		String json = gson.toJson(rate);
-		
 		return json;
 	}
 }

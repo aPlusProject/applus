@@ -3,38 +3,38 @@ package edu.aplus.gui;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
-
 import org.junit.experimental.categories.Categories;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import edu.aplus.business.SimulatorFixedRate;
 import edu.aplus.metier.*;
+import edu.aplus.metier.EvaluateRisk2.MyResult;
 import edu.aplus.model.Client;
 import edu.aplus.model.Loan;
 import edu.aplus.model.Rate;
 import edu.aplus.service.JsonParser_new;
 import edu.client.socket.RateTCPClient;
 import edu.client.socket.TCPClient;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -45,11 +45,17 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import edu.aplus.gui.SearchRatePanel2;
 
+/*This is the GUI for the director to make scenario of client simulation
+ * By completing the asked fields(salary, credit, charge ...), he'll be able
+ * to see the risks and decide of the interest rate to save for this type of profile
+ */
+
+
 public class SetProfileClient2  extends JFrame{
 
 	private static final String Clientid = null;
-	private JComboBox loanType;
-	private JComboBox duration;
+	final JComboBox loanType;
+	final JComboBox duration;
 	private JPanel panel;
 	private JLabel durationL;
 	private JLabel salaryL;
@@ -87,24 +93,48 @@ public class SetProfileClient2  extends JFrame{
 	private static String statusT;
 	private JTextArea risques;
 	String receivedMsg;
-	double newRateReceived;
+	float newRateReceived;
 
-	SearchRatePanel2 srp = new SearchRatePanel2(loanType,duration); 
+	SearchRatePanel2 srp ; 
+
 	Client client = null;
-	double rateReceived;
-	public SetProfileClient2(final double rateReceived, final Rate rate) throws UnknownHostException, ClassNotFoundException, IOException, InterruptedException {
 
+	public SetProfileClient2(final float rateReceived, final Rate rate) throws UnknownHostException, ClassNotFoundException, IOException, InterruptedException {
+		loanType =SearchRatePanel2.getSelectedLoanType();
+		duration= SearchRatePanel2.getSelectedDuration();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 220, 600, 600);
-
 
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(1, 1, 1, 1));
 		setContentPane(panel);
 		panel.setLayout(null);
-
+		
+		ImageIcon im1 = new ImageIcon(SetProfileClient2.class.getResource("back.png")); 
+		Image im = im1.getImage(); 
+		JLabel image = new JLabel( new ImageIcon(im));
+		image.setBounds(490, 10, 100, 100);
+		panel.add(image);
+		image.addMouseListener(new MouseAdapter()  
+		{  
+		    public void mouseClicked(MouseEvent e)  
+		    {  
+		    	dispose();
+		    	}  
+		});
+		
+		JLabel manual = new JLabel("Guide");
+		manual.setBounds(430, 10, 100, 15);
+		panel.add(manual);
+		manual.addMouseListener(new MouseAdapter()  
+		{  
+		    public void mouseClicked(MouseEvent e)  
+		    {  
+		    	// TO BE DEFINE
+		    }  
+		});
 		rateL = new JLabel("Donnez les informations personnelles du client");
-		rateL.setBounds(45, 40, 300,15);
+		rateL.setBounds(20, 40, 300,15);
 		panel.add(rateL);
 
 		salaryL = new JLabel("Revenu total:  ");
@@ -164,15 +194,10 @@ public class SetProfileClient2  extends JFrame{
 		health = new ButtonGroup();
 		health.add(good);
 		health.add(bad);
-		//good.setSelected(true);
 		good.setBounds(150, 200, 60, 20);
 		bad.setBounds(220, 200, 100, 20);
 		panel.add(good);
 		panel.add(bad);
-
-		//etatSante = new JTextField();
-		//etatSante.setBounds(150, 200, 150, 20);
-
 
 		statusL = new JLabel("Type contrat: ");
 		statusL.setBounds(20, 230, 200, 15);
@@ -194,7 +219,6 @@ public class SetProfileClient2  extends JFrame{
 		enregistrer.setBounds(120,470,200,20);
 		panel.add(enregistrer);
 
-
 		evaluer = new JButton("Evaluer");
 		evaluer.setBounds(80, 260, 150, 20);
 		panel.add(evaluer);
@@ -214,9 +238,8 @@ public class SetProfileClient2  extends JFrame{
 			}
 		});
 
-
+		/* Button to click if the director wants to evaluate the risks for the profile*/
 		evaluer.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e){
 
 				if(salary.getText().equals("") || charge.getText().equals("") || credit.getText().equals("") || status.getText().equals("")|| 
@@ -232,13 +255,15 @@ public class SetProfileClient2  extends JFrame{
 				{
 					JOptionPane.showMessageDialog(panel, "Veuillez entrer que des entiers", "Format non accepté", JOptionPane.ERROR_MESSAGE);
 				} 
+				else if(Integer.parseInt(age.getText()) < 18)
+				{
+					JOptionPane.showMessageDialog(panel, "L'âge minimum requis est 18 ans", "Age non accepté", JOptionPane.ERROR_MESSAGE);
+				} 
 				else {
 					String salaryS,ageS,creditS,chargeS;
 					salaryS = salary.getText();
 					ageS = age.getText();
-					//	etatSanteT = etatSante.getText();
 					statusT = status.getText();
-
 					chargeS = charge.getText();
 					creditS = credit.getText();
 					salaryT = Integer.parseInt(salaryS);
@@ -246,34 +271,35 @@ public class SetProfileClient2  extends JFrame{
 					creditT = Integer.parseInt(creditS) ;
 					chargeT =Integer.parseInt(chargeS) ;
 					EvaluateRisk2 evRisk2 = new EvaluateRisk2(salaryT,statusT,creditT,ageT,chargeT);
-					final String myRisk = evRisk2.Risk(rateReceived);
-					System.out.println(myRisk);
-					risques.setText(myRisk);
+					final MyResult myRisk = evRisk2.Risk(rate.getRateValue());
+					newRateReceived = myRisk.getNewRate();
+					rate.setRateAgency(newRateReceived);
+					System.out.println("je suis iciiiiiiii : "+newRateReceived);
+					risques.setText(myRisk.getComment());
 					//new EvaluateRiskPanel2();
 
 				}}});
-
+		
+		/* Button to click if the director wants to save the rate suggested by the app*/
 		enregistrer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 
-				final String loanType =SearchRatePanel2.getSelectedLoanType();
-				final int durationLoan = SearchRatePanel2.getSelectedDuration();
-
-				System.out.println(SearchRatePanel2.getSelectedLoanType());
-
 				System.out.println(loanType);
-				rate.setLoanName(loanType);
+				rate.setLoanName(loanType.getSelectedItem().toString());
 				try {
-					rate.setDuration(durationLoan);
+					rate.setDuration(Integer.parseInt(duration.getSelectedItem().toString()));
 					receivedMsg  = updateRateFromServer(rate);
 					Map<String,Object> map = new HashMap<String,Object>();
 					Gson gson = new Gson();
-
 					map = (Map<String,Object>) gson.fromJson(receivedMsg, map.getClass());
-
-					newRateReceived =  (double) map.get("rate");
+					double mapgeteRate =	(double) map.get("rate");
+					newRateReceived = (float) mapgeteRate;
 					System.out.println("Le nouveau rate est : "+ newRateReceived);		
-
+					int option = JOptionPane.showConfirmDialog(null, "Souhaitez-vous enregistrer ce taux : "+newRateReceived+ "?", "Confirmation", JOptionPane.YES_NO_OPTION);
+					if (option == 0) { 
+						JOptionPane.showMessageDialog(panel, "Le taux de l'agence a bien été mis à jour", null, option);
+					} else {
+					}
 
 
 				} catch (ClassNotFoundException | IOException | InterruptedException e1) {
@@ -287,19 +313,18 @@ public class SetProfileClient2  extends JFrame{
 
 
 	}
+	
+	/* Check the message sent and parse the result: here the update of the rate */
 	static String  updateRateFromServer(Rate rate) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
 
-		Gson gson = new Gson();
-		JsonParser_new jparser = new JsonParser_new();
 
 		RateTCPClient clientTcp = new RateTCPClient();
-
-		String receivedMsg = clientTcp.SendRecieve("updateRate");
-
-		receivedMsg = clientTcp.SendRecieve(JsonParser_new.ObjectToJSonRate(rate));
-
+		String receivedMsg = clientTcp.sendReceive("updateRate");
+		receivedMsg = clientTcp.sendReceive(JsonParser_new.ObjectToJSonRate(rate));
 		return receivedMsg;		
 	}	
+	
+	/* Getters and setters for the JTextfields */
 	public static int getCharge(){return SetProfileClient2.chargeT;}
 	public static void setCharge(int chargeT){SetProfileClient2.chargeT = chargeT;}
 
@@ -318,6 +343,8 @@ public class SetProfileClient2  extends JFrame{
 	public static String getHealth(){return SetProfileClient2.etatSanteT;}
 	public  void setHealth(String etatSanteT){SetProfileClient2.etatSanteT = etatSanteT;}
 
+	
+	/* Check which button radio is selected for the health state of the client */
 	public static boolean goodHealthSelected(){
 		return good.isSelected();
 	}
@@ -325,13 +352,14 @@ public class SetProfileClient2  extends JFrame{
 	public static boolean badHealthSelected(){
 		return bad.isSelected();
 	}
+	
+	/* This method is used to check if the input of the Textfields is an integer or not */
 	public static boolean isInteger(String s) {
 		try { 
 			Integer.parseInt(s); 
 		} catch(NumberFormatException e) { 
 			return false; 
 		}
-		// if exception isn't thrown, then it is an integer
 		return true;
 	}
 }
