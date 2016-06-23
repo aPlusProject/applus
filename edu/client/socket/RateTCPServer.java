@@ -18,6 +18,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import edu.aplus.business.SimulatorFixedRate;
 import edu.aplus.db.ConnectionPool;
+
 import edu.aplus.model.Client;
 import edu.aplus.model.Loan;
 import edu.aplus.model.Rate;

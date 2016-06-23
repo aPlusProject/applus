@@ -40,7 +40,7 @@ public class Categories2 {
 		if(debtRatio <= 30 && (revenu-charge) > 800){
 			if(age >= 18 && age <= 30) {
 				if(status == "CDI" ){
-					if(goodHealth && badHealth){
+					if(goodHealth ||  badHealth){
 						System.out.println("cat nok ");
 						return true;
 					}
@@ -275,10 +275,10 @@ public class Categories2 {
 	public boolean VeryBadJuniorProfile(){ // They sometimes not have wives and kids 
 
 		float debtRatio =(float) (charge+credit)/revenu*100;
-		if(debtRatio > 30 && (revenu-charge) < 600){
+		if(debtRatio > 30 && (revenu-charge) >= 600){
 			if(age >= 18 && age < 30) {
 				if(status == "CDD" || status == "Autoentrepreneur"|| status == "CDI"){
-					if(goodHealth){
+					if(badHealth){
 						System.out.println("AGER");
 						return true;
 					}
@@ -294,10 +294,10 @@ public class Categories2 {
 	public boolean VeryBadMediumProfile(){ // They have lot of charges, cant take risk
 
 		float debtRatio =(float) (charge+credit)/revenu*100;
-		if(debtRatio > 30 && (revenu-charge) < 800 ){
+		if(debtRatio > 30 && (revenu-charge) >= 800 ){
 			if(age >=30 && age < 55) {
 				if(status == "CDD" || status == "Autoentrepreneur"|| status == "CDI"){
-					if(goodHealth){
+					if(badHealth){
 						System.out.println("AGER");
 						return true;
 					}
@@ -313,10 +313,68 @@ public class Categories2 {
 	public boolean VeryBadSeniorProfile(){
 
 		float debtRatio =(float) (charge+credit)/revenu*100;
+		if(debtRatio > 30 && (revenu-charge) >= 600){
+			if(age > 55) {
+				if(status == "CDD" || status == "Autoentrepreneur"|| status == "CDI"){
+					if(badHealth){
+						System.out.println("AGER");
+						return true;
+					}
+					return true;
+				}
+				return true;
+			}
+			return true;
+		}
+		return false;
+	}
+	/* *********************************** */
+	/* VeryBad profile: no loan accepted */
+	
+	public boolean NoLoanJuniorProfile(){ // They sometimes not have wives and kids 
+
+		float debtRatio =(float) (charge+credit)/revenu*100;
+		if(debtRatio > 30 && (revenu-charge) < 600){
+			if(age >= 18 && age < 30) {
+				if(status == "CDD" || status == "Autoentrepreneur"|| status == "CDI"){
+					if(badHealth || goodHealth){
+						System.out.println("AGER");
+						return true;
+					}
+					return true;
+				}
+				return true;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	public boolean NoLoanMediumProfile(){ 
+		float debtRatio =(float) (charge+credit)/revenu*100;
+		if(debtRatio > 30 && (revenu-charge) < 800 ){
+			if(age >=30 && age < 55) {
+				if(status == "CDD" || status == "Autoentrepreneur"|| status == "CDI"){
+					if(badHealth || goodHealth){
+						System.out.println("AGER");
+						return true;
+					}
+					return true;
+				}
+				return true;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	public boolean NoLoanSeniorProfile(){
+
+		float debtRatio =(float) (charge+credit)/revenu*100;
 		if(debtRatio > 30 && (revenu-charge) < 600){
 			if(age > 55) {
 				if(status == "CDD" || status == "Autoentrepreneur"|| status == "CDI"){
-					if(goodHealth){
+					if(badHealth || goodHealth){
 						System.out.println("AGER");
 						return true;
 					}

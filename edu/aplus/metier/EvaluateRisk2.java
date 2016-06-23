@@ -54,42 +54,71 @@ public class EvaluateRisk2 {
 		if (categories.ExcellentJuniorProfile() || categories.ExcellentMediumProfile() || categories.ExcellentSeniorProfile()) {
 			newRate = (float) (rate - 0.1) ;
 			rateClass.setRateAgency(newRate);
-			show = "Taux référentiel de la maison-mère:"+rate+"\n"
-					+ "Taux d'endettement: "+debtRatio+" %\n"
-					+"Restant à vivre: "+restantAVivre+"\n"
-					+"Excellent client, nous vous proposons\n comme taux: "+newRate+" pour avoir un bénéfice";
+			show = "Taux référentiel de la maison-mère:" +rate+"\n"
+					+"Taux d'endettement:" +debtRatio+" %\n"
+					+"Restant à vivre:" +restantAVivre+"\n"
+					+ "Les revenus du client sont très confortables et\n "
+					+ "ont de fortes chances de se maintenir dans le temps,\n"
+					+ "Client porteur d'affaires. Croissance constante\n"
+					+ " de la marge d'intérêt de la banque\n"
+					+ "Taux préférentiel conseillé: " +newRate+"";
 			}
 
 		if (categories.VeryGoodJuniorProfile() || categories.VeryGoodMediumProfile() || categories.VeryGoodSeniorProfile()) {
 			newRate = (float) (rate - 0.05) ;
 			rateClass.setRateAgency(newRate);
-			show = "Taux référentiel de la maison-mère:"+rate+"\n"
-					+ "Taux d'endettement: "+debtRatio+" %\n"
-					+"Restant à vivre: "+restantAVivre+"\n"
-					+"TRES BON client, nous vous proposons\n comme taux: "+newRate+" pour avoir un bénéfice";
+			show = "Taux référentiel de la maison-mère:" +rate+"\n"
+					+"Taux d'endettement:" +debtRatio+" %\n"
+					+"Restant à vivre:" +restantAVivre+"\n"
+					+ "Les revenus du client sont confortables.\n"
+					+ "Client porteur d'affaires. Croissance constante\n"
+					+ " de la marge d'intérêt de la banque\n"
+					+ "Mais statut CDD à prendre en compte, risque non\n"
+					+ " négligeable de chomâge\n"
+					+ "Taux préférentiel conseillé: " +newRate+"";
 
 		}
 
 		if (categories.GoodJuniorProfile() || categories.GoodMediumProfile() || categories.GoodSeniorProfile()) {
 			newRate = (float) (rate + 0) ;
 			rateClass.setRateAgency(newRate);
-			show = "Taux référentiel de la maison-mère:"+rate+"\n"
-					+ "Taux d'endettement: "+debtRatio+" %\n"
-					+"Restant à vivre: "+restantAVivre+"\n"
-					+"BON client, nous vous proposons\n comme taux: "+newRate+" pour avoir un bénéfice";
-
+			show = "Taux référentiel de la maison-mère:" +rate+"\n"
+					+"Taux d'endettement:" +debtRatio+" %\n"
+					+"Restant à vivre:" +restantAVivre+"\n"
+					+ "Mais risques de non-support des charges\n" 
+					+ "Taux préférentiel conseillé: " +newRate+"";
 		}
 		if (categories.BadJuniorProfile() || categories.BadMediumProfile() || categories.BadSeniorProfile()) {
 			newRate = (float) (rate + 0.05) ;
 			rateClass.setRateAgency(newRate);
-			show = "to be defined";
+			show = "Taux référentiel de la maison-mère:" +rate+"\n"
+					+"Taux d'endettement:" +debtRatio+" %\n"
+					+"Restant à vivre:" +restantAVivre+"\n"
+					+ "Mais risques de non-support des charges.\n"
+					+ "Le caractère aléatoire du type de contrat(CDD ou\n"
+					+ " autoentrepreneur) présage une perte de revenus\n"
+					+ "à tout moment\n"
+					+ "Taux préférentiel conseillé: " +newRate+"";
 
 		}
 		if (categories.VeryBadJuniorProfile() || categories.VeryBadMediumProfile() || categories.VeryBadSeniorProfile()) {
 			newRate = (float) (rate + 0.1) ;
 			rateClass.setRateAgency(newRate);
-			show = " to be defined";
-
+			show = "Taux référentiel de la maison-mère:" +rate+"\n"
+					+"Taux d'endettement:" +debtRatio+" %\n"
+					+"Restant à vivre:" +restantAVivre+"\n"
+					+ " Risques de non-support des charges.\n"
+					+ "Le caractère aléatoire du type de contrat(CDD ou\n"
+					+ " autoentrepreneur) présage une perte de revenus\n"
+					+ "à tout moment\n"
+					+ "Nécessite de couverture des risques maladie/décès\n"
+					+ "Taux préférentiel conseillé: " +newRate+"";
+		}
+		if (categories.NoLoanJuniorProfile()|| categories.NoLoanMediumProfile() || categories.NoLoanSeniorProfile())
+		{
+			newRate = 0 ;
+			rateClass.setRateAgency(newRate);
+			show = "L'absence ou la faiblesse des revenus \n ne permet pas d'accorder un prêt";
 		}
 
 		return new MyResult(newRate, show);

@@ -1,6 +1,7 @@
 package edu.aplus.gui;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
@@ -10,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
@@ -103,7 +105,7 @@ public class SetProfileClient2  extends JFrame{
 		loanType =SearchRatePanel2.getSelectedLoanType();
 		duration= SearchRatePanel2.getSelectedDuration();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(200, 220, 600, 600);
+		setBounds(200, 220, 500, 580);
 
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(1, 1, 1, 1));
@@ -112,8 +114,9 @@ public class SetProfileClient2  extends JFrame{
 		
 		ImageIcon im1 = new ImageIcon(SetProfileClient2.class.getResource("back.png")); 
 		Image im = im1.getImage(); 
+	    im  = im.getScaledInstance(50,50,1);
 		JLabel image = new JLabel( new ImageIcon(im));
-		image.setBounds(490, 10, 100, 100);
+		image.setBounds(450, 10,50, 50);
 		panel.add(image);
 		image.addMouseListener(new MouseAdapter()  
 		{  
@@ -122,17 +125,7 @@ public class SetProfileClient2  extends JFrame{
 		    	dispose();
 		    	}  
 		});
-		
-		JLabel manual = new JLabel("Guide");
-		manual.setBounds(430, 10, 100, 15);
-		panel.add(manual);
-		manual.addMouseListener(new MouseAdapter()  
-		{  
-		    public void mouseClicked(MouseEvent e)  
-		    {  
-		    	// TO BE DEFINE
-		    }  
-		});
+	
 		rateL = new JLabel("Donnez les informations personnelles du client");
 		rateL.setBounds(20, 40, 300,15);
 		panel.add(rateL);
@@ -212,11 +205,11 @@ public class SetProfileClient2  extends JFrame{
 		panel.add(precisionStatus);
 
 		risques = new JTextArea();
-		risques.setBounds(70,290,350,150);
+		risques.setBounds(70,290,370,150);
 		panel.add(risques);
 
 		enregistrer = new JButton("Enregistrer");
-		enregistrer.setBounds(120,470,200,20);
+		enregistrer.setBounds(120,490,200,20);
 		panel.add(enregistrer);
 
 		evaluer = new JButton("Evaluer");
@@ -299,6 +292,7 @@ public class SetProfileClient2  extends JFrame{
 					if (option == 0) { 
 						JOptionPane.showMessageDialog(panel, "Le taux de l'agence a bien été mis à jour", null, option);
 					} else {
+						rate.setRateAgency(0);
 					}
 
 
